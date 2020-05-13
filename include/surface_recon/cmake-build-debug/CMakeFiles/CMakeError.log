@@ -1,0 +1,63 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /home/fred/Desktop/mesh_gen_source/surface_recon/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_d30e3/fast && /usr/bin/make -f CMakeFiles/cmTC_d30e3.dir/build.make CMakeFiles/cmTC_d30e3.dir/build
+make[1]: Entering directory '/home/fred/Desktop/mesh_gen_source/surface_recon/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_d30e3.dir/src.c.o
+/usr/bin/cc   -DCMAKE_HAVE_LIBC_PTHREAD   -o CMakeFiles/cmTC_d30e3.dir/src.c.o   -c /home/fred/Desktop/mesh_gen_source/surface_recon/cmake-build-debug/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_d30e3
+/snap/clion/107/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d30e3.dir/link.txt --verbose=1
+/usr/bin/cc  -DCMAKE_HAVE_LIBC_PTHREAD    CMakeFiles/cmTC_d30e3.dir/src.c.o  -o cmTC_d30e3 
+CMakeFiles/cmTC_d30e3.dir/src.c.o: In function `main':
+src.c:(.text+0x3e): undefined reference to `pthread_create'
+src.c:(.text+0x4a): undefined reference to `pthread_detach'
+src.c:(.text+0x5b): undefined reference to `pthread_join'
+src.c:(.text+0x6f): undefined reference to `pthread_atfork'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_d30e3.dir/build.make:86: recipe for target 'cmTC_d30e3' failed
+make[1]: *** [cmTC_d30e3] Error 1
+make[1]: Leaving directory '/home/fred/Desktop/mesh_gen_source/surface_recon/cmake-build-debug/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_d30e3/fast' failed
+make: *** [cmTC_d30e3/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/fred/Desktop/mesh_gen_source/surface_recon/cmake-build-debug/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_b4978/fast && /usr/bin/make -f CMakeFiles/cmTC_b4978.dir/build.make CMakeFiles/cmTC_b4978.dir/build
+make[1]: Entering directory '/home/fred/Desktop/mesh_gen_source/surface_recon/cmake-build-debug/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b4978.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_b4978.dir/CheckFunctionExists.c.o   -c /snap/clion/107/bin/cmake/linux/share/cmake-3.15/Modules/CheckFunctionExists.c
+Linking C executable cmTC_b4978
+/snap/clion/107/bin/cmake/linux/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b4978.dir/link.txt --verbose=1
+/usr/bin/cc  -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_b4978.dir/CheckFunctionExists.c.o  -o cmTC_b4978 -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_b4978.dir/build.make:86: recipe for target 'cmTC_b4978' failed
+make[1]: *** [cmTC_b4978] Error 1
+make[1]: Leaving directory '/home/fred/Desktop/mesh_gen_source/surface_recon/cmake-build-debug/CMakeFiles/CMakeTmp'
+Makefile:121: recipe for target 'cmTC_b4978/fast' failed
+make: *** [cmTC_b4978/fast] Error 2
+
+
+

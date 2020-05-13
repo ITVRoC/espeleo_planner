@@ -15,18 +15,17 @@
 
 
 void poseFromRVizCallback(const geometry_msgs::PoseStampedConstPtr& msg){
-    //ROS_INFO("I heard: [%s]", msg->data.c_str());
     ROS_INFO("Selected points: [%f][%f][%f]", msg->pose.position.x, msg->pose.position.y, msg->pose.position.z);
-    //This callback will start the other iterations
 
     // Subscribing to the PointCloud2 topic only once
     sensor_msgs::PointCloud pc1Msg;
-    sensor_msgs::PointCloud2ConstPtr pc2Msg = ros::topic::waitForMessage<sensor_msgs::PointCloud2>("/kinect/depth_registered/points");
+    sensor_msgs::PointCloud2ConstPtr pc2Msg = ros::topic::waitForMessage<sensor_msgs::PointCloud2>
+            ("/kinect/depth_registered/points");
     sensor_msgs::convertPointCloud2ToPointCloud((*pc2Msg), pc1Msg);
 
     // Put the Points from PointCloud in a CSV file
     std::ofstream outFile;
-    std::string outFilePath = "/home/fred/catkin_ws/src/planning_integrated/txtFiles/map.csv";
+    std::string outFilePath = "/home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv";
     outFile.open(outFilePath);
     outFile << "X,Y,Z" << std::endl;
     for(auto it: pc1Msg.points){
@@ -34,11 +33,6 @@ void poseFromRVizCallback(const geometry_msgs::PoseStampedConstPtr& msg){
         outFile << toFile << std::endl;
     }
     outFile.close();
-
-    //Integrate Potje Software here as a library
-    //System Call to Python Planning Algorithm
-    //Publish Path On RViz on Main
-
 }
 
 
@@ -113,8 +107,7 @@ void publishPathOnRViz(ros::Publisher* pathPub,std::vector<std::vector<double>>*
 int main(int argc, char **argv) {
     ros::Time::init();
     ROS_INFO("Starting node");
-    //ros::Duration(10).sleep();
-    //ROS_INFO("Finished Sleeping");
+
     ros::init(argc, argv, "integrated_planner");
     ros::NodeHandle nodeHandler;
     std::vector<std::vector<double>> pointsVector;
@@ -123,9 +116,45 @@ int main(int argc, char **argv) {
     ros::Subscriber sub = nodeHandler.subscribe("/move_base_simple/goal", 1000, poseFromRVizCallback);
     //readFile("/home/fred/catkin_ws/src/planning_integrated/test_files/plotPoints.txt", &pointsVector);
 
+
+    //Surface Reconstruction Paths
+    std::string outFilePath = "/home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv";
+    std::string stlOutput = "/home/fred/catkin_ws/src/planning_integrated/include/";
+    std::ifstream fileCheck;
+    //File pointer to check whether there is a csv file or not, if topic /move_base_simple/goal received any message
+
+    while(ros::ok()) {
+        fileCheck.open(outFilePath);
+        if (!fileCheck) {
+            ROS_INFO("RViz did not receive start point yet.");
+        } else {
+            //System Call to Surface Reconstruction Algorithm and STL Generation
+            system("cd /home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/ &&"
+                   " ./recon_surface --csv /home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv "
+                   "--output /home/fred/catkin_ws/src/planning_integrated/mapFiles/ --holemaxsize 150");
+
+            // Delete .csv file to run this code only when RViz 2D Nav goal is clicked
+            std::string command = "rm " + outFilePath;
+            int n = command.length();
+            char command_f[n + 1];
+            strcpy(command_f, command.c_str());
+            system(command_f);
+
+            //System Call to Python Planning Algorithm
+
+
+            //Publish Path On RViz on Main
+
+        }
+        ros::Duration(4).sleep();
+        ROS_INFO("LOOP");
+        ros::spinOnce();
+    }
+
+
     //Path Publisher on RViz
-//    ros::Publisher pathPublisher = nodeHandler.advertise<nav_msgs::Path>("/robot_path", 1000);
-//    ros::Rate loop_rate(10);
+    //ros::Publisher pathPublisher = nodeHandler.advertise<nav_msgs::Path>("/robot_path", 1000);
+    //ros::Rate loop_rate(10);
 
     // ros::Subscriber subs = n.subscribe("/kinect/depth_registered/points", 1000, fromPointCloudCallback);
 
@@ -133,6 +162,6 @@ int main(int argc, char **argv) {
 
 
     //publishPathOnRViz(&pathPublisher, &pointsVector);
-    ros::spin();
+    //ros::spin();
     return 0;
 }

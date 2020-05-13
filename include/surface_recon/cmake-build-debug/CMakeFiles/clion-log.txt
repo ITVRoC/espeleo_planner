@@ -1,0 +1,19 @@
+/snap/clion/107/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/fred/Desktop/mesh_gen_source/surface_recon
+-- Build type: Debug
+-- USING CXXFLAGS = ' -frounding-math -g'
+-- USING EXEFLAGS = ' '
+-- Targetting Unix Makefiles
+-- Using /usr/bin/c++ compiler.
+-- Code taken from Git branch: master
+CMake Warning (dev) at /usr/local/lib/CGAL/UseCGAL.cmake:33 (message):
+  Branch 'master' does not match branch 'n/a' from which CGAL has been
+  installed.  Please consider rebuilding CGAL from this branch.
+Call Stack (most recent call first):
+  CMakeLists.txt:23 (include)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Requested component: MPFR
+-- Requested component: GMP
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/fred/Desktop/mesh_gen_source/surface_recon/cmake-build-debug
