@@ -12,7 +12,9 @@
 #include <sstream>
 #include <string>
 #include "sensor_msgs/point_cloud_conversion.h"
+#include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "TargetSubscriber.h"
+#include "SourceSubscriber.h"
 
 
 void poseFromRVizCallback(const geometry_msgs::PoseStampedConstPtr& msg){
@@ -107,11 +109,12 @@ void publishPathOnRViz(ros::Publisher* pathPub,std::vector<std::vector<double>>*
 
 int main(int argc, char **argv) {
     ros::Time::init();
-    ROS_INFO("Starting node");
+    ROS_INFO("Node Started.");
 
     ros::init(argc, argv, "integrated_planner");
     ros::NodeHandle nodeHandler;
     std::vector<std::vector<double>> pointsVector;
+
 
     //ros::Subscriber on RViz clicked 2D Nav Point
     //ros::Subscriber sub = nodeHandler.subscribe("/move_base_simple/goal", 1000, poseFromRVizCallback);
@@ -120,17 +123,21 @@ int main(int argc, char **argv) {
             &TargetSubscriber::poseFromRVizCallback, &targetPos);
     //readFile("/home/fred/catkin_ws/src/planning_integrated/test_files/plotPoints.txt", &pointsVector);
 
+    SourceSubscriber sourcePos;
+    ros::Subscriber sub_source = nodeHandler.subscribe<geometry_msgs::PoseWithCovarianceStamped>("/initialpose", 1000,
+            &SourceSubscriber::sourceFromRVizCallback, &sourcePos);
+
 
     //Surface Reconstruction Paths
     std::string outFilePath = "/home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv";
-    std::string stlOutput = "/home/fred/catkin_ws/src/planning_integrated/include/";
+    std::string stlOutput = "/home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/mesh.stl";
     std::ifstream fileCheck;
     //File pointer to check whether there is a csv file or not, if topic /move_base_simple/goal received any message
 
     while(ros::ok()) {
         fileCheck.open(outFilePath);
         if (!fileCheck) {
-            ROS_INFO("RViz did not receive start point yet.");
+            ROS_INFO("RViz did not receive target point yet.");
         } else {
             //System Call to Surface Reconstruction Algorithm and STL Generation
             system("cd /home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/ &&"
@@ -144,20 +151,22 @@ int main(int argc, char **argv) {
             strcpy(command_f, command.c_str());
             system(command_f);
 
+            //String for python System Call
+            std::string pythonCommand = "python3 /home/fred/catkin_ws/src/planning_integrated/scripts/plann_call.py " +
+                    stlOutput + " " + std::to_string(sourcePos.poseSource.position.x) + " " +
+                    std::to_string(sourcePos.poseSource.position.y) + " " + std::to_string(targetPos.poseStamped->pose.position.x)
+                    + " " + std::to_string(targetPos.poseStamped->pose.position.y);
+
             //System Call to Python Planning Algorithm
-
-            ROS_INFO("Selected points: [%f][%f][%f]", targetPos.poseStamped->pose.position.x,
-                    targetPos.poseStamped->pose.position.y, targetPos.poseStamped->pose.position.z);
-
-//            std::string pythonCommand = "python3 " + sourcePos.pose.position.x + " " +  sourcePos.pose.position.y + " "
-//                    + targetPos.pose.position.x + " " + targetPos.pose.positon.y;
-//            system("");
+            n = pythonCommand.length();
+            char pythonC[n+1];
+            strcpy(pythonC, pythonCommand.c_str());
+            system(pythonC);
 
             //Publish Path On RViz on Main
 
         }
         ros::Duration(4).sleep();
-        ROS_INFO("LOOP");
         ros::spinOnce();
     }
 

@@ -11,7 +11,7 @@ TargetSubscriber::TargetSubscriber(std::string topicName): topicName(topicName) 
 TargetSubscriber::~TargetSubscriber() {}
 
 void TargetSubscriber::poseFromRVizCallback(const geometry_msgs::PoseStampedConstPtr &msg) {
-    ROS_INFO("Selected points: [%f][%f][%f]", msg->pose.position.x, msg->pose.position.y, msg->pose.position.z);
+    ROS_INFO("Selected Target points: [%f][%f][%f]", msg->pose.position.x, msg->pose.position.y, msg->pose.position.z);
     poseStamped = msg;
 
     // Subscribing to the PointCloud2 topic only once
