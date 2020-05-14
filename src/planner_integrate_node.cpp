@@ -12,6 +12,7 @@
 #include <sstream>
 #include <string>
 #include "sensor_msgs/point_cloud_conversion.h"
+#include "TargetSubscriber.h"
 
 
 void poseFromRVizCallback(const geometry_msgs::PoseStampedConstPtr& msg){
@@ -113,7 +114,10 @@ int main(int argc, char **argv) {
     std::vector<std::vector<double>> pointsVector;
 
     //ros::Subscriber on RViz clicked 2D Nav Point
-    ros::Subscriber sub = nodeHandler.subscribe("/move_base_simple/goal", 1000, poseFromRVizCallback);
+    //ros::Subscriber sub = nodeHandler.subscribe("/move_base_simple/goal", 1000, poseFromRVizCallback);
+    TargetSubscriber targetPos;
+    ros::Subscriber sub = nodeHandler.subscribe<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1000,
+            &TargetSubscriber::poseFromRVizCallback, &targetPos);
     //readFile("/home/fred/catkin_ws/src/planning_integrated/test_files/plotPoints.txt", &pointsVector);
 
 
@@ -142,6 +146,12 @@ int main(int argc, char **argv) {
 
             //System Call to Python Planning Algorithm
 
+            ROS_INFO("Selected points: [%f][%f][%f]", targetPos.poseStamped->pose.position.x,
+                    targetPos.poseStamped->pose.position.y, targetPos.poseStamped->pose.position.z);
+
+//            std::string pythonCommand = "python3 " + sourcePos.pose.position.x + " " +  sourcePos.pose.position.y + " "
+//                    + targetPos.pose.position.x + " " + targetPos.pose.positon.y;
+//            system("");
 
             //Publish Path On RViz on Main
 
