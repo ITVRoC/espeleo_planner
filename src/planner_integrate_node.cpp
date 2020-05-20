@@ -91,6 +91,7 @@ void readFile(const std::string& filename, std::vector<std::vector<double>>* poi
 
 void publishPathOnRViz(ros::Publisher* pathPub,std::vector<std::vector<double>>* pointsVector){
     nav_msgs::Path pathToPublish;
+    pathToPublish.header.frame_id = "test";
     for(auto it: *pointsVector){
         geometry_msgs::PoseStamped poseSt;
         poseSt.pose.position.x = it[0];
@@ -117,10 +118,10 @@ int main(int argc, char **argv) {
     std::vector<std::vector<double>> pointsVector;
 
     std::vector<std::string> metrics;
-    metrics.push_back("Combined");
     metrics.push_back("Energy");
-    metrics.push_back("Shortest");
     metrics.push_back("Transverse");
+    metrics.push_back("Combined");
+    metrics.push_back("Shortest");
 
 
     //ros::Subscriber on RViz clicked 2D Nav Point
