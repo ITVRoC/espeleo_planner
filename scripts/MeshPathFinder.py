@@ -272,7 +272,7 @@ class MeshPathFinder:
             x = np.float128(points[0])
             y = np.float128(points[1])
             z = np.float128(points[2])
-            points_file.write(str(x) + " , " + str(y) + " , " + str(z) + "\n")
+            points_file.write(str(x) + "," + str(y) + "," + str(z) + "\n")
         points_file.close()
 
     def adjacency_points_file(self, node, filename):
@@ -564,16 +564,16 @@ class MeshPathFinder:
                 adjacents = list(dict.fromkeys(adjacents))
                 adjacency_list.append(adjacents)
 
-                if metric >= 1 and (len(adjacency_list[face_index]) <= 9 or transversal >= self.transversality_bound)\
-                        and (face_index != source or face_index != target):
-                    # if node has less than 9 edges or angle (between normal
-                    faces_excluded.append(
-                        face_index)  # and Z Axe) bigger than 30 degrees, the node is isolated so it wont be considered
+                # if metric >= 1 and (len(adjacency_list[face_index]) <= 9 or transversal >= self.transversality_bound)\
+                #         and (face_index != source or face_index != target):
+                #     # if node has less than 9 edges or angle (between normal
+                #     faces_excluded.append(
+                #         face_index)  # and Z Axe) bigger than 30 degrees, the node is isolated so it wont be considered
+                #
+                # else:
+                #     graph.add_node(face_index)  # add the nodes based on the mesh faces
 
-                else:
-                    graph.add_node(face_index)  # add the nodes based on the mesh faces
-
-                # graph.add_node(face_index)
+                graph.add_node(face_index)
                 pbar.update(1)  # progress bar is updated
 
         faces_excluded = list(dict.fromkeys(faces_excluded))  # remove duplicates in list

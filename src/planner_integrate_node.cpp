@@ -67,6 +67,7 @@ std::vector<std::string> split (std::string s, std::string delimiter) {
 }
 
 void readFile(const std::string& filename, std::vector<std::vector<double>>* pointsVector){
+    pointsVector->clear();
     std::ifstream filePointer;
     std::vector<double> points;
     std::vector<std::string> strPoints;
@@ -115,6 +116,12 @@ int main(int argc, char **argv) {
     ros::NodeHandle nodeHandler;
     std::vector<std::vector<double>> pointsVector;
 
+    std::vector<std::string> metrics;
+    metrics.push_back("Combined");
+    metrics.push_back("Energy");
+    metrics.push_back("Shortest");
+    metrics.push_back("Transverse");
+
 
     //ros::Subscriber on RViz clicked 2D Nav Point
     //ros::Subscriber sub = nodeHandler.subscribe("/move_base_simple/goal", 1000, poseFromRVizCallback);
@@ -134,15 +141,23 @@ int main(int argc, char **argv) {
     std::ifstream fileCheck;
     //File pointer to check whether there is a csv file or not, if topic /move_base_simple/goal received any message
 
+    //Path Publisher on RViz
+    ros::Publisher pathPublisher = nodeHandler.advertise<nav_msgs::Path>("/robot_path", 1000);
+    ros::Rate loop_rate(10);
+
     while(ros::ok()) {
         fileCheck.open(outFilePath);
         if (!fileCheck) {
             ROS_INFO("RViz did not receive target point yet.");
         } else {
             //System Call to Surface Reconstruction Algorithm and STL Generation
+//            system("cd /home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/ &&"
+//                   " ./recon_surface --csv /home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv "
+//                   "--output /home/fred/catkin_ws/src/planning_integrated/mapFiles/ --holemaxsize 150");
+
             system("cd /home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/ &&"
                    " ./recon_surface --csv /home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv "
-                   "--output /home/fred/catkin_ws/src/planning_integrated/mapFiles/ --holemaxsize 150");
+                   "--output /home/fred/catkin_ws/src/planning_integrated/mapFiles/");
 
             // Delete .csv file to run this code only when RViz 2D Nav goal is clicked
             std::string command = "rm " + outFilePath;
@@ -164,6 +179,13 @@ int main(int argc, char **argv) {
             system(pythonC);
 
             //Publish Path On RViz on Main
+            for(auto it: metrics) {
+                std::string comm = "/home/fred/catkin_ws/devel/lib/planning_integrated/TxtPaths/DijkstraPoints"
+                        + it + ".txt";
+                std::cout << comm << std::endl;
+                readFile(comm, &pointsVector);
+                publishPathOnRViz(&pathPublisher, &pointsVector);
+            }
 
         }
         ros::Duration(4).sleep();
@@ -171,9 +193,7 @@ int main(int argc, char **argv) {
     }
 
 
-    //Path Publisher on RViz
-    //ros::Publisher pathPublisher = nodeHandler.advertise<nav_msgs::Path>("/robot_path", 1000);
-    //ros::Rate loop_rate(10);
+
 
     // ros::Subscriber subs = n.subscribe("/kinect/depth_registered/points", 1000, fromPointCloudCallback);
 
