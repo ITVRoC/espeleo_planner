@@ -4,9 +4,11 @@
 
 #include "TargetSubscriber.h"
 
+#include <utility>
+
 TargetSubscriber::TargetSubscriber() {}
 
-TargetSubscriber::TargetSubscriber(std::string topicName): topicName(topicName) {}
+TargetSubscriber::TargetSubscriber(std::string topicName): topicName(std::move(topicName)) {}
 
 TargetSubscriber::~TargetSubscriber() {}
 
@@ -17,7 +19,7 @@ void TargetSubscriber::poseFromRVizCallback(const geometry_msgs::PoseStampedCons
     // Subscribing to the PointCloud2 topic only once
     sensor_msgs::PointCloud pc1Msg;
     sensor_msgs::PointCloud2ConstPtr pc2Msg = ros::topic::waitForMessage<sensor_msgs::PointCloud2>
-            ("/kinect/depth_registered/points");
+            (pointCloudTopic);
     sensor_msgs::convertPointCloud2ToPointCloud((*pc2Msg), pc1Msg);
 
     // Put the Points from PointCloud in a CSV file
@@ -30,4 +32,8 @@ void TargetSubscriber::poseFromRVizCallback(const geometry_msgs::PoseStampedCons
         outFile << toFile << std::endl;
     }
     outFile.close();
+}
+
+void TargetSubscriber::setPointCloudTopic(std::string pointCloudTopicName) {
+    pointCloudTopic = std::move(pointCloudTopicName);
 }

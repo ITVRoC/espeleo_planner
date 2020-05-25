@@ -42,10 +42,6 @@ int main(int argc, char*argv[]){
 
     FT average_spacing = 0.;
 
-//    std::cout << "sleeping.." << endl;
-//    usleep(10000000);
-//    std::cout << "done sleeping" << endl;
-
     Pset pointset(points,normals,colors,sample_ratio); // init my point cloud
 
     if(args_map[string("--ply")] != ".") // if its a .ply file
@@ -53,7 +49,7 @@ int main(int argc, char*argv[]){
     else
     pointset.read_csv(input);
 
-    pointset.translade_points_mean(); // translade points to centroid
+    //pointset.translade_points_mean(); // translade points to centroid
     //pointset.correct_color(0.4); // normalize color illumination
 
     for(size_t i=0; i< points.size(); i++) //initialize structure for Kdtree

@@ -16,10 +16,12 @@ public:
     ros::NodeHandle nodeH;
     ros::Subscriber sub;
     std::string topicName;
+    std::string pointCloudTopic;
     TargetSubscriber();
     TargetSubscriber(std::string topicName);
     ~TargetSubscriber();
     void poseFromRVizCallback(const geometry_msgs::PoseStampedConstPtr& msg);
+    void setPointCloudTopic(std::string pointCloudTopicName);
 
 };
 

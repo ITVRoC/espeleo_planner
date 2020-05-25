@@ -17,26 +17,26 @@
 #include "SourceSubscriber.h"
 
 
-void poseFromRVizCallback(const geometry_msgs::PoseStampedConstPtr& msg){
-    ROS_INFO("Selected points: [%f][%f][%f]", msg->pose.position.x, msg->pose.position.y, msg->pose.position.z);
-
-    // Subscribing to the PointCloud2 topic only once
-    sensor_msgs::PointCloud pc1Msg;
-    sensor_msgs::PointCloud2ConstPtr pc2Msg = ros::topic::waitForMessage<sensor_msgs::PointCloud2>
-            ("/kinect/depth_registered/points");
-    sensor_msgs::convertPointCloud2ToPointCloud((*pc2Msg), pc1Msg);
-
-    // Put the Points from PointCloud in a CSV file
-    std::ofstream outFile;
-    std::string outFilePath = "/home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv";
-    outFile.open(outFilePath);
-    outFile << "X,Y,Z" << std::endl;
-    for(auto it: pc1Msg.points){
-        std::string toFile = std::to_string(it.x) + "," + std::to_string(it.y) + "," + std::to_string(it.z);
-        outFile << toFile << std::endl;
-    }
-    outFile.close();
-}
+//void poseFromRVizCallback(const geometry_msgs::PoseStampedConstPtr& msg){
+//    ROS_INFO("Selected points: [%f][%f][%f]", msg->pose.position.x, msg->pose.position.y, msg->pose.position.z);
+//
+//    // Subscribing to the PointCloud2 topic only once
+//    sensor_msgs::PointCloud pc1Msg;
+//    sensor_msgs::PointCloud2ConstPtr pc2Msg = ros::topic::waitForMessage<sensor_msgs::PointCloud2>
+//            ("/kinect/depth_registered/points");
+//    sensor_msgs::convertPointCloud2ToPointCloud((*pc2Msg), pc1Msg);
+//
+//    // Put the Points from PointCloud in a CSV file
+//    std::ofstream outFile;
+//    std::string outFilePath = "/home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv";
+//    outFile.open(outFilePath);
+//    outFile << "X,Y,Z" << std::endl;
+//    for(auto it: pc1Msg.points){
+//        std::string toFile = std::to_string(it.x) + "," + std::to_string(it.y) + "," + std::to_string(it.z);
+//        outFile << toFile << std::endl;
+//    }
+//    outFile.close();
+//}
 
 
 std::vector<std::string> splitOneChar(const std::string &s, char delim) {
@@ -80,7 +80,7 @@ void readFile(const std::string& filename, std::vector<std::vector<double>>* poi
     std::string delimiter = ",";
     while(filePointer >> in){
         strPoints = split(in, delimiter);
-        std::cout << strPoints[0] << strPoints[1] << strPoints[2] << std::endl;
+        //std::cout << strPoints[0] << strPoints[1] << strPoints[2] << std::endl;
         points.push_back(std::stod(strPoints[0],&sizeType));
         points.push_back(std::stod(strPoints[1],&sizeType));
         points.push_back(std::stod(strPoints[2],&sizeType));
@@ -91,6 +91,8 @@ void readFile(const std::string& filename, std::vector<std::vector<double>>* poi
 
 void publishPathOnRViz(ros::Publisher* pathPub,std::vector<std::vector<double>>* pointsVector){
     nav_msgs::Path pathToPublish;
+    //pathToPublish.header.frame_id = "map";
+    //pathToPublish.header.frame_id = "kinect_link";
     pathToPublish.header.frame_id = "test";
     for(auto it: *pointsVector){
         geometry_msgs::PoseStamped poseSt;
@@ -100,12 +102,7 @@ void publishPathOnRViz(ros::Publisher* pathPub,std::vector<std::vector<double>>*
         pathToPublish.poses.push_back(poseSt);
     }
     ROS_INFO("Publishing path...");
-    //int count = 0;
-    //while(ros::ok()){
     pathPub->publish(pathToPublish);
-    //    ros::spinOnce();
-    //    ++count;
-    //}
 }
 
 
@@ -118,10 +115,10 @@ int main(int argc, char **argv) {
     std::vector<std::vector<double>> pointsVector;
 
     std::vector<std::string> metrics;
+    metrics.push_back("Shortest");
     metrics.push_back("Energy");
     metrics.push_back("Transverse");
     metrics.push_back("Combined");
-    metrics.push_back("Shortest");
 
 
     //ros::Subscriber on RViz clicked 2D Nav Point
@@ -129,6 +126,8 @@ int main(int argc, char **argv) {
     TargetSubscriber targetPos;
     ros::Subscriber sub = nodeHandler.subscribe<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1000,
             &TargetSubscriber::poseFromRVizCallback, &targetPos);
+    //targetPos.setPointCloudTopic("/octomap_point_cloud_centers");
+    targetPos.setPointCloudTopic("/kinect/depth_registered/points");
     //readFile("/home/fred/catkin_ws/src/planning_integrated/test_files/plotPoints.txt", &pointsVector);
 
     SourceSubscriber sourcePos;
@@ -138,12 +137,21 @@ int main(int argc, char **argv) {
 
     //Surface Reconstruction Paths
     std::string outFilePath = "/home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv";
-    std::string stlOutput = "/home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/mesh.stl";
+    //std::string stlOutput = "/home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/mesh.stl";
+    std::string stlOutput = "/home/fred/catkin_ws/src/planning_integrated/mapFiles/meshObj.obj";
     std::ifstream fileCheck;
     //File pointer to check whether there is a csv file or not, if topic /move_base_simple/goal received any message
 
     //Path Publisher on RViz
-    ros::Publisher pathPublisher = nodeHandler.advertise<nav_msgs::Path>("/robot_path", 1000);
+    ros::Publisher pathPublisher_short = nodeHandler.advertise<nav_msgs::Path>("/robot_path_shortest", 1000);
+    ros::Publisher pathPublisher_energ = nodeHandler.advertise<nav_msgs::Path>("/robot_path_energy", 1000);
+    ros::Publisher pathPublisher_transv = nodeHandler.advertise<nav_msgs::Path>("/robot_path_transversal", 1000);
+    ros::Publisher pathPublisher_comb = nodeHandler.advertise<nav_msgs::Path>("/robot_path_combined", 1000);
+    std::vector<ros::Publisher*> pathPublishers;
+    pathPublishers.push_back(&pathPublisher_short);
+    pathPublishers.push_back(&pathPublisher_energ);
+    pathPublishers.push_back(&pathPublisher_transv);
+    pathPublishers.push_back(&pathPublisher_comb);
     ros::Rate loop_rate(10);
 
     while(ros::ok()) {
@@ -152,13 +160,13 @@ int main(int argc, char **argv) {
             ROS_INFO("RViz did not receive target point yet.");
         } else {
             //System Call to Surface Reconstruction Algorithm and STL Generation
-//            system("cd /home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/ &&"
-//                   " ./recon_surface --csv /home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv "
-//                   "--output /home/fred/catkin_ws/src/planning_integrated/mapFiles/ --holemaxsize 150");
-
             system("cd /home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/ &&"
                    " ./recon_surface --csv /home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv "
-                   "--output /home/fred/catkin_ws/src/planning_integrated/mapFiles/");
+                   "--output /home/fred/catkin_ws/src/planning_integrated/mapFiles/meshObj --holemaxsize 30"); // 150
+
+//            system("cd /home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/ &&"
+//                   " ./recon_surface --csv /home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv "
+//                   "--output /home/fred/catkin_ws/src/planning_integrated/mapFiles/");
 
             // Delete .csv file to run this code only when RViz 2D Nav goal is clicked
             std::string command = "rm " + outFilePath;
@@ -180,21 +188,20 @@ int main(int argc, char **argv) {
             system(pythonC);
 
             //Publish Path On RViz on Main
-            for(auto it: metrics) {
+            int index = 0;
+            for(const auto& it: metrics) {
                 std::string comm = "/home/fred/catkin_ws/devel/lib/planning_integrated/TxtPaths/DijkstraPoints"
                         + it + ".txt";
                 std::cout << comm << std::endl;
                 readFile(comm, &pointsVector);
-                publishPathOnRViz(&pathPublisher, &pointsVector);
+                publishPathOnRViz(pathPublishers.at(index), &pointsVector);
+                index++;
             }
 
         }
         ros::Duration(4).sleep();
         ros::spinOnce();
     }
-
-
-
 
     // ros::Subscriber subs = n.subscribe("/kinect/depth_registered/points", 1000, fromPointCloudCallback);
 

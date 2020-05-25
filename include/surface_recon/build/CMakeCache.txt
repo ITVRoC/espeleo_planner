@@ -264,7 +264,7 @@ Boost_DIR-ADVANCED:INTERNAL=1
 Boost_INCLUDE_DIR-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CGAL_Boost_USE_STATIC_LIBS
 CGAL_Boost_USE_STATIC_LIBS-ADVANCED:INTERNAL=1
-CGAL_EXECUTABLE_TARGETS:INTERNAL=recon_surface;recon_surface;recon_surface;recon_surface;recon_surface;recon_surface
+CGAL_EXECUTABLE_TARGETS:INTERNAL=recon_surface;recon_surface;recon_surface;recon_surface;recon_surface;recon_surface;recon_surface
 //Directory containing the GraphicsView package
 CGAL_GRAPHICSVIEW_PACKAGE_DIR:INTERNAL=/usr/local//include/CGAL/
 //ADVANCED property for variable: CMAKE_AR

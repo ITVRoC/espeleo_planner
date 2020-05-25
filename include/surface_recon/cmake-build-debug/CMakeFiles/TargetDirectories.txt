@@ -1,3 +1,0 @@
-/home/fred/Desktop/mesh_gen_source/surface_recon/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/fred/Desktop/mesh_gen_source/surface_recon/cmake-build-debug/CMakeFiles/recon_surface.dir
-/home/fred/Desktop/mesh_gen_source/surface_recon/cmake-build-debug/CMakeFiles/edit_cache.dir
