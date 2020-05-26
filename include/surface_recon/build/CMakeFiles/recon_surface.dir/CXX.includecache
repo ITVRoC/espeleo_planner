@@ -94,6 +94,10 @@ string
 random
 -
 
+/home/fred/Desktop/mesh_gen_source/surface_recon/src/rm_artifacts.cpp
+rm_artifacts.hpp
+/home/fred/Desktop/mesh_gen_source/surface_recon/src/rm_artifacts.hpp
+
 /home/fred/Desktop/mesh_gen_source/surface_recon/src/rm_artifacts.hpp
 iostream
 -
@@ -162,6 +166,10 @@ CGAL/Surface_mesh.h
 CGAL/Polygon_mesh_processing/connected_components.h
 -
 
+/home/fred/Desktop/mesh_gen_source/surface_recon/src/texture.cpp
+texture.hpp
+/home/fred/Desktop/mesh_gen_source/surface_recon/src/texture.hpp
+
 /home/fred/Desktop/mesh_gen_source/surface_recon/src/texture.hpp
 my_png.hpp
 /home/fred/Desktop/mesh_gen_source/surface_recon/src/my_png.hpp
@@ -223,6 +231,8 @@ cassert
 -
 functional
 -
+sstream
+-
 iosfwd
 -
 cstring
@@ -279,6 +289,12 @@ src/Core/MathFunctionsImpl.h
 /usr/local/include/eigen3/Eigen/src/Core/MathFunctionsImpl.h
 src/Core/arch/Default/ConjHelper.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/Default/ConjHelper.h
+src/Core/arch/Default/Half.h
+/usr/local/include/eigen3/Eigen/src/Core/arch/Default/Half.h
+src/Core/arch/Default/TypeCasting.h
+/usr/local/include/eigen3/Eigen/src/Core/arch/Default/TypeCasting.h
+src/Core/arch/Default/GenericPacketMathFunctionsFwd.h
+/usr/local/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctionsFwd.h
 src/Core/arch/SSE/PacketMath.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/SSE/PacketMath.h
 src/Core/arch/SSE/TypeCasting.h
@@ -293,6 +309,8 @@ src/Core/arch/AVX/Complex.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/AVX/Complex.h
 src/Core/arch/AVX512/PacketMath.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/AVX512/PacketMath.h
+src/Core/arch/AVX512/TypeCasting.h
+/usr/local/include/eigen3/Eigen/src/Core/arch/AVX512/TypeCasting.h
 src/Core/arch/AVX512/Complex.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/AVX512/Complex.h
 src/Core/arch/SSE/MathFunctions.h
@@ -351,16 +369,12 @@ src/Core/arch/MSA/MathFunctions.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/MSA/MathFunctions.h
 src/Core/arch/MSA/Complex.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/MSA/Complex.h
-src/Core/arch/GPU/Half.h
-/usr/local/include/eigen3/Eigen/src/Core/arch/GPU/Half.h
-src/Core/arch/GPU/PacketMathHalf.h
-/usr/local/include/eigen3/Eigen/src/Core/arch/GPU/PacketMathHalf.h
-src/Core/arch/GPU/TypeCasting.h
-/usr/local/include/eigen3/Eigen/src/Core/arch/GPU/TypeCasting.h
 src/Core/arch/GPU/PacketMath.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/GPU/PacketMath.h
 src/Core/arch/GPU/MathFunctions.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/GPU/MathFunctions.h
+src/Core/arch/GPU/TypeCasting.h
+/usr/local/include/eigen3/Eigen/src/Core/arch/GPU/TypeCasting.h
 src/Core/arch/SYCL/SyclMemoryModel.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/SYCL/SyclMemoryModel.h
 src/Core/arch/SYCL/InteropHeaders.h
@@ -373,6 +387,8 @@ src/Core/arch/SYCL/TypeCasting.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/SYCL/TypeCasting.h
 src/Core/arch/Default/Settings.h
 /usr/local/include/eigen3/Eigen/src/Core/arch/Default/Settings.h
+src/Core/arch/Default/GenericPacketMathFunctions.h
+/usr/local/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctions.h
 src/Core/functors/TernaryFunctors.h
 /usr/local/include/eigen3/Eigen/src/Core/functors/TernaryFunctors.h
 src/Core/functors/BinaryFunctors.h
@@ -980,11 +996,11 @@ src/Core/util/ReenableStupidWarnings.h
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/AVX512/PacketMath.h
 
+/usr/local/include/eigen3/Eigen/src/Core/arch/AVX512/TypeCasting.h
+
 /usr/local/include/eigen3/Eigen/src/Core/arch/AltiVec/Complex.h
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/AltiVec/MathFunctions.h
-../Default/GenericPacketMathFunctions.h
-/usr/local/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctions.h
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/AltiVec/PacketMath.h
 
@@ -994,15 +1010,19 @@ src/Core/util/ReenableStupidWarnings.h
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctions.h
 
+/usr/local/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctionsFwd.h
+
+/usr/local/include/eigen3/Eigen/src/Core/arch/Default/Half.h
+sstream
+-
+
 /usr/local/include/eigen3/Eigen/src/Core/arch/Default/Settings.h
 
-/usr/local/include/eigen3/Eigen/src/Core/arch/GPU/Half.h
+/usr/local/include/eigen3/Eigen/src/Core/arch/Default/TypeCasting.h
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/GPU/MathFunctions.h
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/GPU/PacketMath.h
-
-/usr/local/include/eigen3/Eigen/src/Core/arch/GPU/PacketMathHalf.h
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/GPU/TypeCasting.h
 
@@ -1023,8 +1043,6 @@ string
 /usr/local/include/eigen3/Eigen/src/Core/arch/NEON/Complex.h
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/NEON/MathFunctions.h
-../Default/GenericPacketMathFunctions.h
-/usr/local/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctions.h
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/NEON/PacketMath.h
 
@@ -1033,8 +1051,6 @@ string
 /usr/local/include/eigen3/Eigen/src/Core/arch/SSE/Complex.h
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/SSE/MathFunctions.h
-../Default/GenericPacketMathFunctions.h
-/usr/local/include/eigen3/Eigen/src/Core/arch/Default/GenericPacketMathFunctions.h
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/SSE/PacketMath.h
 
@@ -1046,6 +1062,20 @@ string
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/SYCL/PacketMath.h
 type_traits
+-
+
+/usr/local/include/eigen3/Eigen/src/Core/arch/SYCL/SyclMemoryModel.h
+CL/sycl.hpp
+-
+stdexcept
+-
+cstddef
+-
+queue
+-
+set
+-
+unordered_map
 -
 
 /usr/local/include/eigen3/Eigen/src/Core/arch/SYCL/TypeCasting.h

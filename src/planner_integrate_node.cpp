@@ -11,32 +11,9 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "sensor_msgs/point_cloud_conversion.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "TargetSubscriber.h"
 #include "SourceSubscriber.h"
-
-
-//void poseFromRVizCallback(const geometry_msgs::PoseStampedConstPtr& msg){
-//    ROS_INFO("Selected points: [%f][%f][%f]", msg->pose.position.x, msg->pose.position.y, msg->pose.position.z);
-//
-//    // Subscribing to the PointCloud2 topic only once
-//    sensor_msgs::PointCloud pc1Msg;
-//    sensor_msgs::PointCloud2ConstPtr pc2Msg = ros::topic::waitForMessage<sensor_msgs::PointCloud2>
-//            ("/kinect/depth_registered/points");
-//    sensor_msgs::convertPointCloud2ToPointCloud((*pc2Msg), pc1Msg);
-//
-//    // Put the Points from PointCloud in a CSV file
-//    std::ofstream outFile;
-//    std::string outFilePath = "/home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv";
-//    outFile.open(outFilePath);
-//    outFile << "X,Y,Z" << std::endl;
-//    for(auto it: pc1Msg.points){
-//        std::string toFile = std::to_string(it.x) + "," + std::to_string(it.y) + "," + std::to_string(it.z);
-//        outFile << toFile << std::endl;
-//    }
-//    outFile.close();
-//}
 
 
 std::vector<std::string> splitOneChar(const std::string &s, char delim) {
@@ -92,8 +69,8 @@ void readFile(const std::string& filename, std::vector<std::vector<double>>* poi
 void publishPathOnRViz(ros::Publisher* pathPub,std::vector<std::vector<double>>* pointsVector){
     nav_msgs::Path pathToPublish;
     //pathToPublish.header.frame_id = "map";
-    //pathToPublish.header.frame_id = "kinect_link";
-    pathToPublish.header.frame_id = "test";
+    pathToPublish.header.frame_id = "kinect_link";
+    //pathToPublish.header.frame_id = "test";
     for(auto it: *pointsVector){
         geometry_msgs::PoseStamped poseSt;
         poseSt.pose.position.x = it[0];

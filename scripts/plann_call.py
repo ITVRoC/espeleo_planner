@@ -30,22 +30,15 @@ def find_face_centroid(centroids, xy_):
 
 
 def main(argv):
-    # print(argv)
-    # sleep(5)
     mesh_path = argv[0]
     xy_source = [float(argv[1]), float(argv[2])]
     xy_target = [float(argv[3]), float(argv[4])]
-    print(mesh_path, xy_source, xy_target)
 
     mesh_load = pymesh.load_mesh(mesh_path)
     mesh_load.add_attribute("face_centroid")
     centroids = mesh_load.get_face_attribute("face_centroid")
     vertices = mesh_load.vertices
     ver_face = mesh_load.faces
-    print(vertices)
-    # print(ver_face)
-    print(centroids)
-    # print(mesh_load.num_faces)
 
     # mesh = o3d.io.read_triangle_mesh("../../TestData/knot.ply")
 
