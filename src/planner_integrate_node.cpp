@@ -141,9 +141,6 @@ int main(int argc, char **argv) {
                    " ./recon_surface --csv /home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv "
                    "--output /home/fred/catkin_ws/src/planning_integrated/mapFiles/meshObj --holemaxsize 30"); // 150
 
-//            system("cd /home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/ &&"
-//                   " ./recon_surface --csv /home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv "
-//                   "--output /home/fred/catkin_ws/src/planning_integrated/mapFiles/");
 
             // Delete .csv file to run this code only when RViz 2D Nav goal is clicked
             std::string command = "rm " + outFilePath;
@@ -180,12 +177,5 @@ int main(int argc, char **argv) {
         ros::spinOnce();
     }
 
-    // ros::Subscriber subs = n.subscribe("/kinect/depth_registered/points", 1000, fromPointCloudCallback);
-
-    //ros::Subscirber to robot origin point
-
-
-    //publishPathOnRViz(&pathPublisher, &pointsVector);
-    //ros::spin();
     return 0;
 }
