@@ -68,8 +68,8 @@ void readFile(const std::string& filename, std::vector<std::vector<double>>* poi
 
 void publishPathOnRViz(ros::Publisher* pathPub,std::vector<std::vector<double>>* pointsVector){
     nav_msgs::Path pathToPublish;
-    //pathToPublish.header.frame_id = "map";
-    pathToPublish.header.frame_id = "kinect_link";
+    pathToPublish.header.frame_id = "map";
+    //pathToPublish.header.frame_id = "kinect_link";
     //pathToPublish.header.frame_id = "test";
     for(auto it: *pointsVector){
         geometry_msgs::PoseStamped poseSt;
@@ -104,7 +104,8 @@ int main(int argc, char **argv) {
     ros::Subscriber sub = nodeHandler.subscribe<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1000,
             &TargetSubscriber::poseFromRVizCallback, &targetPos);
     //targetPos.setPointCloudTopic("/octomap_point_cloud_centers");
-    targetPos.setPointCloudTopic("/kinect/depth_registered/points");
+    //targetPos.setPointCloudTopic("/kinect/depth_registered/points");
+    targetPos.setPointCloudTopic("/rtabmap/cloud_map");
     //readFile("/home/fred/catkin_ws/src/planning_integrated/test_files/plotPoints.txt", &pointsVector);
 
     SourceSubscriber sourcePos;
