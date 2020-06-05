@@ -14,6 +14,7 @@
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "TargetSubscriber.h"
 #include "SourceSubscriber.h"
+#include "geometry_msgs/Polygon.h"
 
 
 std::vector<std::string> splitOneChar(const std::string &s, char delim) {
@@ -52,7 +53,8 @@ void readFile(const std::string& filename, std::vector<std::vector<double>>* poi
     std::string::size_type sizeType;
     filePointer.open(filename);
     if (!filePointer){
-        ROS_ERROR("File not loaded.");
+        //ROS_ERROR("File not loaded.");
+        return;
     }
     std::string delimiter = ",";
     while(filePointer >> in){
@@ -66,20 +68,33 @@ void readFile(const std::string& filename, std::vector<std::vector<double>>* poi
     }
 }
 
-void publishPathOnRViz(ros::Publisher* pathPub,std::vector<std::vector<double>>* pointsVector){
+void publishPathOnRViz(ros::Publisher* pathPub, ros::Publisher* polygPub, std::vector<std::vector<double>>* pointsVector,
+        const std::string& metric){
+
     nav_msgs::Path pathToPublish;
-    pathToPublish.header.frame_id = "map";
+    //pathToPublish.header.frame_id = "map";
     //pathToPublish.header.frame_id = "kinect_link";
     //pathToPublish.header.frame_id = "test";
+    pathToPublish.header.frame_id = "odom";
+    geometry_msgs::Polygon polyg;
+
     for(auto it: *pointsVector){
         geometry_msgs::PoseStamped poseSt;
+        geometry_msgs::Point32 point2Polyg;
         poseSt.pose.position.x = it[0];
         poseSt.pose.position.y = it[1];
-        poseSt.pose.position.z = it[3];
+        poseSt.pose.position.z = it[2];
+        point2Polyg.x = it[0];
+        point2Polyg.y = it[1];
+        point2Polyg.z = it[2];
         pathToPublish.poses.push_back(poseSt);
+        polyg.points.push_back(point2Polyg);
     }
-    ROS_INFO("Publishing path...");
+    //ROS_INFO("Publishing path...");
     pathPub->publish(pathToPublish);
+    if(metric == "Energy"){
+        polygPub->publish(polyg);
+    }
 }
 
 
@@ -101,11 +116,13 @@ int main(int argc, char **argv) {
     //ros::Subscriber on RViz clicked 2D Nav Point
     //ros::Subscriber sub = nodeHandler.subscribe("/move_base_simple/goal", 1000, poseFromRVizCallback);
     TargetSubscriber targetPos;
-    ros::Subscriber sub = nodeHandler.subscribe<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1000,
+    //ros::Subscriber sub = nodeHandler.subscribe<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1000,
+    //        &TargetSubscriber::poseFromRVizCallback, &targetPos);
+    ros::Subscriber sub = nodeHandler.subscribe<geometry_msgs::PoseStamped>("/goal", 1000,
             &TargetSubscriber::poseFromRVizCallback, &targetPos);
-    //targetPos.setPointCloudTopic("/octomap_point_cloud_centers");
+    targetPos.setPointCloudTopic("/octomap_point_cloud_centers");
     //targetPos.setPointCloudTopic("/kinect/depth_registered/points");
-    targetPos.setPointCloudTopic("/rtabmap/cloud_map");
+    //targetPos.setPointCloudTopic("/rtabmap/cloud_map");
     //readFile("/home/fred/catkin_ws/src/planning_integrated/test_files/plotPoints.txt", &pointsVector);
 
     SourceSubscriber sourcePos;
@@ -130,6 +147,7 @@ int main(int argc, char **argv) {
     pathPublishers.push_back(&pathPublisher_energ);
     pathPublishers.push_back(&pathPublisher_transv);
     pathPublishers.push_back(&pathPublisher_comb);
+    ros::Publisher polygPublisher = nodeHandler.advertise<geometry_msgs::Polygon>("/espeleo/traj_points", 1000);
     ros::Rate loop_rate(10);
 
     while(ros::ok()) {
@@ -162,17 +180,16 @@ int main(int argc, char **argv) {
             strcpy(pythonC, pythonCommand.c_str());
             system(pythonC);
 
-            //Publish Path On RViz on Main
-            int index = 0;
-            for(const auto& it: metrics) {
-                std::string comm = "/home/fred/catkin_ws/devel/lib/planning_integrated/TxtPaths/DijkstraPoints"
-                        + it + ".txt";
-                std::cout << comm << std::endl;
-                readFile(comm, &pointsVector);
-                publishPathOnRViz(pathPublishers.at(index), &pointsVector);
-                index++;
-            }
-
+        }
+        //Publish Path On RViz on Main
+        int index = 0;
+        for(const auto& it: metrics) {
+            std::string comm = "/home/fred/catkin_ws/devel/lib/planning_integrated/TxtPaths/DijkstraPoints"
+                               + it + ".txt";
+            //std::cout << comm << std::endl;
+            readFile(comm, &pointsVector);
+            publishPathOnRViz(pathPublishers.at(index), &polygPublisher, &pointsVector, it);
+            index++;
         }
         ros::Duration(4).sleep();
         ros::spinOnce();

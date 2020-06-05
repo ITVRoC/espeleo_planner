@@ -22,7 +22,7 @@ def find_face_centroid(centroids, xy_):
     source_face = -1
     indx = 0
     for face in centroids:
-        if math.isclose(face[0], xy_[0], rel_tol=1e-1) and math.isclose(face[1], xy_[1], rel_tol=1e-1):
+        if math.isclose(face[0], xy_[0], rel_tol=1e-2) and math.isclose(face[1], xy_[1], rel_tol=1e-2):
             source_face = indx
             break
         indx += 1
