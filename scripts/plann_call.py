@@ -1,10 +1,7 @@
-import getopt
 import sys
 import pymesh
-import open3d as o3d
 import math
 from MeshPathFinder import *
-from time import sleep
 
 
 def find_face_vertice(vertices, xy_):
@@ -39,8 +36,6 @@ def main(argv):
     centroids = mesh_load.get_face_attribute("face_centroid")
     vertices = mesh_load.vertices
     ver_face = mesh_load.faces
-
-    # mesh = o3d.io.read_triangle_mesh("../../TestData/knot.ply")
 
     source_face = find_face_centroid(centroids, xy_source)
     target_face = find_face_centroid(centroids, xy_target)

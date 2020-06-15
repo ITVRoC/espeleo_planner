@@ -345,7 +345,7 @@ class MeshPathFinder:
 
     def terrain_weight(self, node_target):
         source_normal_p = self.normals[node_target]  # face source normal
-        z_axe = [0, 0, 1]  # vector representing the Z axe
+        z_axe = [0, 0, -1]  # vector representing the Z axe
         scalar = np.dot(source_normal_p, z_axe)  # scalar product between the face normal and Z axe
         norms = np.linalg.norm(source_normal_p) * np.linalg.norm(z_axe)  # norm between face normal and Z Axe
         cos_angle = scalar / norms
@@ -369,7 +369,7 @@ class MeshPathFinder:
         points_target = self.centroids[node_target]
         vector2_faces = [points_target[0] - points_source[0], points_target[1] - points_source[1],
                         points_target[2] - points_source[2]]
-        vector_xy = [0, 0, 1]
+        vector_xy = [0, 0, -1]
         angle = self.angle_2_vectors(vector2_faces, vector_xy)
         dist = self.euclidian_distance_weight(node_source, node_target)
         energy = math.fabs((u * m * g * math.cos(angle)) + (m * g * math.sin(angle))) * dist
@@ -397,7 +397,7 @@ class MeshPathFinder:
         rot = self.angle_2_vectors(vector_p2c, vector_c2t)  # returns the minor angle between the two vectors,
         # representing the rotation between the two faces
 
-        vector_xy = [0, 0, 1]  # normal of the XY plan = Z Axe
+        vector_xy = [0, 0, -1]  # normal of the XY plan = Z Axe
         angle = self.angle_2_vectors(vector2_faces, vector_xy)  # gets the angle between the two vectors
         angle = 90 - angle
         dist = self.euclidian_distance_weight(node_source, node_target)  # distance between the faces (nodes)
@@ -414,7 +414,7 @@ class MeshPathFinder:
         points_target = self.centroids[node_target]  # points of the center of the target face (node)
         vector2_faces = [points_target[0] - points_source[0], points_target[1] - points_source[1],
                         points_target[2] - points_source[2]]  # vector between the the face and target points
-        vector_xy = [0, 0, 1]  # normal of the XY plan = Z Axe
+        vector_xy = [0, 0, -1]  # normal of the XY plan = Z Axe
         angle = self.angle_2_vectors(vector2_faces, vector_xy)  # gets the angle between the two vectors
         angle = 90 - angle
         dist = self.euclidian_distance_weight(node_source, node_target)  # distance between the faces (nodes)
@@ -564,16 +564,16 @@ class MeshPathFinder:
                 adjacents = list(dict.fromkeys(adjacents))
                 adjacency_list.append(adjacents)
 
-                # if metric >= 1 and (len(adjacency_list[face_index]) <= 9 or transversal >= self.transversality_bound)\
-                #         and (face_index != source or face_index != target):
-                #     # if node has less than 9 edges or angle (between normal
-                #     faces_excluded.append(
-                #         face_index)  # and Z Axe) bigger than 30 degrees, the node is isolated so it wont be considered
-                #
-                # else:
-                #     graph.add_node(face_index)  # add the nodes based on the mesh faces
+                if metric >= 1 and (len(adjacency_list[face_index]) <= 10 or transversal >= self.transversality_bound)\
+                        and (face_index != source or face_index != target):
+                    # if node has less than 9 edges or angle (between normal
+                    faces_excluded.append(
+                        face_index)  # and Z Axe) bigger than 30 degrees, the node is isolated so it wont be considered
 
-                graph.add_node(face_index)
+                else:
+                    graph.add_node(face_index)  # add the nodes based on the mesh faces
+
+                # graph.add_node(face_index)
                 pbar.update(1)  # progress bar is updated
 
         faces_excluded = list(dict.fromkeys(faces_excluded))  # remove duplicates in list
