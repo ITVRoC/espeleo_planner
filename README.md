@@ -1,7 +1,7 @@
 # Espeleo Path Planner
 
 **Dependencies:**
-Use the script install-deps.sh to install all the package dependencies. After installation, copy the file ``weighted.py`` to your Networkx python library folder. Use the command ``pip show networkx`` to find its folder. Then overwrite the file in ``/networkx/algorithms/shortest_paths/weighted.py``. 
+Use the script ``install-deps.sh`` to install all the package dependencies. After installation, copy the file ``weighted.py`` to your Networkx python library folder. Use the command ``pip show networkx`` to find its folder. Then overwrite the file in ``/networkx/algorithms/shortest_paths/weighted.py``. 
 
 **Running:**
 Several files are generated in this package and the file paths were not yet generalized. There is a need to change some variables in ``main.cpp`` in order to work in all environments.
