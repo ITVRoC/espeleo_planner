@@ -112,7 +112,7 @@ class MeshPathFinder:
 
     @staticmethod
     def path_to_file(path, name):
-        path_file = open("TxtPaths/dijkstraPath" + name + ".txt", "w")
+        path_file = open("/tmp/TxtPaths/dijkstraPath" + name + ".txt", "w")
         for i in path:
             path_file.write(str(i) + "\n")
         path_file.close()
@@ -622,7 +622,7 @@ class MeshPathFinder:
                                              self.shortest_comb_weight, self.energy_comb_weight,
                                                    self.transversality_comb_weight, metric)  # find the dijkstra path
         self.path_to_file(dijkstra_from_graph, name)  # save the path to file
-        self.save_path_points_in_file(dijkstra_from_graph, "TxtPaths/DijkstraPoints" + name + ".txt")
+        self.save_path_points_in_file(dijkstra_from_graph, "/tmp/TxtPaths/DijkstraPoints" + name + ".txt")
         # save the points from each node in the path
 
     @staticmethod
@@ -780,12 +780,12 @@ class MeshPathFinder:
         index = 0
 
         if isinstance(self.graphs_metrics, list):
-            actor_line = self.line_actor("TxtPaths/DijkstraPoints" + self.graphs_metrics[3] + ".txt", path_colors[0])
+            actor_line = self.line_actor("/tmp/TxtPaths/DijkstraPoints" + self.graphs_metrics[3] + ".txt", path_colors[0])
             line_actors_list.append(actor_line)
 
         elif isinstance(self.graphs_metrics, tuple):
             for graphs in self.graphs_metrics:
-                actor_line = self.line_actor("TxtPaths/DijkstraPoints" + graphs[3] + ".txt", path_colors[index])
+                actor_line = self.line_actor("/tmp/TxtPaths/DijkstraPoints" + graphs[3] + ".txt", path_colors[index])
                 line_actors_list.append(actor_line)
                 index += 1
 
@@ -824,21 +824,21 @@ class MeshPathFinder:
         plot_colors = []
         dijkstra_paths = []
 
-        os.system("mkdir TxtPaths")
+        os.system("mkdir -p /tmp/TxtPaths")
 
         if isinstance(self.graphs_metrics, list):   # if user is processing only one metric
             try:            # plot the map if a color is passed
                 plot_colors.append(self.graphs_metrics[4])
                 self.run_graph_process(self.graphs_metrics[0], self.graphs_metrics[1], self.graphs_metrics[2],
                                        self.graphs_metrics[3])
-                dijkstra = self.file_to_list("TxtPaths/dijkstraPath" + self.graphs_metrics[3] + ".txt")
+                dijkstra = self.file_to_list("/tmp/TxtPaths/dijkstraPath" + self.graphs_metrics[3] + ".txt")
                 dijkstra_paths.append(dijkstra)
                 self.print_path_properties(dijkstra, self.graphs_metrics[3])
 
             except IndexError:      # no color assigned so the class does not plot the map with paths
                 self.run_graph_process(self.graphs_metrics[0], self.graphs_metrics[1], self.graphs_metrics[2],
                                        self.graphs_metrics[3])
-                dijkstra = self.file_to_list("TxtPaths/dijkstraPath" + self.graphs_metrics[3] + ".txt")
+                dijkstra = self.file_to_list("/tmp/TxtPaths/dijkstraPath" + self.graphs_metrics[3] + ".txt")
                 dijkstra_paths.append(dijkstra)
                 self.print_path_properties(dijkstra, self.graphs_metrics[3])
 
@@ -860,7 +860,7 @@ class MeshPathFinder:
                 process.join()
 
             for graph in self.graphs_metrics:
-                dijkstra = self.file_to_list("TxtPaths/dijkstraPath" + graph[3] + ".txt")
+                dijkstra = self.file_to_list("/tmp/TxtPaths/dijkstraPath" + graph[3] + ".txt")
                 dijkstra_paths.append(dijkstra)
                 self.print_path_properties(dijkstra, graph[3])
 

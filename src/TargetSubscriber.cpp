@@ -5,6 +5,7 @@
 #include "TargetSubscriber.h"
 
 #include <utility>
+#include "ros/package.h"
 
 TargetSubscriber::TargetSubscriber() {}
 
@@ -24,7 +25,8 @@ void TargetSubscriber::poseFromRVizCallback(const geometry_msgs::PoseStampedCons
 
     // Put the Points from PointCloud in a CSV file
     std::ofstream outFile;
-    std::string outFilePath = "/home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv";
+    std::string espeleo_planner_path = ros::package::getPath("espeleo_planner");
+    std::string outFilePath = espeleo_planner_path + "/mapFiles/map.csv";
     outFile.open(outFilePath);
     outFile << "X,Y,Z" << std::endl;
     for(auto it: pc1Msg.points){

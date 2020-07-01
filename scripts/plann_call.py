@@ -1,14 +1,17 @@
 import sys
 import pymesh
 import math
+import numpy as np
 from MeshPathFinder import *
+from scipy.spatial import cKDTree
 
 
 def find_face_vertice(vertices, xy_):
     face = -1
     indx = 0
     for vertice in vertices:
-        if math.isclose(vertice[0], xy_[0], rel_tol=1e-1) and math.isclose(vertice[1], xy_[1], rel_tol=1e-1):
+        #rel_tol=1e-1
+        if np.isclose(vertice[0], xy_[0], rtol=1.e-1, atol=1.e-1) and np.isclose(vertice[1], xy_[1], rtol=1.e-1, atol=1.e-1):
             face = indx
             break
         indx += 1
@@ -18,11 +21,22 @@ def find_face_vertice(vertices, xy_):
 def find_face_centroid(centroids, xy_):
     source_face = -1
     indx = 0
+
+    min_dist = 999999999999
+
     for face in centroids:
-        if math.isclose(face[0], xy_[0], rel_tol=1e-2) and math.isclose(face[1], xy_[1], rel_tol=1e-2):
+        #, rel_tol=1e-2
+        if np.isclose(face[0], xy_[0], rtol=1.e-1, atol=1.e-1) and np.isclose(face[1], xy_[1], rtol=1.e-1, atol=1.e-1):
             source_face = indx
             break
         indx += 1
+
+        d = math.sqrt((face[0] - xy_[0]) ** 2 + (face[1] - xy_[1])**2)
+        if d < min_dist:
+            min_dist = d
+            source_face = indx
+            print("min_dist:", min_dist)
+
     return source_face
 
 

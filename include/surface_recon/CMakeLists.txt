@@ -11,7 +11,6 @@ find_package( CGAL QUIET COMPONENTS  )
 find_package(Eigen3 REQUIRED)
 find_package(PNG REQUIRED)
 
-
 if ( NOT CGAL_FOUND )
 
   message(STATUS "This project requires the CGAL library, and will not be compiled.")
@@ -37,15 +36,18 @@ endif()
 
 # include for local package
 
-include_directories(${EIGEN3_INCLUDE_DIR} ${PNG_INCLUDE_DIR} )
+include_directories(${EIGEN3_INCLUDE_DIR} ${PNG_INCLUDE_DIR})
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++14 -g")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --std=c++11")
+#set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 # Creating entries for target: recon_surface
 # ############################
 
 file(GLOB recon_cpps src/*.cpp )
-add_executable( recon_surface ${recon_cpps})
+add_executable( recon_surface ${recon_cpps} )
 
 add_to_cached_list( CGAL_EXECUTABLE_TARGETS recon_surface )
 

@@ -14,6 +14,7 @@
         bool has_alpha = false;
 
         std::string aux;
+        std::stringstream ss;
 
         //set random engine
         std::random_device rd;  //Will be used to obtain a seed for the random number engine
@@ -74,7 +75,7 @@
   {
      //FT xc = (FT)0., yc = (FT)0., zc = (FT)0.,
         std::cout<<"Reading CSV file: "<<path<<std::endl;
-        Color c = {{ 0, 0, 0 }};
+        Color c = {{ 255, 255, 255 }};
         std::ifstream myfile (path.c_str());
         double x,y,z,r,g,b;
         char v;
@@ -87,20 +88,44 @@
         std::uniform_real_distribution<> dis(0, 1);
 
         myfile>>aux; //header
-        
-        myfile>>x>>v>>y>>v>>z>>v>>r>>v>>g>>v>>b;
+        bool has_color = false;
+        if(aux.size() > 2*3 + 1)
+          has_color = true;
 
-        while(!myfile.eof())
+
+        if(has_color)
         {
-          if(sample_ratio == 1.0 || dis(gen) <= sample_ratio)
+          std::cout <<"Reading colored points." << std::endl;
+          myfile>>x>>v>>y>>v>>z>>v>>r>>v>>g>>v>>b;
+
+          while(!myfile.eof())
           {
-            points.push_back(Point(x, y, z));
-            c[0]=r; c[1]=g; c[2]=b;
-            colors.push_back (c);
+            if(sample_ratio == 1.0 || dis(gen) <= sample_ratio)
+            {
+              points.push_back(Point(x, y, z));
+              c[0]=r; c[1]=g; c[2]=b;
+              colors.push_back (c);
+            }
+
+              myfile>>x>>v>>y>>v>>z>>v>>r>>v>>g>>v>>b;
+
           }
+        }
+        else
+        {
+          std::cout <<"Reading points without color." << std::endl;
+          myfile>>x>>v>>y>>v>>z;
+        
+          while(!myfile.eof())
+          {
+            if(sample_ratio == 1.0 || dis(gen) <= sample_ratio)
+            {
+              myfile>>x>>v>>y>>v>>z;
+              points.push_back(Point(x, y, z));
+              colors.push_back(c);
+            }
 
-            myfile>>x>>v>>y>>v>>z>>v>>r>>v>>g>>v>>b;
-
+          }         
         }
 
   }

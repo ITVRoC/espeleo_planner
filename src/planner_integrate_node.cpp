@@ -15,6 +15,7 @@
 #include "TargetSubscriber.h"
 #include "SourceSubscriber.h"
 #include "geometry_msgs/Polygon.h"
+#include "ros/package.h"
 
 
 // TODO: Generalize paths to rospack find, so the file paths will be general to all the workspaces.
@@ -76,7 +77,7 @@ void publishPathOnRViz(ros::Publisher* pathPub, ros::Publisher* polygPub, std::v
 
     nav_msgs::Path pathToPublish;
     // Frame to publish on RViz - Important to change if plotting paths on different frame_id on RViz
-    pathToPublish.header.frame_id = "odom";
+    pathToPublish.header.frame_id = "initial_base";
     geometry_msgs::Polygon polyg;
 
     for(auto it: *pointsVector){
@@ -95,7 +96,7 @@ void publishPathOnRViz(ros::Publisher* pathPub, ros::Publisher* polygPub, std::v
 
     // Path published as a Polygon message to espeleo_control module.
     // Change metric name to espeleo follow the specified path.
-    if(metric == "Shortest"){
+    if(metric == "Combined"){
         polygPub->publish(polyg);
     }
 }
@@ -135,9 +136,10 @@ int main(int argc, char **argv) {
 
 
     //Surface Reconstruction Paths
-    std::string outFilePath = "/home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv";
-    std::string stlOutput = "/home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/mesh.stl";
-    //std::string stlOutput = "/home/fred/catkin_ws/src/planning_integrated/mapFiles/meshObj.obj";
+    std::string espeleo_planner_path = ros::package::getPath("espeleo_planner");
+    std::string outFilePath = espeleo_planner_path + "/mapFiles/map.csv";
+    //std::string stlOutput = espeleo_planner_path + "/include/surface_recon/build/mesh.stl";
+    std::string stlOutput = espeleo_planner_path + "/mapFiles/meshObj.obj";
     std::ifstream fileCheck;
     //File pointer to check whether there is a csv file or not, if topic /move_base_simple/goal received any message
 
@@ -151,7 +153,7 @@ int main(int argc, char **argv) {
     pathPublishers.push_back(&pathPublisher_energ);
     pathPublishers.push_back(&pathPublisher_transv);
     pathPublishers.push_back(&pathPublisher_comb);
-    ros::Publisher polygPublisher = nodeHandler.advertise<geometry_msgs::Polygon>("/espeleo/traj_points", 1000);
+    ros::Publisher polygPublisher = nodeHandler.advertise<geometry_msgs::Polygon>("/espeleo/traj_points_polygon", 1000);
     ros::Rate loop_rate(10);
 
     while(ros::ok()) {
@@ -160,20 +162,19 @@ int main(int argc, char **argv) {
             ROS_INFO("RViz did not receive target point yet.");
         } else {
             //System Call to Surface Reconstruction Algorithm and STL Generation
-            system("cd /home/fred/catkin_ws/src/planning_integrated/include/surface_recon/build/ &&"
-                   " ./recon_surface --csv /home/fred/catkin_ws/src/planning_integrated/mapFiles/map.csv "
-                   "--output /home/fred/catkin_ws/src/planning_integrated/mapFiles/meshObj --holemaxsize 30"); // 150
+            std::string surface_recon_syscall = "cd " + espeleo_planner_path + "/include/surface_recon/build/ && ./recon_surface --csv " + espeleo_planner_path + "/mapFiles/map.csv --output " + espeleo_planner_path + "/mapFiles/meshObj --holemaxsize 50 --trim 8 --texturesize 320";
+            system(surface_recon_syscall.c_str()); // 150
 
 
             // Delete .csv file to run this code only when RViz 2D Nav goal is clicked
-            std::string command = "rm " + outFilePath;
+            std::string command = "mv " + outFilePath + " /tmp";
             int n = command.length();
             char command_f[n + 1];
             strcpy(command_f, command.c_str());
             system(command_f);
 
             //String for python System Call
-            std::string pythonCommand = "python3 /home/fred/catkin_ws/src/planning_integrated/scripts/plann_call.py " +
+            std::string pythonCommand = "python2 " + espeleo_planner_path + "/scripts/plann_call.py " +
                     stlOutput + " " + std::to_string(sourcePos.poseSource.position.x) + " " +
                     std::to_string(sourcePos.poseSource.position.y) + " " + std::to_string(targetPos.poseStamped->pose.position.x)
                     + " " + std::to_string(targetPos.poseStamped->pose.position.y);
@@ -184,18 +185,18 @@ int main(int argc, char **argv) {
             strcpy(pythonC, pythonCommand.c_str());
             system(pythonC);
 
-        }
+            //Publish Path On RViz on Main
+            int index = 0;
+            for(const auto& it: metrics) {
+                std::string comm = "/tmp/TxtPaths/DijkstraPoints" + it + ".txt";
 
-        //Publish Path On RViz on Main
-        int index = 0;
-        for(const auto& it: metrics) {
-            std::string comm = "/home/fred/catkin_ws/devel/lib/planning_integrated/TxtPaths/DijkstraPoints"
-                               + it + ".txt";
-
-            readFile(comm, &pointsVector);
-            publishPathOnRViz(pathPublishers.at(index), &polygPublisher, &pointsVector, it);
-            index++;
+                readFile(comm, &pointsVector);
+                publishPathOnRViz(pathPublishers.at(index), &polygPublisher, &pointsVector, it);
+                index++;
+            }
         }
+        fileCheck.close();
+
         ros::Duration(4).sleep();
         ros::spinOnce();
     }

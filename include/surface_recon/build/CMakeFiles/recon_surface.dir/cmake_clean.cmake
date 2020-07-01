@@ -6,8 +6,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/recon_surface.dir/src/rm_artifacts.cpp.o"
   "CMakeFiles/recon_surface.dir/src/surface_recon.cpp.o"
   "CMakeFiles/recon_surface.dir/src/texture.cpp.o"
-  "recon_surface.pdb"
   "recon_surface"
+  "recon_surface.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

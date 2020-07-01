@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(planning_integrated)
+project(espeleo_planner)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -10,6 +10,8 @@ project(planning_integrated)
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   roscpp
+  roslib
+  std_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -101,12 +103,14 @@ find_package(catkin REQUIRED COMPONENTS
 ## LIBRARIES: libraries you create in this project that dependent projects also need
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
-catkin_package(
+#catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES planning_integrated
 #  CATKIN_DEPENDS geometry_msgs roscpp
 #  DEPENDS system_lib
-)
+#)
+catkin_package(INCLUDE_DIRS include CATKIN_DEPENDS roscpp std_msgs roslib)
+
 
 ###########
 ## Build ##
