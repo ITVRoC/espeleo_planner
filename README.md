@@ -61,7 +61,9 @@ And replace by this:
 After installing Networkx, copy the file ``weighted.py`` to your Networkx python library folder. Use the command ``pip show networkx`` to find its folder. Then overwrite the file in ``/networkx/algorithms/shortest_paths/weighted.py``. 
 
 **Build surface reconstruction algorithm:**
+
 1 - Build and install the surface reconstruction dependencies:
+
 ```
   sudo apt install libboost-all-dev libpng-dev
   wget https://github.com/CGAL/cgal/archive/releases/CGAL-4.11.tar.gz
