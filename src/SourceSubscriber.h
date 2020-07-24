@@ -6,18 +6,18 @@
 #define PLANNING_INTEGRATED_SOURCESUBSCRIBER_H
 
 #include "ros/ros.h"
-#include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "geometry_msgs/Pose.h"
+#include "nav_msgs/Odometry.h"
 
 class SourceSubscriber {
 public:
-    geometry_msgs::PoseWithCovarianceStampedConstPtr poseWCov;
+    nav_msgs::OdometryConstPtr odom;
     geometry_msgs::Pose poseSource;
     ros::NodeHandle n;
     ros::Subscriber sub;
     SourceSubscriber();
     ~SourceSubscriber();
-    void sourceFromRVizCallback(const geometry_msgs::PoseWithCovarianceStampedConstPtr & msg);
+    void sourceFromRVizCallback(const nav_msgs::OdometryConstPtr & msg);
 };
 
 

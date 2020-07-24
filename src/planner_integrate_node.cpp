@@ -5,6 +5,7 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "geometry_msgs/PoseStamped.h"
+#include "geometry_msgs/PointStamped.h"
 #include "nav_msgs/Path.h"
 #include <fstream>
 #include <vector>
@@ -16,6 +17,7 @@
 #include "SourceSubscriber.h"
 #include "geometry_msgs/Polygon.h"
 #include "ros/package.h"
+#include "nav_msgs/Odometry.h"
 
 
 // TODO: Generalize paths to rospack find, so the file paths will be general to all the workspaces.
@@ -122,8 +124,8 @@ int main(int argc, char **argv) {
     // Topic to get points from RViz may vary of /move_base_simple/goal to /goal
     //ros::Subscriber sub = nodeHandler.subscribe<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1000,
     //       &TargetSubscriber::poseFromRVizCallback, &targetPos);
-    ros::Subscriber sub = nodeHandler.subscribe<geometry_msgs::PoseStamped>("/goal", 1000,
-             &TargetSubscriber::poseFromRVizCallback, &targetPos);
+    //geometry_msgs/PointStamped
+    ros::Subscriber sub = nodeHandler.subscribe<geometry_msgs::PointStamped>("/clicked_point", 1000, &TargetSubscriber::poseFromRVizCallback, &targetPos);
 
     // Topic to subscribe to point cloud
     targetPos.setPointCloudTopic("/octomap_point_cloud_centers");
@@ -131,8 +133,12 @@ int main(int argc, char **argv) {
     //targetPos.setPointCloudTopic("/rtabmap/cloud_map");
 
     SourceSubscriber sourcePos;
-    ros::Subscriber sub_source = nodeHandler.subscribe<geometry_msgs::PoseWithCovarianceStamped>("/initialpose", 1000,
+    // ros::Subscriber sub_source = nodeHandler.subscribe<geometry_msgs::PoseWithCovarianceStamped>("/initialpose", 1000,
+    //         &SourceSubscriber::sourceFromRVizCallback, &sourcePos);
+
+    ros::Subscriber sub_source = nodeHandler.subscribe<nav_msgs::Odometry>("/integrated_to_init2", 1000,
             &SourceSubscriber::sourceFromRVizCallback, &sourcePos);
+
 
 
     //Surface Reconstruction Paths
@@ -154,9 +160,11 @@ int main(int argc, char **argv) {
     pathPublishers.push_back(&pathPublisher_transv);
     pathPublishers.push_back(&pathPublisher_comb);
     ros::Publisher polygPublisher = nodeHandler.advertise<geometry_msgs::Polygon>("/espeleo/traj_points_polygon", 1000);
-    ros::Rate loop_rate(10);
+    ros::Rate loop_rate(1);
 
     while(ros::ok()) {
+        ROS_INFO("Source points: [%f][%f][%f]", sourcePos.poseSource.position.x, sourcePos.poseSource.position.y, sourcePos.poseSource.position.z);
+
         fileCheck.open(outFilePath);
         if (!fileCheck) {       // TODO: Change this file check restriction on loop and use ROS framework to restrict it
             ROS_INFO("RViz did not receive target point yet.");
@@ -175,9 +183,13 @@ int main(int argc, char **argv) {
 
             //String for python System Call
             std::string pythonCommand = "python2 " + espeleo_planner_path + "/scripts/plann_call.py " +
-                    stlOutput + " " + std::to_string(sourcePos.poseSource.position.x) + " " +
-                    std::to_string(sourcePos.poseSource.position.y) + " " + std::to_string(targetPos.poseStamped->pose.position.x)
-                    + " " + std::to_string(targetPos.poseStamped->pose.position.y);
+                    stlOutput + " " + 
+                    std::to_string(sourcePos.poseSource.position.x) + " " +
+                    std::to_string(sourcePos.poseSource.position.y) + " " + 
+                    std::to_string(sourcePos.poseSource.position.z) + " " + 
+                    std::to_string(targetPos.pointStamped->point.x) + " " + 
+                    std::to_string(targetPos.pointStamped->point.y) + " " +
+                    std::to_string(targetPos.pointStamped->point.z);
 
             //System Call to Python Planning Algorithm
             n = pythonCommand.length();
@@ -197,7 +209,8 @@ int main(int argc, char **argv) {
         }
         fileCheck.close();
 
-        ros::Duration(4).sleep();
+        //ros::Duration(4).sleep();
+        loop_rate.sleep();
         ros::spinOnce();
     }
 

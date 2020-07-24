@@ -6,6 +6,7 @@
 
 #include <utility>
 #include "ros/package.h"
+#include "geometry_msgs/PointStamped.h"
 
 TargetSubscriber::TargetSubscriber() {}
 
@@ -13,9 +14,9 @@ TargetSubscriber::TargetSubscriber(std::string topicName): topicName(std::move(t
 
 TargetSubscriber::~TargetSubscriber() {}
 
-void TargetSubscriber::poseFromRVizCallback(const geometry_msgs::PoseStampedConstPtr &msg) {
-    ROS_INFO("Selected Target points: [%f][%f][%f]", msg->pose.position.x, msg->pose.position.y, msg->pose.position.z);
-    poseStamped = msg;
+void TargetSubscriber::poseFromRVizCallback(const geometry_msgs::PointStampedConstPtr &msg) {
+    ROS_INFO("Selected Target points: [%f][%f][%f]", msg->point.x, msg->point.y, msg->point.z);
+    pointStamped = msg;
 
     // Subscribing to the PointCloud2 topic only once
     sensor_msgs::PointCloud pc1Msg;

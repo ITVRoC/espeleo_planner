@@ -1,0 +1,3 @@
+*.pyc
+mapFiles/*
+include/surface_recon/build/*
