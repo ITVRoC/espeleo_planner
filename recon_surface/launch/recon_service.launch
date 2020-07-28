@@ -1,0 +1,5 @@
+<launch>	
+	<rosparam file="$(find recon_surface)/config/basic_recon.yaml" command="load" ns="" subst_value="true"/> 
+	<node name="recon_service_node" pkg="recon_surface" type="recon_surface_service" respawn="false" output="screen"/>    
+	
+</launch>

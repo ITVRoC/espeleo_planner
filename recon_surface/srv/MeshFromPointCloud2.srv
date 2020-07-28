@@ -1,0 +1,5 @@
+sensor_msgs/PointCloud2 input
+---
+bool success
+string msg
+string path
