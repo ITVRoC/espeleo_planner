@@ -2,7 +2,7 @@
 #define _SURFACE_RECON_
 
 #ifndef CGAL_EIGEN3_ENABLED
-  #define CGAL_EIGEN3_ENABLED 1
+#define CGAL_EIGEN3_ENABLED 1
 #endif
 
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
@@ -26,6 +26,7 @@
 #include <CGAL/Point_with_normal_3.h>
 #include <CGAL/compute_average_spacing.h>
 #include <vector>
+#include <ros/ros.h>
 
 
 //Search tree
@@ -71,25 +72,31 @@ typedef CGAL::Parallel_tag Concurrency_tag;
 typedef CGAL::Sequential_tag Concurrency_tag;
 #endif
 
-typedef Kernel::Point_3                                     Point_3;
-typedef boost::tuple<Point_3,int>                           Point_and_int;
-typedef CGAL::Search_traits_3<Kernel>                       Traits_base;
+typedef Kernel::Point_3 Point_3;
+typedef boost::tuple<Point_3, int> Point_and_int;
+typedef CGAL::Search_traits_3<Kernel> Traits_base;
 typedef CGAL::Search_traits_adapter<Point_and_int,
-  CGAL::Nth_of_tuple_property_map<0, Point_and_int>,
-  Traits_base>                                              Traits;
-typedef CGAL::Orthogonal_k_neighbor_search<Traits>          K_neighbor_search;
-typedef K_neighbor_search::Tree                             Tree;
-typedef K_neighbor_search::Distance                         Distance;
+        CGAL::Nth_of_tuple_property_map<0, Point_and_int>,
+        Traits_base> Traits;
+typedef CGAL::Orthogonal_k_neighbor_search<Traits> K_neighbor_search;
+typedef K_neighbor_search::Tree Tree;
+typedef K_neighbor_search::Distance Distance;
 
 void translade_pts_mean(std::vector<Point> &pts);
-std::list<PointVectorPair> grab_normals(std::vector<Point>& pts, std::vector<Vector>& norms);
-void estimate_normals(std::vector<Point>& pts,std::list<PointVectorPair>& points);
+
+std::list<PointVectorPair> grab_normals(std::vector<Point> &pts, std::vector<Vector> &norms);
+
+void estimate_normals(std::vector<Point> &pts, std::list<PointVectorPair> &points);
+
 std::list<PointVectorPair> register_normals(std::vector<Point> sampled_points, std::list<PointVectorPair> original);
-Mesh reconstruct_surface(std::list <PointVectorPair>& pwn);
-void write_ply_wnormals(std::string out, std::list<PointVectorPair>& point_list, Tree& tree, std::vector<Color>& colors);
-void trim_mesh(Mesh m, Tree& tree, double average_spacing);
+
+Mesh reconstruct_surface(std::list<PointVectorPair> &pwn);
+
+void
+write_ply_wnormals(std::string out, std::list<PointVectorPair> &point_list, Tree &tree, std::vector<Color> &colors);
+
+void trim_mesh(Mesh m, Tree &tree, double average_spacing);
 
 
-
-#endif 
+#endif
 //_SURFACE_RECON_

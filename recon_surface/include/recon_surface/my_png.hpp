@@ -8,34 +8,33 @@
 
 #include <png.h>
 #include <string.h>
+#include <ros/ros.h>
 
 using namespace std;
 
-class my_png
-{
+class my_png {
 
-	public:
-	unsigned char* buffer;
-	int width,height;
+public:
+    unsigned char *buffer;
+    int width, height;
 
-		my_png()
-	{
-		buffer = NULL;
-		width = 0;
-		height = 0;
-	}
+    my_png() {
+        buffer = NULL;
+        width = 0;
+        height = 0;
+    }
 
-	my_png(int w, int h)
-	{
-		buffer = new unsigned char [w*h*3];
-		width = w;
-		height = h;
+    my_png(int w, int h) {
+        buffer = new unsigned char[w * h * 3];
+        width = w;
+        height = h;
 
-		memset(buffer,127,(w*h*3)*sizeof(unsigned char));
-	}
+        memset(buffer, 127, (w * h * 3) * sizeof(unsigned char));
+    }
 
-	unsigned char& at(int r, int c, int ch);
-	void write(string filename);
+    unsigned char &at(int r, int c, int ch);
+
+    void write(string filename);
 
 };
 

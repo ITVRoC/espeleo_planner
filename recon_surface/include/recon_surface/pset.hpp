@@ -2,7 +2,7 @@
 #define _PLY_PARSER_
 
 #ifndef CGAL_EIGEN3_ENABLED
-  #define CGAL_EIGEN3_ENABLED 1
+#define CGAL_EIGEN3_ENABLED 1
 #endif
 
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
@@ -13,12 +13,14 @@
 #include <CGAL/grid_simplify_point_set.h>
 #include <CGAL/jet_smooth_point_set.h>
 #include <CGAL/config.h>
+#include <sensor_msgs/PointCloud2.h>
 
 #include <utility>
 #include <vector>
 #include <fstream>
 #include <string>
 #include <random>
+#include <ros/ros.h>
 
 // types
 typedef CGAL::Exact_predicates_inexact_constructions_kernel Kernel;
@@ -39,35 +41,42 @@ typedef CGAL::Parallel_tag Concurrency_tag;
 typedef CGAL::Sequential_tag Concurrency_tag;
 #endif
 
-class Pset
-{
-  std::vector<Point>& points;
-  std::vector<Vector>& normals;
-  std::vector<Color>& colors;
+class Pset {
+    std::vector<Point> &points;
+    std::vector<Vector> &normals;
+    std::vector<Color> &colors;
 
-  bool has_normals;
-  double sample_ratio;
-    
+    bool has_normals;
+    double sample_ratio;
+
 public:
 
-  Pset(std::vector<Point>& points, std::vector<Vector>& normals, std::vector<Color>& colors, double sample_ratio):points(points), normals(normals), colors(colors), sample_ratio(sample_ratio)
-  {
+    Pset(std::vector<Point> &points, std::vector<Vector> &normals, std::vector<Color> &colors, double sample_ratio)
+            : points(points), normals(normals), colors(colors), sample_ratio(sample_ratio) {
 
-    has_normals = false;
-  }
+        has_normals = false;
+    }
 
-  void read_ply(std::string path);
-  void write_ply(std::string path);
-  void read_csv(std::string path);
-  void sample_points(double rm_percent);
-  void sample_points_cgal(double param, int method);
-  void smooth_pset(unsigned int k);
-  void translade_points_mean();
-  void correct_color(double v);
+    void read_pointCloud2(const sensor_msgs::PointCloud2 msg);
+
+    void read_ply(std::string path);
+
+    void write_ply(std::string path);
+
+    void read_csv(std::string path);
+
+    void sample_points(double rm_percent);
+
+    void sample_points_cgal(double param, int method);
+
+    void smooth_pset(unsigned int k);
+
+    void translade_points_mean();
+
+    void correct_color(double v);
 
 };
 
 
-
-#endif 
+#endif
 //PSET

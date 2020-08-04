@@ -24,6 +24,7 @@ find_package(catkin REQUIRED COMPONENTS
   octomap_msgs
   dynamic_reconfigure
   nodelet
+  pcl_ros
 )
 
 find_package(CGAL QUIET COMPONENTS)

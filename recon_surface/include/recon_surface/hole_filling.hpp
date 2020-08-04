@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <boost/foreach.hpp>
+#include <ros/ros.h>
 
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
