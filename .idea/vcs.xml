@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="VcsDirectoryMappings">
+    <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/Clipper" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/TetWild" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/WindingNumber" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/carve" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/cgal" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/cork" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/draco" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/eigen" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/fmt" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/geogram" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/jigsaw" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/libigl" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/mmg" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/pybind11" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/qhull" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/quartet" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/spdlog" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/tbb" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/tetgen" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/espeleo_planner/pckg_deps/PyMesh/third_party/triangle" vcs="Git" />
+  </component>
+</project>

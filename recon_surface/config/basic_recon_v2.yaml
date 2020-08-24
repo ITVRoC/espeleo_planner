@@ -1,0 +1,8 @@
+recon_service_node:
+    gridm: 0.8
+    holemaxsize: 2.0
+    output_folder: $(find recon_surface)/tmp_reconstructions/
+    sample: 1.0
+    texturesize: 320.0
+    trim: 8.0
+    

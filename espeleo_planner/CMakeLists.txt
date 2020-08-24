@@ -105,7 +105,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 #catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES planning_integrated
+#  LIBRARIES espeleo_planner
 #  CATKIN_DEPENDS geometry_msgs roscpp
 #  DEPENDS system_lib
 #)
@@ -125,7 +125,7 @@ include_directories(
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/planning_integrated.cpp
+#   src/${PROJECT_NAME}/espeleo_planner.cpp
 # )
 
 ## Add cmake target dependencies of the library
@@ -138,8 +138,8 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 
 
-add_executable(${PROJECT_NAME}_node src/planner_integrate_node.cpp src/TargetSubscriber.h src/TargetSubscriber.cpp
-        src/SourceSubscriber.h src/SourceSubscriber.cpp)
+#add_executable(${PROJECT_NAME}_node src/planner_integrate_node.cpp src/TargetSubscriber.h src/TargetSubscriber.cpp
+#        src/SourceSubscriber.h src/SourceSubscriber.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -152,8 +152,8 @@ add_executable(${PROJECT_NAME}_node src/planner_integrate_node.cpp src/TargetSub
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_node
-   ${catkin_LIBRARIES})
+#target_link_libraries(${PROJECT_NAME}_node
+#   ${catkin_LIBRARIES})
 
 #############
 ## Install ##
@@ -200,7 +200,7 @@ install(FILES package.xml
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_planning_integrated.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_espeleo_planner.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()

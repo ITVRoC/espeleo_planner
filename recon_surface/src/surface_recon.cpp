@@ -16,8 +16,15 @@ std::list<PointVectorPair> grab_normals(std::vector<Point> &pts, std::vector<Vec
 void estimate_normals(std::vector<Point> &pts, std::list<PointVectorPair> &points) {
     points.clear();
 
+    // std::sort(pts.begin(), pts.end(), ComparePointsToOrigin());
+
     for (unsigned int i = 0; i < pts.size(); i++)
         points.push_back(std::make_pair(pts[i], Vector((FT) 0., (FT) 0., (FT) 0.)));
+
+//    for(std::list<PointVectorPair>::iterator it = points.begin(); it != points.end();++it)
+//        std::cout<<std::setprecision(12)<<"x y z: "<<(*it).first<<"  nx ny nz: "<<(*it).second<<std::endl;
+
+    ROS_DEBUG_STREAM("Num points:" << points.size());
 
     // Estimates normals direction.
     // Note: pca_estimate_normals() requires an iterator over points
@@ -30,11 +37,19 @@ void estimate_normals(std::vector<Point> &pts, std::list<PointVectorPair> &point
     // Orients normals.
     // Note: mst_orient_normals() requires an iterator over points
     // as well as property maps to access each point's position and normal.
+    //    std::list<PointVectorPair>::iterator unoriented_points_begin =
+    //            CGAL::mst_orient_normals(points.begin(), points.end(),
+    //                                     CGAL::First_of_pair_property_map<PointVectorPair>(),
+    //                                     CGAL::Second_of_pair_property_map<PointVectorPair>(),
+    //                                     nb_neighbors + 48);
+
     std::list<PointVectorPair>::iterator unoriented_points_begin =
-            CGAL::mst_orient_normals(points.begin(), points.end(),
+            mst_orient_normals_modified(points.begin(), points.end(),
                                      CGAL::First_of_pair_property_map<PointVectorPair>(),
                                      CGAL::Second_of_pair_property_map<PointVectorPair>(),
-                                     nb_neighbors + 48);
+                                     nb_neighbors + 48,
+                                     Kernel());
+
     // Optional: delete points with an unoriented normal
     // if you plan to call a reconstruction algorithm that expects oriented normals.
     points.erase(unoriented_points_begin, points.end());
@@ -50,6 +65,131 @@ void estimate_normals(std::vector<Point> &pts, std::list<PointVectorPair> &point
     for (std::list<PointVectorPair>::iterator it = points.begin(); it != points.end(); ++it) {
         (*it).second = Vector((*it).second[0], (*it).second[1], (*it).second[2]);
     }
+}
+
+template <typename ForwardIterator,
+        typename PointPMap,
+        typename NormalPMap,
+        typename Kernel
+>
+ForwardIterator
+mst_orient_normals_modified(
+        ForwardIterator first,  ///< iterator over the first input point.
+        ForwardIterator beyond, ///< past-the-end iterator over the input points.
+        PointPMap point_pmap, ///< property map: value_type of ForwardIterator -> Point_3.
+        NormalPMap normal_pmap, ///< property map: value_type of ForwardIterator -> Vector_3.
+        unsigned int k, ///< number of neighbors
+        const Kernel& kernel) ///< geometric traits.
+{
+    ROS_DEBUG_STREAM("Calls mst_orient_normals()\n");
+
+    // Input points types
+    typedef typename std::iterator_traits<ForwardIterator>::value_type Enriched_point; // actual type of input points
+    // Property map ForwardIterator -> index
+    typedef CGAL::Index_property_map<ForwardIterator> IndexPMap;
+
+    // Riemannian_graph types
+    typedef CGAL::internal::Riemannian_graph<ForwardIterator> Riemannian_graph;
+
+    // MST_graph types
+    typedef CGAL::internal::MST_graph<ForwardIterator, NormalPMap, Kernel> MST_graph;
+
+    // Precondition: at least one element in the container.
+    CGAL_point_set_processing_precondition(first != beyond);
+
+    // Precondition: at least 2 nearest neighbors
+    CGAL_point_set_processing_precondition(k >= 2);
+
+    std::size_t memory = CGAL::Memory_sizer().virtual_size(); CGAL_TRACE("  %ld Mb allocated\n", memory>>20);
+    ROS_DEBUG_STREAM("  Create Index_property_map\n");
+
+    // Create a property map Iterator -> index.
+    // - if ForwardIterator is a random access iterator (typically vector and deque),
+    // get() just calls std::distance() and is very efficient;
+    // - else, the property map allocates a std::map to store indices
+    // and get() requires a lookup in the map.
+    IndexPMap index_pmap(first, beyond);
+
+    // Orients the normal of the point with maximum Z towards +Z axis.
+//    ForwardIterator source_point
+//            = mst_find_source(first, beyond,
+//                              point_pmap, normal_pmap,
+//                              kernel);
+
+    // Find top point
+    ForwardIterator source_point = first;
+    typedef typename boost::property_traits<NormalPMap>::value_type Vector;
+    typedef typename boost::property_traits<NormalPMap>::reference Vector_ref;
+    // Orients its normal towards +Z axis
+    Vector_ref normal = get(normal_pmap,*source_point);
+    const Vector Z(0, 0, 1);
+    if (Z * normal < 0) {
+        CGAL_TRACE("  Flip top point normal\n");
+        put(normal_pmap,*source_point, -normal);
+    }
+
+
+    // Iterates over input points and creates Riemannian Graph:
+    // - vertices are numbered like the input points index.
+    // - vertices are empty.
+    // - we add the edge (i, j) if either vertex i is in the k-neighborhood of vertex j,
+    //   or vertex j is in the k-neighborhood of vertex i.
+    Riemannian_graph riemannian_graph
+            = create_riemannian_graph(first, beyond,
+                                      point_pmap, normal_pmap, index_pmap,
+                                      k,
+                                      kernel);
+
+    const std::size_t num_input_points = num_vertices(riemannian_graph);
+    ROS_DEBUG_STREAM("Num vertices riemannian graph:" << num_input_points);
+
+    // Creates a Minimum Spanning Tree starting at source_point
+    MST_graph mst_graph = create_mst_graph(first, beyond,
+                                           point_pmap, normal_pmap, index_pmap,
+                                           k,
+                                           kernel,
+                                           riemannian_graph,
+                                           source_point);
+
+    const std::size_t num_input_points2 = num_vertices(mst_graph);
+    ROS_DEBUG_STREAM("Num vertices mst graph:" << num_input_points2);
+
+    memory = CGAL::Memory_sizer().virtual_size();
+    double mb_memory = memory >> 20;
+    ROS_DEBUG_STREAM(mb_memory << "Mb allocated");
+    ROS_DEBUG_STREAM("  Calls boost::breadth_first_search()");
+
+    // Traverse the point set along the MST to propagate source_point's orientation
+    CGAL::internal::Propagate_normal_orientation<ForwardIterator, NormalPMap, Kernel> orienter;
+    std::size_t source_point_index = get(index_pmap, source_point);
+    boost::breadth_first_search(mst_graph,
+                                vertex(source_point_index, mst_graph), // source
+                                visitor(boost::make_bfs_visitor(orienter)));
+
+    // Copy points with robust normal orientation to oriented_points[], the others to unoriented_points[].
+    std::deque<Enriched_point> oriented_points, unoriented_points;
+    for (ForwardIterator it = first; it != beyond; it++)
+    {
+        std::size_t it_index = get(index_pmap,it);
+        typename MST_graph::vertex_descriptor v = vertex(it_index, mst_graph);
+        if (mst_graph[v].is_oriented)
+            oriented_points.push_back(*it);
+        else
+            unoriented_points.push_back(*it);
+    }
+
+    // Replaces [first, beyond) range by the content of oriented_points[], then unoriented_points[].
+    ForwardIterator first_unoriented_point =
+            std::copy(oriented_points.begin(), oriented_points.end(), first);
+    std::copy(unoriented_points.begin(), unoriented_points.end(), first_unoriented_point);
+
+    // At this stage, we have typically 0 unoriented normals if k is large enough
+    CGAL_TRACE("  => %u normals are unoriented\n", unoriented_points.size());
+
+    memory = CGAL::Memory_sizer().virtual_size(); CGAL_TRACE("  %ld Mb allocated\n", memory>>20);
+    CGAL_TRACE("End of mst_orient_normals()\n");
+
+    return first_unoriented_point;
 }
 
 std::list<PointVectorPair> register_normals(std::vector<Point> sampled_points, std::list<PointVectorPair> original) {

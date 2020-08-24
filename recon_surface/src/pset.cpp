@@ -180,17 +180,28 @@ void Pset::sample_points(double rm_percent) {
 void Pset::sample_points_cgal(double param, int method) {
     std::vector<Point> output;
 
+    ROS_DEBUG_STREAM("Sample points:" << param);
 
     if (method == 0) {
         int max_cluster_size = (int) param;
-        points.erase(CGAL::hierarchy_simplify_point_set(points.begin(), points.end(),
-                                                        max_cluster_size, // Max cluster size
-                                                        0.02), // Max surface variation
-                     points.end());
+        points.erase(
+                CGAL::hierarchy_simplify_point_set(
+                        points.begin(),
+                        points.end(),
+                        max_cluster_size, // Max cluster size
+                        0.02), // Max surface variation
+                points.end());
+
     } else if (method == 1) {
         double cell_size = param;
-        points.erase(CGAL::grid_simplify_point_set(points.begin(), points.end(), cell_size),
-                     points.end());
+        points.erase(
+                CGAL::grid_simplify_point_set(
+                        points.begin(),
+                        points.end(),
+                        cell_size),
+
+                points.end());
+
         // Optional: after erase(), use Scott Meyer's "swap trick" to trim excess capacity
         std::vector<Point>(points).swap(points);
     }

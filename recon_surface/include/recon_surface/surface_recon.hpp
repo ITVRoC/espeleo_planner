@@ -14,6 +14,7 @@
 #include <list>
 #include <fstream>
 #include <stdio.h>
+#include <cmath>
 
 #include <CGAL/trace.h>
 #include <CGAL/Polyhedron_3.h>
@@ -28,6 +29,7 @@
 #include <vector>
 #include <ros/ros.h>
 
+#include <CGAL/Index_property_map.h>
 
 //Search tree
 
@@ -97,6 +99,29 @@ write_ply_wnormals(std::string out, std::list<PointVectorPair> &point_list, Tree
 
 void trim_mesh(Mesh m, Tree &tree, double average_spacing);
 
+template <typename ForwardIterator,
+        typename PointPMap,
+        typename NormalPMap,
+        typename Kernel
+>
+ForwardIterator
+mst_orient_normals_modified(
+        ForwardIterator first,  ///< iterator over the first input point.
+        ForwardIterator beyond, ///< past-the-end iterator over the input points.
+        PointPMap point_pmap, ///< property map: value_type of ForwardIterator -> Point_3.
+        NormalPMap normal_pmap, ///< property map: value_type of ForwardIterator -> Vector_3.
+        unsigned int k, ///< number of neighbors
+        const Kernel& kernel); ///< geometric traits.
 
+struct ComparePointsToOrigin
+{
+    bool operator()(Point first, Point second) const
+    {
+        double a = std::sqrt(pow(first.x(), 2) + pow(first.y(), 2) + pow(first.z(), 2));
+        double b = std::sqrt(pow(second.x(), 2) + pow(second.y(), 2) + pow(second.z(), 2));
+        return a < b;
+
+    }
+};
 #endif
 //_SURFACE_RECON_

@@ -1,0 +1,18 @@
+<launch>
+
+    <env name="ROSCONSOLE_CONFIG_FILE" value="$(find espeleo_planner)/config/general.config"/>
+
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+        <param name="resolution" value="0.075" />
+        <param name="publish_free_space" value="true" />
+        <param name="frame_id" type="string" value="initial_base" />
+        <param name="sensor_model/max_range" value="-1.0" />
+        <!-- <param name="sensor_model/max_range" value="4.0"/> -->
+        <param name="latch" value="true"/>
+
+        <remap from="cloud_in" to="/laser_cloud_surround2" />
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find espeleo_planner)/rviz/espeleo_coppelia.rviz" required="true" />
+</launch>

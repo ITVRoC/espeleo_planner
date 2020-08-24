@@ -1,5 +1,19 @@
 # Espeleo Path Planner
 
+
+roslaunch espeleo_vrep_simulation espeleo_sim.launch
+roslaunch espeleo_control vector_field.launch
+roslaunch espeleo_lego_loam espeleo_lego_loam_sim.launch
+roslaunch recon_surface recon_service.launch
+roslaunch espeleo_planner espeleo_mapping_lidar.launch
+roslaunch espeleo_planner mesh_planner.launch
+roslaunch espeleo_teleop keyboard.launch
+coppelia
+
+# convert stl to pointcloud for testing
+snap run cloudcompare.CloudCompare
+
+
 ## Dependencies:
 
 **Pymesh**

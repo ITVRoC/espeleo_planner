@@ -246,10 +246,15 @@ string generate_mesh(const sensor_msgs::PointCloud2 msg, string output) {
                                        << colors.size());
 
     start = chrono::high_resolution_clock::now();
-    if (normals.size() == 0)
+    if (normals.size() == 0){
+        //ROS_INFO_STREAM("Estimating normals");
         estimate_normals(points, estimated_pwn);
-    else
+    }
+    else{
+        //ROS_INFO_STREAM("Registering normals normals");
         estimated_pwn = register_normals(points, grab_normals(orig_points, normals));
+    }
+
     stop = chrono::high_resolution_clock::now();
     ROS_INFO_STREAM("Time to estimate normals: "
                             << float(chrono::duration_cast<chrono::microseconds>(stop - start).count() / 1000000.0)
@@ -406,8 +411,8 @@ int main(int argc, char *argv[]) {
 
     // publishers
     ros::ServiceServer service = nh.advertiseService("/mesh_from_pointclouds", genMeshFromPointCloudCallback);
-    marker_pub_normal = nh.advertise<visualization_msgs::Marker>("/reconstructed_mesh_marker_normal", 1);
-    marker_pub_inverted = nh.advertise<visualization_msgs::Marker>("/reconstructed_mesh_marker_inverted", 1);
+    marker_pub_normal = nh.advertise<visualization_msgs::Marker>("/reconstructed_mesh_marker_normal", 1, true);
+    marker_pub_inverted = nh.advertise<visualization_msgs::Marker>("/reconstructed_mesh_marker_inverted", 1, true);
 
     ROS_INFO("Spinning recon_surface_service node");
 
