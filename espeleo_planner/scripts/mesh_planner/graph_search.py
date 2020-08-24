@@ -256,11 +256,9 @@ class MeshGraphSearch:
         if len(pred) > 0:
             pred_node = pred[0]
 
-        border_penalty = self.weight_border(u, d0=6.0, c1=2, min_dist=0.1)
-
         if self.metric == GraphMetricType.SHORTEST:
             d = self.weight_euclidean_distance(v, u)
-            return d + border_penalty
+            return d
 
         elif self.metric == GraphMetricType.FLATTEST:
             # this metric also uses the euclidean distance to minimze
@@ -272,7 +270,7 @@ class MeshGraphSearch:
         elif self.metric == GraphMetricType.ENERGY:
             # todo check diferences between new code and old code
             energy = self.weight_energy(v, u, predecessor=pred_node)
-            return energy + border_penalty
+            return energy
 
         elif self.metric == GraphMetricType.COMBINED:
             # todo: check if this combined metric uses weight_rotation too?
@@ -280,7 +278,7 @@ class MeshGraphSearch:
             short_weight = mesh_helper.normalize_from_minmax(dist, self.min_dist, self.max_dist)
 
             traversal = self.weight_traversability(u)
-            print "traversal:", traversal, self.min_traversability, self.max_traversability
+            #print "traversal:", traversal, self.min_traversability, self.max_traversability
             traversal_weight = mesh_helper.normalize_from_minmax(traversal, self.min_traversability, self.max_traversability)
 
             energy = self.weight_energy(v, u, predecessor=pred_node)
@@ -290,11 +288,11 @@ class MeshGraphSearch:
                            (traversal_weight * self.c_traversal) + \
                            (energy_weight * self.c_energy)
 
-            return total_weight + border_penalty
+            return total_weight
 
         elif self.metric == GraphMetricType.STRAIGHTEST:
             rot = self.weight_rotation(v, u, predecessor=pred_node)
-            return rot + border_penalty
+            return rot
 
         else:
             raise TypeError("No valid Metric Type available to estimate edge weight {}".format(self.metric))
@@ -403,7 +401,12 @@ class MeshGraphSearch:
         else:
             0
 
-        :param target: id of the target node
+        IMPORTANT: not actively used, this code serve as reference for future potential field functions
+
+        :param u: id of the target node
+        :param d0: minimum distance to evaluate
+        :param c1: scale constant
+        :param min_dist: minimum distance to use as treshold, any value < to min_dist is set to the min_dist value
         :return: repulsive weight
         """
         if not self.border_kdtree:
@@ -497,7 +500,7 @@ class MeshGraphSearch:
 
         if len(self.border_3d_points) > 0:
             xyz_d2 = np.array(self.border_3d_points)
-            print "xyz_d2.shape:", xyz_d2.shape
+            #print "xyz_d2.shape:", xyz_d2.shape
             scalars_d2 = np.ones(xyz_d2.shape[0])
             pts2 = mlab.points3d(xyz_d2[:, 0], xyz_d2[:, 1], xyz_d2[:, 2],
                                  scalars_d2,
