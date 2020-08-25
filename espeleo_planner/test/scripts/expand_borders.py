@@ -1,118 +1,33 @@
 #!/usr/bin/env python
 
+import sys
+import os
+import rospkg
 import rospy
 import pymesh
-import rospkg
-import os
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-import math
 import networkx as nx
 import numpy as np
 from mayavi import mlab
-from sklearn.cluster import DBSCAN
 from scipy import spatial
-from mpl_toolkits import mplot3d
-import matplotlib.pyplot as plt
 
+rospack = rospkg.RosPack()
+package_path = rospack.get_path('espeleo_planner')
+scripts_path = os.path.join(package_path, "scripts")
+sys.path.append(scripts_path)
 
-# remove faces
-# https://github.com/PyMesh/PyMesh/issues/118
-
-def weight_border(u, obstacle_kdtree, d0=6.0, c1=2.0, min_dist=0.1):
-    """Calculate the weight based on distance from border nodes
-    This weight aims to penalize paths closer to dangerous areas such as map borders and obstacles
-    Using repulsive potential fields https://youtu.be/MQjeqvbzhGQ?t=222
-    d0 = mininum_distance to evaluate
-    c1 = scale constant
-    obstacle_d = distance to the closest obstacle
-
-    if obstacle_d <= d0:
-        c1 * (1/obstacle_d - 1/d0)^2
-    else:
-        0
-
-    :param target: id of the target node
-    :return:
-    """
-    distances, nearest_idx = obstacle_kdtree.query([u])
-    obstacle_d = distances[0]
-
-    if obstacle_d <= min_dist:
-        # treating zero as a very close number
-        obstacle_d = min_dist
-
-    if obstacle_d <= d0:
-        repulsive_w = 1/2.0 * c1 * (((1 / float(obstacle_d)) - (1 / float(d0))) ** 2)
-    else:
-        repulsive_w = 0
-
-    print "distances:", distances, "obstacle_d:", obstacle_d, "repulsive_w:", repulsive_w
-
-    return repulsive_w
-
-
-def find_closer_centroid(centroids, p):
-    """
-    Find the centroid closer to P
-    :param centroids: list of 3D points
-    :param p: 3D point (x ,y, z)
-    :param tol: tolerance
-    :return:
-    """
-
-    source_face = -1
-    min_dist = 999999999999
-
-    rospy.loginfo("p:%s centroid_size:%d", p, len(centroids))
-
-    for idx, face in enumerate(centroids):
-        d = math.sqrt((face[0] - p[0]) ** 2 + (face[1] - p[1]) ** 2 + (face[2] - p[2]) ** 2)
-
-        if d < min_dist:
-            min_dist = d
-            source_face = idx
-
-    rospy.loginfo("Returned face idx: %f min_dist: %f %s", source_face, min_dist, centroids[source_face])
-    return source_face
-
-
-def terrain_weight(source_normal_p):
-    z_axe = [0, 0, -1]  # vector representing the Z axe
-    scalar = np.dot(source_normal_p, z_axe)  # scalar product between the face normal and Z axe
-    norms = np.linalg.norm(source_normal_p) * np.linalg.norm(z_axe)  # norm between face normal and Z Axe
-    cos_angle = scalar / norms
-
-    radians = math.acos(cos_angle)  # arccos of scalar/norms
-    angle_degrees = math.degrees(radians)
-    #angle_degrees = math.fabs(angle_degrees)
-
-    return angle_degrees
+import mesh_planner
+from mesh_planner import graph_search
 
 
 def create_graph(mesh, centroids, normals, robot_pos,
-                 traversal_tresh=35, bumpiness_tresh=0.37, dbscan_eps=3, dbscan_min_samples=2):
-    """
+                 traversal_tresh=35):
 
-    :param mesh:
-    :param centroids:
-    :param normals:
-    :param closer_centroid_idx:
-    :param traversal_tresh:
-    :param dbscan_eps:
-    :param dbscan_min_samples:
-    :return:
-    """
     print("Creating Graph... num faces:", mesh.num_faces)
 
     G = nx.Graph()
 
     for face_idx in xrange(mesh.num_faces):
-        face = mesh.faces[face_idx]
-
-        face_inclination = terrain_weight(normals[face_idx])
-        # if 0 <= face_inclination <= traversal_tresh or 180 - traversal_tresh <= face_inclination <= 180:
+        face_inclination = graph_search.MeshGraphSearch.calculate_traversal_angle(normals[face_idx])
         if traversal_tresh < face_inclination < 180 - traversal_tresh:
             continue
 
@@ -132,25 +47,23 @@ def create_graph(mesh, centroids, normals, robot_pos,
     g_centroids = [(centroids[v][0], centroids[v][1], centroids[v][2]) for v in sorted(G.nodes())]
     centroid_g_dict = {i: v for i, v in enumerate(sorted(G.nodes()))}
 
-    closer_centroid_idx = find_closer_centroid(g_centroids, robot_pos)
+    closer_centroid_idx = mesh_planner.mesh_helper.find_closer_centroid(g_centroids, robot_pos,
+                                                                        force_return_closer=True)
     conn_nodes = nx.node_connected_component(G, centroid_g_dict[closer_centroid_idx])
     Gconn = G.subgraph(conn_nodes).copy()
-
-    gcon_centroids = [(centroids[v][0], centroids[v][1], centroids[v][2]) for v in sorted(Gconn.nodes())]
-    xyz = np.array(gcon_centroids)
-    scalars = xyz[:, 2] #np.array(list(Gconn.nodes())) #xyz[:, 2]  #+ 5
+    Gconn_original = Gconn.copy()
 
     # estimate borders of the remainder graph
     # border_nodes = [Gconn.info(v) for v in sorted(Gconn.nodes())]
-    centroids_degree_2 = []
+    border_centroids = []
     for v in sorted(Gconn.nodes()):
         if nx.degree(G, v) <= 9:
-            centroids_degree_2.append((centroids[v][0], centroids[v][1], centroids[v][2]))
+            border_centroids.append((centroids[v][0], centroids[v][1], centroids[v][2]))
 
     # remove nodes from graph that are near to the borders
     # given a distance treshold
-    border_kdtree = spatial.KDTree(centroids_degree_2)
-    border_tresh = 2
+    border_kdtree = spatial.KDTree(border_centroids)
+    border_tresh = 0.4
     for v in list(Gconn.nodes()):
         point = centroids[v]
         distances, nearest_idx = border_kdtree.query([point])
@@ -164,8 +77,22 @@ def create_graph(mesh, centroids, normals, robot_pos,
             for node in component:
                 G.remove_node(node)
 
-    mlab.figure(1, bgcolor=(0, 0, 0))
+    f1 = mlab.figure("Borderless graph", bgcolor=(0, 0, 0))
     mlab.clf()
+    plot_points(Gconn, centroids, border_centroids)
+
+    f2 = mlab.figure("Original graph", bgcolor=(0, 0, 0))
+    mlab.clf()
+    plot_points(Gconn_original, centroids, border_centroids)
+
+    mlab.sync_camera(f1, f2)
+    mlab.show()
+
+
+def plot_points(Gconn, centroids, border_centroids):
+    gcon_centroids = [(centroids[v][0], centroids[v][1], centroids[v][2]) for v in sorted(Gconn.nodes())]
+    xyz = np.array(gcon_centroids)
+    scalars = xyz[:, 2]  # np.array(list(Gconn.nodes())) #xyz[:, 2]  #+ 5
 
     pts = mlab.points3d(xyz[:, 0], xyz[:, 1], xyz[:, 2],
                         scalars,
@@ -174,19 +101,7 @@ def create_graph(mesh, centroids, normals, robot_pos,
                         colormap='Blues',
                         resolution=20)
 
-
-    xyz_d2 = np.array(centroids_degree_2)
-    #print "xyz_d2.shape:", xyz_d2.shape
-    scalars_d2 = np.ones(xyz_d2.shape[0])
-    pts2 = mlab.points3d(xyz_d2[:, 0], xyz_d2[:, 1], xyz_d2[:, 2],
-                        scalars_d2,
-                        scale_factor=0.2,
-                        scale_mode='none',
-                        color=(1.0, 0.0, 0.0),
-                        resolution=20)
-
     centroid_gcon_dict = {v: int(i) for i, v in enumerate(gcon_centroids)}
-    print "centroid_gcon_dict:", centroid_gcon_dict.keys()
     edge_list = []
     for e in Gconn.edges():
         e1 = (centroids[e[0]][0], centroids[e[0]][1], centroids[e[0]][2])
@@ -194,87 +109,54 @@ def create_graph(mesh, centroids, normals, robot_pos,
         edge_list.append([centroid_gcon_dict[e1], centroid_gcon_dict[e2]])
 
     edge_list = np.array(edge_list)
-    #edge_list = np.array(list(Gconn.edges()))
-    print "edge_list:", edge_list
     pts.mlab_source.dataset.lines = np.array(edge_list)
-    #pts.update()
     lines = mlab.pipeline.stripper(pts)
-    mlab.pipeline.surface(lines, color=(0.2, 0.4, 0.5), line_width=1, opacity=.4)  #colormap='Accent',
+    mlab.pipeline.surface(lines, color=(0.2, 0.4, 0.5), line_width=1, opacity=.4)
 
-    # tube = mlab.pipeline.tube(pts, tube_radius=0.1)
-    # mlab.pipeline.surface(tube, color=(0.8, 0.8, 0.8))
-
-    # triangles = [mesh.faces[n] for n in sorted(Gconn.nodes())]
-    # xyz = mesh.vertices
-    #
-    # wire_mesh = mlab.triangular_mesh(xyz[:, 0], xyz[:, 1], xyz[:, 2], triangles,
-    #                             representation='wireframe',
-    #                             opacity=0.2)
-
-    #f = [weight_border(centroids[n], border_kdtree) for n in sorted(Gconn.nodes())]
-    # f = [centroids[n][2] for n in sorted(Gconn.nodes())]
-    # print sorted(f)
-    # #f = [weight_border2(centroids[n], centroids_degree_2, d0=3.0, c1=1, min_dist=0.2) for n in sorted(Gconn.nodes())]
-    # wire_mesh.mlab_source.dataset.cell_data.scalars = f
-    # wire_mesh.mlab_source.dataset.cell_data.scalars.name = "Cell data"
-    # wire_mesh.mlab_source.update()
-    #mesh2 = mlab.pipeline.set_active_attribute(wire_mesh) #, cell_scalars = "Cell data"
-
-    # #f = [weight_border(v, border_kdtree, d0=3.0, c1=1, min_dist=0.2) for v in mesh.vertices]
-    # f = [weight_border2(v, centroids_degree_2, d0=3.0, c1=1, min_dist=0.8) for v in mesh.vertices]
-    # wire_mesh.mlab_source.dataset.point_data.scalars = f
-    # wire_mesh.mlab_source.dataset.point_data.scalars.name = "Point data"
-    # wire_mesh.mlab_source.update()
-    # mesh2 = mlab.pipeline.set_active_attribute(wire_mesh, point_scalars='Point data')
-
-    #mlab.pipeline.surface(mesh2, colormap='jet')
-
-    # #mlab.savefig('/tmp/mayavi2_spring.png')
-    mlab.show() # interactive window
-
-    # # plot 2D representation of the function for this map
-    # fig = plt.figure()
-    # ax = plt.axes(projection='3d')
-    #
-    # xyz_gconn = np.asarray([centroids[n] for n in sorted(Gconn.nodes())])
-    # ax.plot_trisurf(xyz_gconn[:, 0], xyz_gconn[:, 1], f, cmap='viridis', edgecolor='none')
-    # ax.set_title('Surface plot')
-    # plt.show()
+    xyz_borders = np.array(border_centroids)
+    scalars_d2 = np.ones(xyz_borders.shape[0])
+    mlab.points3d(xyz_borders[:, 0], xyz_borders[:, 1], xyz_borders[:, 2],
+                         scalars_d2,
+                         scale_factor=0.2,
+                         scale_mode='none',
+                         color=(1.0, 0.0, 0.0),
+                         resolution=20)
 
 
 if __name__ == '__main__':
-    rospy.init_node('filter_mesh_node')
-    rospy.loginfo("filter_mesh_node start")
+    rospy.init_node('expand_borders_node')
+    rospy.loginfo("expand_borders_node start")
 
-    rospack = rospkg.RosPack()
-    package_path = rospack.get_path('espeleo_planner')
+    test_files = [
+        {"map": "map_01_frontiers.stl",
+         "pos": (-4, 0, 0)},
+        {"map": "map_02_stairs_cavelike.stl",
+         "pos": (-4, -1.25, 0.5)},
+        {"map": "map_03_narrow_passage.stl",
+         "pos": (-4, -1.25, 0.5)},
+        {"map": "map_03_narrow_passage_v2.stl",
+         "pos": (-4, -1.25, 0.5)},
+        {"map": "map_04_stairs_perfect.stl",
+         "pos": (-4, -1.25, 0.5)},
+        {"map": "map_05_cavelike.stl",
+         "pos": (0, 0, 0)},
+    ]
 
-    # mesh_path = os.path.join(package_path, "test", "map_frontiers.stl")
-    # robot_pos = (0, 0, 0)
+    for test in test_files[:]:
+        mesh_path = os.path.join(package_path, "test", "maps", test["map"])
+        robot_pos = test["pos"]
 
-    mesh_path = os.path.join(package_path, "test", "map_01_v2.stl")
-    robot_pos = (-4, 0, 0)
+        mesh = pymesh.load_mesh(mesh_path)
 
-    # mesh_path = os.path.join(package_path, "test", "map_02v2.stl")
-    # robot_pos = (-4, -1.25, 0.5)
+        mesh.enable_connectivity()  # enables connectivity on mesh
+        mesh.add_attribute("face_centroid")  # adds the face centroids to be accessed
+        mesh.add_attribute("face_normal")  # adds the face normals to be accessed
+        mesh.add_attribute("vertex_valance")
 
-    # mesh_path = os.path.join(package_path, "test", "map_02v2_many_faces.stl")
-    # robot_pos = (-4, -1.25, 0.5)
+        faces = mesh.faces
+        centroids = mesh.get_face_attribute("face_centroid")
+        normals = mesh.get_face_attribute("face_normal")
+        vertex_valance = mesh.get_vertex_attribute("vertex_valance")
 
-    # mesh_path = os.path.join(package_path, "test", "map_stairs.stl")
-    # robot_pos = (0, 0, 0)
-
-    mesh = pymesh.load_mesh(mesh_path)
-
-    mesh.enable_connectivity()  # enables connectivity on mesh
-    mesh.add_attribute("face_centroid")  # adds the face centroids to be accessed
-    mesh.add_attribute("face_normal")  # adds the face normals to be accessed
-    mesh.add_attribute("vertex_valance")
-
-    faces = mesh.faces
-    centroids = mesh.get_face_attribute("face_centroid")
-    normals = mesh.get_face_attribute("face_normal")
-    vertex_valance = mesh.get_vertex_attribute("vertex_valance")
-
-    create_graph(mesh, centroids, normals, robot_pos)
+        create_graph(mesh, centroids, normals, robot_pos)
 

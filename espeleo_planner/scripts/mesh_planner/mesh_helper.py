@@ -97,7 +97,7 @@ def angle_between_vectors(v1, v2):
     return np.degrees(arccos_u)
 
 
-def find_face_centroid(centroids, p, tol=1.e-2, force_return_closer=False):
+def find_closer_centroid(centroids, p, tol=1.e-2, force_return_closer=False):
     """
     Find the centroid closer to P with a tolerance
     :param centroids: list of 3D points

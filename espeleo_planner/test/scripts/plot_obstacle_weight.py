@@ -1,21 +1,21 @@
 #!/usr/bin/env python
 
+import sys
+import os
+import math
+import rospkg
 import rospy
 import pymesh
-import rospkg
-import os
-import numpy as np
-import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-import math
 import networkx as nx
 import numpy as np
 from mayavi import mlab
-from sklearn.cluster import DBSCAN
 from scipy import spatial
-from mpl_toolkits import mplot3d
 import matplotlib.pyplot as plt
 
+rospack = rospkg.RosPack()
+package_path = rospack.get_path('espeleo_planner')
+scripts_path = os.path.join(package_path, "scripts")
+sys.path.append(scripts_path)
 
 # remove faces
 # https://github.com/PyMesh/PyMesh/issues/118
@@ -330,38 +330,39 @@ def create_graph(mesh, centroids, normals, robot_pos,
 
 
 if __name__ == '__main__':
-    rospy.init_node('filter_mesh_node')
-    rospy.loginfo("filter_mesh_node start")
+    rospy.init_node('obstacle_weight_node')
+    rospy.loginfo("obstacle_weight start")
 
-    rospack = rospkg.RosPack()
-    package_path = rospack.get_path('espeleo_planner')
+    test_files = [
+        {"map": "map_01_frontiers.stl",
+         "pos": (-4, 0, 0)},
+        {"map": "map_02_stairs_cavelike.stl",
+         "pos": (-4, -1.25, 0.5)},
+        {"map": "map_03_narrow_passage.stl",
+         "pos": (-4, -1.25, 0.5)},
+        {"map": "map_03_narrow_passage_v2.stl",
+         "pos": (-4, -1.25, 0.5)},
+        {"map": "map_04_stairs_perfect.stl",
+         "pos": (-4, -1.25, 0.5)},
+        {"map": "map_05_cavelike.stl",
+         "pos": (0, 0, 0)},
+    ]
 
-    # mesh_path = os.path.join(package_path, "test", "map_frontiers.stl")
-    # robot_pos = (0, 0, 0)
+    for test in test_files[:]:
+        mesh_path = os.path.join(package_path, "test", "maps", test["map"])
+        robot_pos = test["pos"]
 
-    mesh_path = os.path.join(package_path, "test", "map_01_v2.stl")
-    robot_pos = (-4, 0, 0)
+        mesh = pymesh.load_mesh(mesh_path)
 
-    # mesh_path = os.path.join(package_path, "test", "map_02v2.stl")
-    # robot_pos = (-4, -1.25, 0.5)
+        mesh.enable_connectivity()  # enables connectivity on mesh
+        mesh.add_attribute("face_centroid")  # adds the face centroids to be accessed
+        mesh.add_attribute("face_normal")  # adds the face normals to be accessed
+        mesh.add_attribute("vertex_valance")
 
-    # mesh_path = os.path.join(package_path, "test", "map_02v2_many_faces.stl")
-    # robot_pos = (-4, -1.25, 0.5)
+        faces = mesh.faces
+        centroids = mesh.get_face_attribute("face_centroid")
+        normals = mesh.get_face_attribute("face_normal")
+        vertex_valance = mesh.get_vertex_attribute("vertex_valance")
 
-    # mesh_path = os.path.join(package_path, "test", "map_stairs.stl")
-    # robot_pos = (0, 0, 0)
-
-    mesh = pymesh.load_mesh(mesh_path)
-
-    mesh.enable_connectivity()  # enables connectivity on mesh
-    mesh.add_attribute("face_centroid")  # adds the face centroids to be accessed
-    mesh.add_attribute("face_normal")  # adds the face normals to be accessed
-    mesh.add_attribute("vertex_valance")
-
-    faces = mesh.faces
-    centroids = mesh.get_face_attribute("face_centroid")
-    normals = mesh.get_face_attribute("face_normal")
-    vertex_valance = mesh.get_vertex_attribute("vertex_valance")
-
-    create_graph(mesh, centroids, normals, robot_pos)
+        create_graph(mesh, centroids, normals, robot_pos)
 

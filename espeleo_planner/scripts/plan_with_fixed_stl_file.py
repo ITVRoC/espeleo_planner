@@ -52,9 +52,9 @@ if __name__ == '__main__':
         vertices = mesh_load.vertices
         ver_face = mesh_load.faces
 
-        source_face = mesh_helper.find_face_centroid(centroids, src, force_return_closer=True)
+        source_face = mesh_helper.find_closer_centroid(centroids, src, force_return_closer=True)
 
-        target_face = mesh_helper.find_face_centroid(centroids, dst, force_return_closer=True)
+        target_face = mesh_helper.find_closer_centroid(centroids, dst, force_return_closer=True)
 
         # check if src and dst faces are found
         if source_face == -1 or target_face == -1:
