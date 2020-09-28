@@ -55,6 +55,7 @@ class texture {
     std::vector<Color> &colors;
 
     std::string output_path;
+    std::string base_path;
     my_png img;
     int texture_size;
     vector<vertex> vertices;
@@ -64,15 +65,11 @@ class texture {
 
 public:
 
-    texture(Tree &tree, std::vector<Color> &colors, std::string output_path, int texture_size) : tree(tree),
-                                                                                                 colors(colors),
-                                                                                                 output_path(
-                                                                                                         output_path),
-                                                                                                 texture_size(
-                                                                                                         texture_size) {
+    texture(Tree &tree, std::vector<Color> &colors, std::string output_path, int texture_size, std::string base_path) :
+    tree(tree), colors(colors), output_path(output_path), texture_size(texture_size), base_path(base_path){
         img = my_png(texture_size, texture_size); //initialize image for texture
         uv_idx = 0;
-        read_off("temp3.off");
+        read_off(base_path + "temp3.off");
     }
 
     void build_png();

@@ -1,5 +1,5 @@
 <launch>
-    <node pkg="espeleo_planner" type="mesh_planner_node.py"
+    <node pkg="espeleo_planner" type="mesh_planner_manual_node.py"
             name="mesh_planner_node" output="screen">
     </node>
 

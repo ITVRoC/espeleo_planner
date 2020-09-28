@@ -1,12 +1,13 @@
 #include "recon_surface/hole_filling.hpp"
 
-int fill_hole(std::string mesh_path, double max_perimeter) {
+int fill_hole(std::string mesh_path, double max_perimeter, std::string base_path) {
 
-    const char *filename = "temp2.off";
+    std::string filename = base_path + "temp2.off";
+    //const char *filename = base_temp;
     std::ifstream input(filename);
     P poly;
     if (!input || !(input >> poly) || poly.empty()) {
-        ROS_ERROR_STREAM("Not a valid off file.");
+        ROS_ERROR_STREAM("Not a valid off file (fill_hole): " << filename);
         return 0;
     }
     // Incrementally fill the holes

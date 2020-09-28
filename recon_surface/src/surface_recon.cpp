@@ -111,13 +111,41 @@ mst_orient_normals_modified(
     IndexPMap index_pmap(first, beyond);
 
     // Orients the normal of the point with maximum Z towards +Z axis.
-//    ForwardIterator source_point
-//            = mst_find_source(first, beyond,
-//                              point_pmap, normal_pmap,
-//                              kernel);
+    ForwardIterator first2 = first;
+    ForwardIterator source_point
+            = mst_find_source(first, beyond,
+                              point_pmap, normal_pmap,
+                              kernel);
 
-    // Find top point
-    ForwardIterator source_point = first;
+    // Find the closer point to the 0, 0, 0
+    // This is a heuristic to prevent the reconstruction of only
+    // small remote poitn cloud components
+    // This point will be used as origin by the MST algorithm over the
+    // Riemannian Graph
+    ForwardIterator closest_point = first2;
+    double p_dist = std::sqrt(
+            std::pow(get(point_pmap,*closest_point).x(), 2) +
+            std::pow(get(point_pmap,*closest_point).y(), 2) +
+            std::pow(get(point_pmap,*closest_point).z(), 2));
+
+    double local_dist = 0;
+    for (ForwardIterator v = ++first2; v != beyond; v++)
+    {
+        local_dist = std::sqrt(
+                std::pow(get(point_pmap,*v).x(), 2) +
+                std::pow(get(point_pmap,*v).y(), 2) +
+                std::pow(get(point_pmap,*v).z(), 2));
+
+        if (local_dist < p_dist){
+            closest_point = v;
+            p_dist = local_dist;
+//            ROS_DEBUG_STREAM("New source: x:" << get(point_pmap,*v).x() << " y:" << get(point_pmap,*v).y() <<
+//            " z:" << get(point_pmap,*v).z() << " dist:" << local_dist);
+        }
+    }
+
+/*
+ * ForwardIterator source_point = first;
     typedef typename boost::property_traits<NormalPMap>::value_type Vector;
     typedef typename boost::property_traits<NormalPMap>::reference Vector_ref;
     // Orients its normal towards +Z axis
@@ -127,7 +155,7 @@ mst_orient_normals_modified(
         CGAL_TRACE("  Flip top point normal\n");
         put(normal_pmap,*source_point, -normal);
     }
-
+*/
 
     // Iterates over input points and creates Riemannian Graph:
     // - vertices are numbered like the input points index.
@@ -149,7 +177,7 @@ mst_orient_normals_modified(
                                            k,
                                            kernel,
                                            riemannian_graph,
-                                           source_point);
+                                           closest_point); // originally this was source_point
 
     const std::size_t num_input_points2 = num_vertices(mst_graph);
     ROS_DEBUG_STREAM("Num vertices mst graph:" << num_input_points2);
@@ -161,7 +189,7 @@ mst_orient_normals_modified(
 
     // Traverse the point set along the MST to propagate source_point's orientation
     CGAL::internal::Propagate_normal_orientation<ForwardIterator, NormalPMap, Kernel> orienter;
-    std::size_t source_point_index = get(index_pmap, source_point);
+    std::size_t source_point_index = get(index_pmap, closest_point);
     boost::breadth_first_search(mst_graph,
                                 vertex(source_point_index, mst_graph), // source
                                 visitor(boost::make_bfs_visitor(orienter)));
@@ -230,7 +258,7 @@ std::list<PointVectorPair> register_normals(std::vector<Point> sampled_points, s
     return refined;
 }
 
-Mesh reconstruct_surface(std::list<PointVectorPair> &pwn) {
+Mesh reconstruct_surface(std::list<PointVectorPair> &pwn, std::string base_path) {
     // Poisson options
     FT sm_angle = 20.0; //20.0 Min triangle angle in degrees.
     FT sm_radius = 8.0; // Max triangle size w.r.t. point set average spacing. //10.0
@@ -377,7 +405,7 @@ void write_ply_wnormals(std::string out_file, std::list<PointVectorPair> &point_
     fclose(f);
 }
 
-void trim_mesh(Mesh m, Tree &tree, double threshold) {
+void trim_mesh(Mesh m, Tree &tree, double threshold, std::string base_path) {
     Distance tr_dist;
     ROS_DEBUG_STREAM("Threshold for trim: " << threshold);
 
@@ -410,6 +438,6 @@ void trim_mesh(Mesh m, Tree &tree, double threshold) {
     //CGAL::Polygon_mesh_processing::keep_largest_connected_components(m,1);
     //std::cout<<"Done."<<std::endl;
     m.collect_garbage();
-    std::ofstream out("temp2.off");
+    std::ofstream out(base_path + "temp2.off");
     out << m;
 }

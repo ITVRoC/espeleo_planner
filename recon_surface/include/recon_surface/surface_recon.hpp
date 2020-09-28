@@ -92,12 +92,12 @@ void estimate_normals(std::vector<Point> &pts, std::list<PointVectorPair> &point
 
 std::list<PointVectorPair> register_normals(std::vector<Point> sampled_points, std::list<PointVectorPair> original);
 
-Mesh reconstruct_surface(std::list<PointVectorPair> &pwn);
+Mesh reconstruct_surface(std::list<PointVectorPair> &pwn, std::string base_path);
 
 void
 write_ply_wnormals(std::string out, std::list<PointVectorPair> &point_list, Tree &tree, std::vector<Color> &colors);
 
-void trim_mesh(Mesh m, Tree &tree, double average_spacing);
+void trim_mesh(Mesh m, Tree &tree, double average_spacing, std::string base_path);
 
 template <typename ForwardIterator,
         typename PointPMap,

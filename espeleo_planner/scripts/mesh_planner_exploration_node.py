@@ -15,7 +15,7 @@ from nav_msgs.msg import Odometry
 from geometry_msgs.msg import PoseStamped
 
 
-class MeshPlanner:
+class MeshExplorationPlanner:
     """
     Doc here #todo
     """
@@ -156,10 +156,13 @@ if __name__ == '__main__':
                 rospy.loginfo("pointcloud processed result: %s", resp1)
             except rospy.ServiceException as e:
                 rospy.logerr("Service call failed: %s", e)
-                processing_service = False
             except Exception as e:
                 rospy.logerr("Exception: %s", e)
-                processing_service = False
+
+            if mesh_filepath is None:
+                rospy.logerr("mesh_filepath is None, cannot continue with the planning")
+                rate_slow.sleep()
+                continue
 
             # load the mesh and locate the face closer to the src and dst points
             mesh_load = pymesh.load_mesh(mesh_filepath)
@@ -187,16 +190,16 @@ if __name__ == '__main__':
                 rate_slow.sleep()
                 continue
 
-            graph_metrics = [GraphMetric(GraphMetricType.SHORTEST, source_face, target_face),
-                             GraphMetric(GraphMetricType.FLATTEST, source_face, target_face),
-                             GraphMetric(GraphMetricType.ENERGY, source_face, target_face),
-                             GraphMetric(GraphMetricType.COMBINED, source_face, target_face),
-                             GraphMetric(GraphMetricType.STRAIGHTEST, source_face, target_face)]
+            # graph_metrics = [GraphMetric(GraphMetricType.SHORTEST, source_face, target_face),
+            #                  GraphMetric(GraphMetricType.FLATTEST, source_face, target_face),
+            #                  GraphMetric(GraphMetricType.ENERGY, source_face, target_face),
+            #                  GraphMetric(GraphMetricType.COMBINED, source_face, target_face),
+            #                  GraphMetric(GraphMetricType.STRAIGHTEST, source_face, target_face)]
 
             #graph_metrics = [GraphMetric(GraphMetricType.SHORTEST, source_face, target_face)]
             #graph_metrics = [GraphMetric(GraphMetricType.FLATTEST, source_face, target_face)]
             #graph_metrics = [GraphMetric(GraphMetricType.ENERGY, source_face, target_face)]
-            #graph_metrics = [GraphMetric(GraphMetricType.COMBINED, source_face, target_face)]
+            graph_metrics = [GraphMetric(GraphMetricType.COMBINED, source_face, target_face)]
             #graph_metrics = [GraphMetric(GraphMetricType.STRAIGHTEST, source_face, target_face)]
 
             planner = mesh_planner.MeshPathFinder(mesh_filepath, graph_metrics)

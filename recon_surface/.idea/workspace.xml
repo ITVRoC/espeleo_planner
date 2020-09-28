@@ -5,18 +5,15 @@
       <config projectName="recon_surface" targetName="roscpp_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="topic_tools_generate_messages_py" />
       <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_py" />
-      <config projectName="recon_surface" targetName="gmock" />
+      <config projectName="recon_surface" targetName="tf_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="std_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_eus" />
       <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="octomap_msgs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="bond_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="std_srvs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="std_srvs_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="tf_generate_messages_py" />
       <config projectName="recon_surface" targetName="std_srvs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="recon_surface_generate_messages_eus" />
       <config projectName="recon_surface" targetName="recon_surface_generate_messages" />
       <config projectName="recon_surface" targetName="actionlib_msgs_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="topic_tools_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="tf_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="std_msgs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_nodejs" />
@@ -28,37 +25,43 @@
       <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="download_extra_data" />
       <config projectName="recon_surface" targetName="nodelet_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="nodelet_generate_messages_py" />
+      <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="actionlib_msgs_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="gtest_main" />
-      <config projectName="recon_surface" targetName="std_msgs_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="tf_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="tests" />
       <config projectName="recon_surface" targetName="visualization_msgs_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="pcl_ros_gencfg" />
       <config projectName="recon_surface" targetName="pcl_msgs_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="bond_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="topic_tools_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="recon_surface_geneus" />
       <config projectName="recon_surface" targetName="recon_surface" />
       <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="nodelet_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="visualization_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="roscpp_generate_messages_py" />
       <config projectName="recon_surface" targetName="recon_surface_gencfg" />
-      <config projectName="recon_surface" targetName="std_srvs_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="visualization_msgs_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="recon_surface_genpy" />
-      <config projectName="recon_surface" targetName="recon_surface_gencpp" />
+      <config projectName="recon_surface" targetName="actionlib_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="recon_surface_generate_messages_lisp" />
+      <config projectName="recon_surface" targetName="roscpp_generate_messages_eus" />
       <config projectName="recon_surface" targetName="actionlib_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="bond_generate_messages_lisp" />
+      <config projectName="recon_surface" targetName="recon_surface_gencpp" />
+      <config projectName="recon_surface" targetName="gmock" />
       <config projectName="recon_surface" targetName="octomap_msgs_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="nodelet_generate_messages_py" />
+      <config projectName="recon_surface" targetName="clean_test_results" />
       <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="actionlib_msgs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="recon_surface_service" />
       <config projectName="recon_surface" targetName="roscpp_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="recon_surface_gennodejs" />
       <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="recon_surface_genlisp" />
       <config projectName="recon_surface" targetName="actionlib_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="visualization_msgs_generate_messages_eus" />
       <config projectName="recon_surface" targetName="pcl_msgs_generate_messages_nodejs" />
@@ -66,54 +69,51 @@
       <config projectName="recon_surface" targetName="pcl_msgs_generate_messages_eus" />
       <config projectName="recon_surface" targetName="bond_generate_messages_eus" />
       <config projectName="recon_surface" targetName="gmock_main" />
-      <config projectName="recon_surface" targetName="bond_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="clean_test_results" />
-      <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="std_srvs_generate_messages_py" />
       <config projectName="recon_surface" targetName="octomap_msgs_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="actionlib_generate_messages_py" />
-      <config projectName="recon_surface" targetName="tf_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="std_msgs_generate_messages_py" />
+      <config projectName="recon_surface" targetName="gtest" />
       <config projectName="recon_surface" targetName="topic_tools_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="dynamic_reconfigure_gencfg" />
-      <config projectName="recon_surface" targetName="recon_surface_geneus" />
+      <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="bond_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="actionlib_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="pcl_msgs_generate_messages_lisp" />
+      <config projectName="recon_surface" targetName="bond_generate_messages_py" />
       <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="recon_surface_generate_messages_py" />
-      <config projectName="recon_surface" targetName="gtest" />
-      <config projectName="recon_surface" targetName="roscpp_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="topic_tools_generate_messages_eus" />
       <config projectName="recon_surface" targetName="pcl_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="nodelet_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="octomap_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_py" />
-      <config projectName="recon_surface" targetName="topic_tools_generate_messages_eus" />
       <config projectName="recon_surface" targetName="run_tests" />
-      <config projectName="recon_surface" targetName="nodelet_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="std_msgs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="visualization_msgs_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="std_srvs_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="tf_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="_recon_surface_generate_messages_check_deps_MeshFromPointCloud2" />
-      <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="std_msgs_generate_messages_eus" />
       <config projectName="recon_surface" targetName="doxygen" />
       <config projectName="recon_surface" targetName="recon_surface_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_py" />
-      <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="tf_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="std_msgs_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="nodelet_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="std_srvs_generate_messages_py" />
+      <config projectName="recon_surface" targetName="recon_surface_genlisp" />
       <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_py" />
+      <config projectName="recon_surface" targetName="topic_tools_generate_messages_lisp" />
+      <config projectName="recon_surface" targetName="octomap_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="std_srvs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="std_srvs_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_eus" />
       <config projectName="recon_surface" targetName="roscpp_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="tf_generate_messages_py" />
-      <config projectName="recon_surface" targetName="recon_surface_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="bond_generate_messages_py" />
-      <config projectName="recon_surface" targetName="actionlib_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="nodelet_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="std_msgs_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="recon_surface_genpy" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -123,48 +123,63 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f76bf36a-e59f-4dad-bf87-31a447b4e91f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/espeleo_planner.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/dictionaries/h3ct0r.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/config/general.config" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/launch/espeleo_mapping_lidar.launch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/launch/mesh_planner.launch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/rviz/espeleo_coppelia.rviz" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_frontier/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/graph_metrics.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/graph_search.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_helper.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_planner.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner_node.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/test_with_fixed_stl_file.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/extract_frontier_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/map_frontiers.stl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/map_stairs.stl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/remove_unreachable_faces_test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/steps_scene_espeleo2_lidar_6wheels.ttt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/general.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/espeleo_planner.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/include/depth_sensor.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/include/frontier_entropy.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/include/frontier_information.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/launch/mesh_planner_manual.launch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_exploration/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_planner_base.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_planner_node.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner_exploration_node.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/obstacle_detection_3d_lidar.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/src/frontier_entropy.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/src/frontier_entropy_node.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/srv/processAllFrontiers.srv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/srv/processFrontier.srv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/src/octomap_raytracing.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/src/publish_360_projection.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/.name" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/espeleo_planner.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/dictionaries/h3ct0r.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/dictionaries/h3ct0r.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/libraries/ROS.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/libraries/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/planning_integrated.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/ros.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../espeleo_planner/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/launch/rtabmap.launch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/package.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/package.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/BibMathEns.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/MeshPathFinder.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/launch/espeleo_mapping_lidar.launch" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/launch/espeleo_mapping_lidar.launch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/launch/mesh_planner.launch" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/launch/mesh_planner_exploration.launch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/rviz/espeleo_coppelia.rviz" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/rviz/espeleo_coppelia.rviz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/convert_nav_msgs_path_to_espeleo_path.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/convert_nav_msgs_path_to_espeleo_path.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/plann_call.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/src/SourceSubscriber.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/src/SourceSubscriber.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/src/TargetSubscriber.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/src/TargetSubscriber.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/src/planner_integrate_node.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/graph_metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/graph_metrics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/graph_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/graph_search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_planner.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner_node.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner_manual_node.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/plan_with_fixed_stl_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/plan_with_fixed_stl_file.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/test/scripts/plot_obstacle_weight.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/test/scripts/plot_obstacle_weight.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/test/steps_scene_espeleo2_lidar_6wheels.ttt" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/test/steps_scene_espeleo2_lidar_6wheels.ttt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/basic_recon_v2.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/basic_recon_v2.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/recon_surface/hole_filling.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/recon_surface/hole_filling.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/recon_surface/surface_recon.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/recon_surface/surface_recon.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/launch/recon_service.launch" beforeDir="false" afterPath="$PROJECT_DIR$/launch/recon_service.launch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/recon_surface/texture.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/recon_surface/texture.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/launch/test_recon_service.launch" beforeDir="false" afterPath="$PROJECT_DIR$/launch/test_recon_service.launch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pset.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/pset.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hole_filling.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/hole_filling.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/recon_service_from_pointcloud.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/recon_service_from_pointcloud.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rm_artifacts.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rm_artifacts.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/surface_recon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/surface_recon.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -184,8 +199,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/recon_service_from_pointcloud.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
-              <caret line="404" column="33" selection-start-line="404" selection-start-column="33" selection-end-line="404" selection-end-column="33" />
+            <state relative-caret-position="456">
+              <caret line="302" column="88" selection-start-line="302" selection-start-column="69" selection-end-line="302" selection-end-column="88" />
               <folding>
                 <element signature="e#0#20#0" expanded="true" />
               </folding>
@@ -194,25 +209,52 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/script/publish_mesh_marker.py">
+        <entry file="file://$PROJECT_DIR$/src/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="23" column="19" lean-forward="true" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+            <state relative-caret-position="1443">
+              <caret line="111" column="55" selection-start-line="111" selection-start-column="49" selection-end-line="111" selection-end-column="55" />
               <folding>
-                <element signature="e#23#35#0" expanded="true" />
+                <element signature="e#0#19#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/script/test_mesh_service.py">
+        <entry file="file://$PROJECT_DIR$/include/recon_surface/hole_filling.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="37" column="14" lean-forward="true" selection-start-line="36" selection-start-column="4" selection-end-line="37" selection-end-column="14" />
+            <state relative-caret-position="299">
+              <caret line="23" column="13" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="13" />
               <folding>
-                <element signature="e#23#35#0" expanded="true" />
+                <element signature="e#47#110#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/hole_filling.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="78">
+              <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/rm_artifacts.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="355">
+              <caret line="98" column="58" selection-start-line="98" selection-start-column="58" selection-end-line="98" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/include/recon_surface/texture.hpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -220,8 +262,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/include/recon_surface/surface_recon.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="51" column="60" selection-start-line="51" selection-start-column="60" selection-end-line="51" selection-end-column="60" />
+            <state relative-caret-position="222">
+              <caret line="94" column="5" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
               <folding>
                 <element signature="e#115#178#0" expanded="true" />
               </folding>
@@ -232,31 +274,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/surface_recon.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1183">
-              <caret line="91" column="33" selection-start-line="91" selection-start-column="33" selection-end-line="91" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file:///usr/local/include/CGAL/mst_orient_normals.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3859">
-              <caret line="330" column="61" selection-start-line="330" selection-start-column="61" selection-end-line="330" selection-end-column="61" />
-              <folding>
-                <element signature="e#798#846#0" expanded="true" />
-                <element signature="e#2356#2382#0" expanded="true" />
-                <element signature="e#2515#2541#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/general.config">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="52">
-              <caret line="4" column="30" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
+            <state relative-caret-position="-706">
+              <caret line="260" column="82" selection-start-line="260" selection-start-column="82" selection-end-line="260" selection-end-column="82" />
             </state>
           </provider>
         </entry>
@@ -265,7 +284,7 @@
         <entry file="file://$PROJECT_DIR$/launch/test_recon_service.launch">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="26">
-              <caret line="2" column="85" selection-start-line="2" selection-start-column="85" selection-end-line="2" selection-end-column="85" />
+              <caret line="2" column="76" selection-start-line="2" selection-start-column="76" selection-end-line="2" selection-end-column="76" />
             </state>
           </provider>
         </entry>
@@ -289,8 +308,15 @@
       <find>mst_orient_normals</find>
       <find>create_mst_graph</find>
       <find>mst_find_source</find>
-      <find>source_point</find>
       <find>estimated_pwn</find>
+      <find>source_point</find>
+      <find>p_dist</find>
+      <find>mst_graph</find>
+      <find>create_riemannian_graph</find>
+      <find>off</find>
+      <find>fill_hole</find>
+      <find>Not a valid off file</find>
+      <find>reconstruct_surface</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -302,19 +328,26 @@
         <option value="$PROJECT_DIR$/src/pset.cpp" />
         <option value="$PROJECT_DIR$/launch/recon_service.launch" />
         <option value="$PROJECT_DIR$/config/general.config" />
+        <option value="$PROJECT_DIR$/script/test_mesh_service.py" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/launch/test_recon_service.launch" />
+        <option value="$PROJECT_DIR$/include/recon_surface/texture.hpp" />
+        <option value="$PROJECT_DIR$/src/rm_artifacts.cpp" />
         <option value="$PROJECT_DIR$/include/recon_surface/surface_recon.hpp" />
         <option value="$PROJECT_DIR$/src/surface_recon.cpp" />
+        <option value="$PROJECT_DIR$/include/recon_surface/hole_filling.hpp" />
+        <option value="$PROJECT_DIR$/src/main.cpp" />
         <option value="$PROJECT_DIR$/src/recon_service_from_pointcloud.cpp" />
-        <option value="$PROJECT_DIR$/launch/test_recon_service.launch" />
+        <option value="$PROJECT_DIR$/src/hole_filling.cpp" />
       </list>
     </option>
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1" />
-    <option name="y" value="25" />
-    <option name="width" value="1368" />
-    <option name="height" value="723" />
+    <option name="x" value="1032" />
+    <option name="y" value="167" />
+    <option name="width" value="1360" />
+    <option name="height" value="724" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -384,7 +417,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/config" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -403,7 +436,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="CMake Application.recon_surface">
+  <component name="RunManager" selected="CMake Application.recon_surface_service">
     <configuration name="_recon_surface_generate_messages_check_deps_MeshFromPointCloud2" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="recon_surface" TARGET_NAME="_recon_surface_generate_messages_check_deps_MeshFromPointCloud2" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -1093,30 +1126,37 @@
       <workItem from="1597266731495" duration="1953000" />
       <workItem from="1597703500570" duration="82000" />
       <workItem from="1597705546289" duration="2223000" />
+      <workItem from="1598383568128" duration="340000" />
+      <workItem from="1599524140565" duration="9762000" />
+      <workItem from="1600715909595" duration="35000" />
+      <workItem from="1600791483011" duration="718000" />
+      <workItem from="1601306781292" duration="2413000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22599000" />
+    <option name="totallyTimeSpent" value="35867000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="25" width="1368" height="723" extended-state="6" />
+    <frame x="1365" y="0" width="1922" height="1085" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.23181818" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17342582" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="2" />
-      <window_info anchor="bottom" id="CMake" order="3" weight="0.5293132" />
+      <window_info anchor="bottom" id="CMake" order="3" visible="true" weight="0.22732012" />
       <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Find" order="5" />
       <window_info anchor="bottom" id="Database Changes" order="6" />
       <window_info anchor="bottom" id="Run" order="7" />
-      <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="Debug" order="8" weight="0.24817519" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="11" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.3295099" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
@@ -1129,7 +1169,7 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+        <line-breakpoint suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/script/publish_mesh_marker.py</url>
           <line>2</line>
           <option name="timeStamp" value="1" />
@@ -1241,30 +1281,42 @@
     <entry file="file://$PROJECT_DIR$/config/ReconSurface.cfg">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/recon_service_from_pointcloud.cpp">
+    <entry file="file://$PROJECT_DIR$/script/publish_mesh_marker.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
-          <caret line="404" column="33" selection-start-line="404" selection-start-column="33" selection-end-line="404" selection-end-column="33" />
+        <state relative-caret-position="182">
+          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
           <folding>
-            <element signature="e#0#20#0" expanded="true" />
+            <element signature="e#23#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/include/recon_surface/surface_recon.hpp">
+    <entry file="file://$PROJECT_DIR$/script/test_mesh_service.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="51" column="60" selection-start-line="51" selection-start-column="60" selection-end-line="51" selection-end-column="60" />
+        <state relative-caret-position="91">
+          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
           <folding>
-            <element signature="e#115#178#0" expanded="true" />
+            <element signature="e#23#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/surface_recon.cpp">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1183">
-          <caret line="91" column="33" selection-start-line="91" selection-start-column="33" selection-end-line="91" selection-end-column="33" />
+        <state relative-caret-position="1976">
+          <caret line="152" column="54" selection-start-line="152" selection-start-column="38" selection-end-line="152" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/include/CGAL/mst_orient_normals.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4199">
+          <caret line="323" column="88" selection-start-line="323" selection-start-column="88" selection-end-line="323" selection-end-column="88" />
+          <folding>
+            <element signature="e#798#846#0" expanded="true" />
+            <element signature="e#2356#2382#0" expanded="true" />
+            <element signature="e#2515#2541#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1275,6 +1327,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/launch/test_recon_service.launch">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="2" column="76" selection-start-line="2" selection-start-column="76" selection-end-line="2" selection-end-column="76" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/launch/recon_service.launch">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="13">
@@ -1282,42 +1341,71 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/launch/test_recon_service.launch">
+    <entry file="file://$PROJECT_DIR$/include/recon_surface/texture.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="2" column="85" selection-start-line="2" selection-start-column="85" selection-end-line="2" selection-end-column="85" />
+        <state relative-caret-position="290">
+          <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script/publish_mesh_marker.py">
+    <entry file="file://$PROJECT_DIR$/src/rm_artifacts.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="98" column="58" selection-start-line="98" selection-start-column="58" selection-end-line="98" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/surface_recon.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-706">
+          <caret line="260" column="82" selection-start-line="260" selection-start-column="82" selection-end-line="260" selection-end-column="82" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/recon_surface/surface_recon.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="94" column="5" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
+          <folding>
+            <element signature="e#115#178#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/recon_service_from_pointcloud.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="302" column="88" selection-start-line="302" selection-start-column="69" selection-end-line="302" selection-end-column="88" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/include/recon_surface/hole_filling.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="299">
-          <caret line="23" column="19" lean-forward="true" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="13" />
           <folding>
-            <element signature="e#23#35#0" expanded="true" />
+            <element signature="e#47#110#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/script/test_mesh_service.py">
+    <entry file="file://$PROJECT_DIR$/src/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="37" column="14" lean-forward="true" selection-start-line="36" selection-start-column="4" selection-end-line="37" selection-end-column="14" />
+        <state relative-caret-position="1443">
+          <caret line="111" column="55" selection-start-line="111" selection-start-column="49" selection-end-line="111" selection-end-column="55" />
           <folding>
-            <element signature="e#23#35#0" expanded="true" />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/include/CGAL/mst_orient_normals.h">
+    <entry file="file://$PROJECT_DIR$/src/hole_filling.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3859">
-          <caret line="330" column="61" selection-start-line="330" selection-start-column="61" selection-end-line="330" selection-end-column="61" />
-          <folding>
-            <element signature="e#798#846#0" expanded="true" />
-            <element signature="e#2356#2382#0" expanded="true" />
-            <element signature="e#2515#2541#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="78">
+          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
         </state>
       </provider>
     </entry>

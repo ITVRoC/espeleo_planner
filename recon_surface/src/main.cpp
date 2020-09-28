@@ -109,19 +109,19 @@ int main(int argc, char *argv[]) {
     cout << "Done." << endl;
     //average_spacing = CGAL::compute_average_spacing<CGAL::Sequential_tag>(points.begin(), points.end(),5);
 
-    trim_mesh(reconstruct_surface(estimated_pwn), tree, trim_threshold * (double) average_spacing);
+    trim_mesh(reconstruct_surface(estimated_pwn, output), tree, trim_threshold * (double) average_spacing, "");
     //parametrize_mesh("/media/sf_teste_SFM/reconstructed_and_trimmed.off","/media/sf_teste_SFM/reconstructed_and_trimmed_parametriz.eps");
     //pointset.write_ply(std::string("/home/guilherme/ITV_AR/data/cave_normals.ply"));
     std::cout << " Filling holes..." << std::endl;
 
-    fill_hole("temp3.off", hole_threshold * (double) average_spacing);
+    fill_hole("temp3.off", hole_threshold * (double) average_spacing, "");
 
     if (args_map[string("--output")] == ".") {
-        texture t(tree, colors, output + "_textured.obj", texture_size);
+        texture t(tree, colors, output + "_textured.obj", texture_size, output);
         t.build_png();
         t.save_obj();
     } else {
-        texture t(tree, colors, output + ".obj", texture_size);
+        texture t(tree, colors, output + ".obj", texture_size, output);
         t.build_png();
         t.save_obj();
     }

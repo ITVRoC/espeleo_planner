@@ -4,5 +4,5 @@ recon_service_node:
     output_folder: $(find recon_surface)/tmp_reconstructions/
     sample: 1.0
     texturesize: 320.0
-    trim: 8.0
+    trim: 6.5
     

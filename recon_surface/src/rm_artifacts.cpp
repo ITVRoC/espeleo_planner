@@ -114,6 +114,6 @@ void rm_artifacts_mesh(std::string path, int k) {
 */
 
     std::cout << "Smoothed " << rmv_vtx << " vertex considered artifacts." << std::endl;
-    std::ofstream out("/media/sf_teste_SFM/reconstructed_trimmed_filled_cleaned.off");
+    std::ofstream out("/tmp/reconstructed_trimmed_filled_cleaned.off");
     out << m;
 }

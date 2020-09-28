@@ -270,14 +270,14 @@ string generate_mesh(const sensor_msgs::PointCloud2 msg, string output) {
                             << " seconds");
 
     start = chrono::high_resolution_clock::now();
-    trim_mesh(reconstruct_surface(estimated_pwn), tree, trim * (double) average_spacing);
+    trim_mesh(reconstruct_surface(estimated_pwn, output), tree, trim * (double) average_spacing, output);
     stop = chrono::high_resolution_clock::now();
     ROS_INFO_STREAM("Time trim mesh: "
                             << float(chrono::duration_cast<chrono::microseconds>(stop - start).count() / 1000000.0)
                             << " seconds");
 
     start = chrono::high_resolution_clock::now();
-    fill_hole("temp3.off", holemaxsize * (double) average_spacing);
+    fill_hole(output + "temp3.off", holemaxsize * (double) average_spacing, output);
     stop = chrono::high_resolution_clock::now();
     ROS_INFO_STREAM("Time fill holes: "
                             << float(chrono::duration_cast<chrono::microseconds>(stop - start).count() / 1000000.0)
@@ -294,13 +294,13 @@ string generate_mesh(const sensor_msgs::PointCloud2 msg, string output) {
 
 //    ROS_INFO_STREAM("Writing STL");
 
-    std::ifstream input_off3("temp3.off");
+    std::ifstream input_off3(output + "temp3.off");
     string output_stl_filepath = output + "_mesh.stl";
     string output_stl_filepath_inverted = output + "_inverted_mesh.stl";
     Mesh mesh_obj;
 
     if (!input_off3 || !(input_off3 >> mesh_obj)) {
-        ROS_ERROR_STREAM("Not a valid off file (" << output_stl_filepath << ")");
+        ROS_ERROR_STREAM("Not a valid off file (generate_mesh): " << output_stl_filepath);
         return "";
     } else {
         start = chrono::high_resolution_clock::now();

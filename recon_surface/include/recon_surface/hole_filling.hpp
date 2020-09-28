@@ -21,7 +21,7 @@ typedef P::Vertex_handle V;
 typedef P::Point_3  Point3;
 
 
-int fill_hole(std::string mesh_path, double max_perimeter);
+int fill_hole(std::string mesh_path, double max_perimeter, std::string base_path);
 
 #endif 
 // HOLE_FILLING
