@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="espeleo_planner" type="frontier_entropy_node"
+            name="frontier_entropy_node" output="screen">
+    </node>
+</launch>

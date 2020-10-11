@@ -1,0 +1,8 @@
+prefix=/usr/local
+
+Name: espeleo_planner
+Description: Description of espeleo_planner
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs roslib

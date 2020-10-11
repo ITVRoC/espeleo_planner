@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="espeleo_planner" type="obstacle_detection_pcl"
+            name="obstacle_detection_pcl" output="screen">
+            <remap from="/os1_cloud_node/points" to="/velodyne/points2"/>
+    </node>
+</launch>

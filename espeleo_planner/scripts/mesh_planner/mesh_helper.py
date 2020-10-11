@@ -21,8 +21,8 @@ def normalize_from_minmax(v, min_v, max_v):
     return (v - min_v) / float(max_v - min_v)
 
 
-def create_marker(pos, orientation=1.0, color=(1.0, 1.0, 1.0), m_scale=0.5, frame_id="/initial_base", duration=10,
-                  marker_id=0, mesh_resource=None):
+def create_marker(pos, orientation=1.0, color=(1.0, 1.0, 1.0), m_scale=0.5, frame_id="/os1_init", duration=10,
+                  marker_id=0, mesh_resource=None, marker_type=2, marker_text=""):
     """Create marker object using the map information and the node position
 
     :param pos: list of 3d postion for the marker
@@ -33,6 +33,21 @@ def create_marker(pos, orientation=1.0, color=(1.0, 1.0, 1.0), m_scale=0.5, fram
     :param duration: duration in seconds for this marker dissapearance
     :param marker_id:
     :param mesh_resource:
+    :param marker_type: one of the following types (use the int value)
+            http://wiki.ros.org/rviz/DisplayTypes/Marker
+            ARROW = 0
+            CUBE = 1
+            SPHERE = 2
+            CYLINDER = 3
+            LINE_STRIP = 4
+            LINE_LIST = 5
+            CUBE_LIST = 6
+            SPHERE_LIST = 7
+            POINTS = 8
+            TEXT_VIEW_FACING = 9
+            MESH_RESOURCE = 10
+            TRIANGLE_LIST = 11
+    :param marker_text: text string used for the marker
     :return:
     """
 
@@ -44,7 +59,7 @@ def create_marker(pos, orientation=1.0, color=(1.0, 1.0, 1.0), m_scale=0.5, fram
         marker.type = marker.MESH_RESOURCE
         marker.mesh_resource = mesh_resource
     else:
-        marker.type = marker.SPHERE
+        marker.type = marker_type
 
     marker.action = marker.ADD
     marker.scale.x = m_scale
@@ -55,6 +70,8 @@ def create_marker(pos, orientation=1.0, color=(1.0, 1.0, 1.0), m_scale=0.5, fram
     marker.color.g = color[1]
     marker.color.b = color[2]
     marker.pose.orientation.w = orientation
+
+    marker.text = marker_text
 
     marker.pose.position.x = pos[0]
     marker.pose.position.y = pos[1]
@@ -111,20 +128,20 @@ def find_closer_centroid(centroids, p, tol=1.e-2, force_return_closer=False):
 
     rospy.loginfo("p:%s centroid_size:%d", p, len(centroids))
 
-    for idx, face in enumerate(centroids):
-        d = math.sqrt((face[0] - p[0]) ** 2 + (face[1] - p[1]) ** 2 + (face[2] - p[2]) ** 2)
+    for idx, face_pt in enumerate(centroids):
+        d = math.sqrt((face_pt[0] - p[0]) ** 2 + (face_pt[1] - p[1]) ** 2 + (face_pt[2] - p[2]) ** 2)
 
         # if force is True then return the closest face instead of the
-        # best face considering the tolerance parameter "tol"
+        # best face point considering the tolerance parameter "tol"
         if d < min_dist:
             min_dist = d
             if force_return_closer:
                 source_face = idx
                 #rospy.loginfo("min_dist: %f", min_dist)
 
-        if np.isclose(face[0], p[0], rtol=tol, atol=tol) and \
-            np.isclose(face[1], p[1], rtol=tol, atol=tol) and \
-                np.isclose(face[2], p[2], rtol=tol, atol=tol):
+        if np.isclose(face_pt[0], p[0], rtol=tol, atol=tol) and \
+            np.isclose(face_pt[1], p[1], rtol=tol, atol=tol) and \
+                np.isclose(face_pt[2], p[2], rtol=tol, atol=tol):
 
             min_dist = d
             source_face = idx

@@ -11,6 +11,8 @@ import numpy as np
 from mayavi import mlab
 from scipy import spatial
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
 
 rospack = rospkg.RosPack()
 package_path = rospack.get_path('espeleo_planner')

@@ -8,15 +8,25 @@ add_compile_options(-std=c++11)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  geometry_msgs
-  roscpp
-  roslib
-  std_msgs
+        geometry_msgs
+        roscpp
+        roslib
+        std_msgs
+        visualization_msgs
+        octomap_ros
+        octomap_msgs
+        pcl_ros
+        pcl_conversions
+        std_msgs
+        std_srvs
+        message_generation
 )
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
+find_package(octomap REQUIRED)
+find_package(Boost REQUIRED)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
 ## modules and global scripts declared therein get installed
@@ -55,11 +65,12 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate services in the 'srv' folder
-# add_service_files(
-#   FILES
-#   Service1.srv
-#   Service2.srv
-# )
+add_service_files(
+        FILES
+        processFrontier.srv
+        processAllFrontiers.srv
+        processAllFrontiersUsingSTLOctomap.srv
+)
 
 ## Generate actions in the 'action' folder
 # add_action_files(
@@ -69,10 +80,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
-#   geometry_msgs
-# )
+generate_messages(
+        DEPENDENCIES
+        geometry_msgs
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -109,7 +120,7 @@ find_package(catkin REQUIRED COMPONENTS
 #  CATKIN_DEPENDS geometry_msgs roscpp
 #  DEPENDS system_lib
 #)
-catkin_package(INCLUDE_DIRS include CATKIN_DEPENDS roscpp std_msgs roslib)
+catkin_package(INCLUDE_DIRS include CATKIN_DEPENDS roscpp std_msgs roslib DEPENDS Boost)
 
 
 ###########
@@ -119,8 +130,9 @@ catkin_package(INCLUDE_DIRS include CATKIN_DEPENDS roscpp std_msgs roslib)
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+        include
         ${catkin_INCLUDE_DIRS}
+        ${Boost_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
@@ -155,6 +167,88 @@ include_directories(
 #target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES})
 
+#add_executable(
+#        frontier_entropy
+#        src/frontier_entropy.cpp
+#        include/frontier_entropy.h)
+#
+#target_link_libraries(
+#        frontier_entropy
+#        ${catkin_LIBRARIES}
+#        ${OCTOMAP_LIBRARIES}
+#)
+
+add_executable(
+        publish_360_projection
+        test/src/publish_360_projection.cpp
+        src/frontier_entropy.cpp
+        include/frontier_entropy.h
+)
+
+target_link_libraries(
+        publish_360_projection
+        ${catkin_LIBRARIES}
+        ${OCTOMAP_LIBRARIES}
+)
+
+add_executable(
+        octomap_raytracing
+        test/src/octomap_raytracing.cpp
+        src/frontier_entropy.cpp
+        include/frontier_entropy.h
+)
+
+target_link_libraries(
+        octomap_raytracing
+        ${catkin_LIBRARIES}
+        ${OCTOMAP_LIBRARIES}
+)
+
+add_executable(
+        frontier_entropy_node
+        src/frontier_entropy_node.cpp src/frontier_entropy.cpp include/frontier_entropy.h)
+
+target_link_libraries(
+        frontier_entropy_node
+        ${catkin_LIBRARIES}
+        ${OCTOMAP_LIBRARIES}
+        ${Boost_LIBRARIES}
+)
+
+add_executable(
+        obstacle_detection_pcl
+        test/src/obstacle_detection_pcl.cpp)
+
+target_link_libraries(
+        obstacle_detection_pcl
+        ${catkin_LIBRARIES}
+        ${OCTOMAP_LIBRARIES}
+        ${Boost_LIBRARIES}
+)
+
+add_executable(
+        binvox2bt
+        src/binvox2bt.cpp
+)
+
+target_link_libraries(
+        binvox2bt
+        ${catkin_LIBRARIES}
+        ${OCTOMAP_LIBRARIES}
+)
+
+add_executable(
+        transform_origin_test
+        test/src/transform_origin_test.cpp
+)
+
+target_link_libraries(
+        transform_origin_test
+        ${catkin_LIBRARIES}
+)
+
+
+
 #############
 ## Install ##
 #############
@@ -185,14 +279,14 @@ include_directories(
 
 ## Mark cpp header files for installation
 install(DIRECTORY include/${PROJECT_NAME}/
-    DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
-    FILES_MATCHING PATTERN "*.h"
-    PATTERN ".svn" EXCLUDE
+        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+        FILES_MATCHING PATTERN "*.h"
+        PATTERN ".svn" EXCLUDE
 )
 
-## Mark other files for installation (e.g. launch and bag files, etc.)
+## Mark other files for installation (e.g. launch and sbag files, etc.)
 install(FILES package.xml
-    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
 #############

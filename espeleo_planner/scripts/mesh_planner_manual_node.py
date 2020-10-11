@@ -1,119 +1,17 @@
 #!/usr/bin/env python
 
 import rospy
-from geometry_msgs.msg import Polygon, PointStamped
-from visualization_msgs.msg import Marker
-from sensor_msgs.msg import PointCloud2
 import traceback
 import pymesh
 from recon_surface.srv import MeshFromPointCloud2
-from mesh_planner import mesh_planner, mesh_helper
-
-from mesh_planner.graph_metrics import GraphMetric, GraphMetricType
-from nav_msgs.msg import Path
-from nav_msgs.msg import Odometry
-from geometry_msgs.msg import PoseStamped
-
-
-class MeshPlanner:
-    """
-    Doc here #todo
-    """
-
-    def __init__(self):
-        self.map_pointcloud_msg = None
-        self.odom_msg = None
-        self.clicked_point_msg = None
-
-        # publishers
-        self.pub_poly_traj_points = None
-        self.pub_path_short = None
-        self.pub_path_energy = None
-        self.pub_path_traver = None
-        self.pub_path_combined = None
-        self.pub_path_straight = None
-        self.pub_src_point = None
-        self.pub_dst_point = None
-
-        self.init_node()
-
-    def init_node(self):
-        """
-        Define ROS node specifics such as publishers and subscribers
-        :return:
-        """
-        # publishers
-        self.pub_poly_traj_points = rospy.Publisher('/espeleo/traj_points_polygon', Polygon, latch=True, queue_size=1)
-        self.pub_path_short = rospy.Publisher('/robot_path_shortest', Path, latch=True, queue_size=1)
-        self.pub_path_energy = rospy.Publisher('/robot_path_energy', Path, latch=True, queue_size=1)
-        self.pub_path_traver = rospy.Publisher('/robot_path_traversal', Path, latch=True, queue_size=1)
-        self.pub_path_straight = rospy.Publisher('/robot_path_straightest', Path, latch=True, queue_size=1)
-        self.pub_path_combined = rospy.Publisher('/robot_path_combined', Path, latch=True, queue_size=1)
-        self.pub_src_point = rospy.Publisher('/source_path_point', Marker, latch=True, queue_size=1)
-        self.pub_dst_point = rospy.Publisher('/target_path_point', Marker, latch=True, queue_size=1)
-
-        # subscribers
-        rospy.Subscriber('/octomap_point_cloud_centers', PointCloud2, self.map_point_cloud_callback)
-        rospy.Subscriber('/integrated_to_init2', Odometry, self.odom_callback)
-        rospy.Subscriber('/clicked_point', PointStamped, self.clicked_point_callback)
-
-    def odom_callback(self, msg):
-        self.odom_msg = msg
-
-    def map_point_cloud_callback(self, msg):
-        self.map_pointcloud_msg = msg
-
-    def clicked_point_callback(self, msg):
-        self.clicked_point_msg = msg
-
-    def reset_data(self):
-        self.odom_msg = None
-        self.clicked_point_msg = None
-        self.map_pointcloud_msg = None
-
-    def is_ready_to_plan(self):
-        if self.odom_msg is not None and \
-            self.clicked_point_msg is not None and \
-                self.map_pointcloud_msg is not None:
-            return True
-        else:
-            return False
-
-    def get_plan_data(self):
-        return self.odom_msg, self.clicked_point_msg, self.map_pointcloud_msg
-
-    def publish_paths(self, path_dict, frame_id="/initial_base"):
-
-        for k, v in path_dict.items():
-            path = Path()
-            path.header.frame_id = frame_id
-            path.poses = []
-
-            for point in v:
-                pose = PoseStamped()
-                pose.pose.position.x = point[0]
-                pose.pose.position.y = point[1]
-                pose.pose.position.z = point[2]
-                path.poses.append(pose)
-
-            if k == GraphMetricType.SHORTEST:
-                self.pub_path_short.publish(path)
-            elif k == GraphMetricType.FLATTEST:
-                self.pub_path_traver.publish(path)
-            elif k == GraphMetricType.ENERGY:
-                self.pub_path_energy.publish(path)
-            elif k == GraphMetricType.COMBINED:
-                self.pub_path_combined.publish(path)
-            elif k == GraphMetricType.STRAIGHTEST:
-                self.pub_path_straight.publish(path)
-            else:
-                raise TypeError("No valid Metric Type available for publishing path {}".format(k))
+from mesh_planner import mesh_helper, graph_metrics, mesh_planner_base, mesh_planner_node
 
 
 if __name__ == '__main__':
-    rospy.init_node('mesh_planner_main_node')
+    rospy.init_node('mesh_planner_manual_main_node')
 
-    mplanner = MeshPlanner()
+    mplanner = mesh_planner_node.MeshPlannerNode()
+    mplanner.init_manual_node()
 
     rospy.loginfo("MeshPlanner node start")
 
@@ -190,20 +88,17 @@ if __name__ == '__main__':
                 rate_slow.sleep()
                 continue
 
-            # graph_metrics = [GraphMetric(GraphMetricType.SHORTEST, source_face, target_face),
-            #                  GraphMetric(GraphMetricType.FLATTEST, source_face, target_face),
-            #                  GraphMetric(GraphMetricType.ENERGY, source_face, target_face),
-            #                  GraphMetric(GraphMetricType.COMBINED, source_face, target_face),
-            #                  GraphMetric(GraphMetricType.STRAIGHTEST, source_face, target_face)]
+            # graph_metric_types = [graph_metrics.GraphMetricType.SHORTEST,
+            #                  graph_metrics.GraphMetricType.FLATTEST,
+            #                  graph_metrics.GraphMetricType.ENERGY,
+            #                  graph_metrics.GraphMetricType.COMBINED,
+            #                  graph_metrics.GraphMetricType.STRAIGHTEST]
 
-            #graph_metrics = [GraphMetric(GraphMetricType.SHORTEST, source_face, target_face)]
-            #graph_metrics = [GraphMetric(GraphMetricType.FLATTEST, source_face, target_face)]
-            #graph_metrics = [GraphMetric(GraphMetricType.ENERGY, source_face, target_face)]
-            graph_metrics = [GraphMetric(GraphMetricType.COMBINED, source_face, target_face)]
-            #graph_metrics = [GraphMetric(GraphMetricType.STRAIGHTEST, source_face, target_face)]
+            # graph_metric_types = [graph_metrics.GraphMetricType.STRAIGHTEST]
+            graph_metric_types = [graph_metrics.GraphMetricType.SHORTEST]
 
-            planner = mesh_planner.MeshPathFinder(mesh_filepath, graph_metrics)
-            return_dict = planner.run()
+            planner = mesh_planner_base.MeshPlannerBase(mesh_filepath, graph_metric_types)
+            return_dict = planner.run(source_face, target_face)
             mplanner.publish_paths(return_dict)
             print "return_dict:", return_dict
         except Exception as e:

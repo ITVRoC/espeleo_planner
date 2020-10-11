@@ -12,7 +12,7 @@ import mesh_helper
 from sklearn.cluster import DBSCAN
 
 
-class MeshPlanner:
+class MeshPlannerBase:
     """
     Mesh Path Finder given a mesh, a list of metrics and a source and destination points
     calculates the optimum paths
@@ -35,7 +35,7 @@ class MeshPlanner:
         else:
             raise TypeError("graph_metrics is not a valid object type [list, tuple]")
 
-        self.transversality_threshold = 35  # max inclination (in degrees) the robot could climb
+        self.transversality_threshold = 30  # max inclination (in degrees) the robot could climb
         self.bumpiness_threshold = 0.5  # maximum bump the robot could jump between surfaces TODO add reference here
         self.border_threshold = 0.3  # distance to expand from borders to other face centroids
 
@@ -43,9 +43,9 @@ class MeshPlanner:
         self.energy_comb_weight = 0.25  # this is a energy weight to combine the weights of the metrics
         self.transversality_comb_weight = 0.50  # this is a transversality weight to combine the weights of the metrics
 
-        self.mesh.enable_connectivity()                 # enables connectivity on mesh
-        self.mesh.add_attribute("face_centroid")        # adds the face centroids to be accessed
-        self.mesh.add_attribute("face_normal")          # adds the face normals to be accessed
+        self.mesh.enable_connectivity()  # enables connectivity on mesh
+        self.mesh.add_attribute("face_centroid")  # adds the face centroids to be accessed
+        self.mesh.add_attribute("face_normal")  # adds the face normals to be accessed
 
         self.faces = self.mesh.faces
         self.centroids = self.mesh.get_face_attribute("face_centroid")
@@ -57,7 +57,7 @@ class MeshPlanner:
         rospy.loginfo("Dimensions and Vertexes in a face: %d, %d" % (self.mesh.dim, self.mesh.vertex_per_face))
 
     def plot_graph_3d(self, G, title=None, source_id=None, target_id=None, border_3d_points=None,
-                      reachable_frontiers_ids=None, frontier_centroids_ids=None):
+                      reachable_frontiers_ids=None, frontier_centroids_ids=None, frontier_visit_ids=None):
         """Plot the 3D graph using Mayavi (useful for debugging)
 
         :param G: the NetorkX graph
@@ -67,6 +67,7 @@ class MeshPlanner:
         :param border_3d_points: mesh borders points
         :param reachable_frontiers_ids: frontier node ids
         :param frontier_centroids_ids: frontier centroids ids
+        :param frontier_visit_ids: the visit point for the frontiers (generally is the closest point to the robot)
         :return:
         """
         from mayavi import mlab
@@ -146,6 +147,15 @@ class MeshPlanner:
                           color=(1.0, 0.1, 1.0),
                           resolution=20)
 
+        if frontier_visit_ids and len(frontier_visit_ids) > 0:
+            centroids_3dp = [tuple(self.centroids[v]) for v in frontier_visit_ids]
+            xyz = np.array(centroids_3dp)
+            mlab.points3d(xyz[:, 0], xyz[:, 1], xyz[:, 2],
+                          scale_factor=0.35,
+                          scale_mode='none',
+                          color=(1.0, 0.1, 1.0),
+                          resolution=20)
+
         mlab.show()
 
     def extract_frontiers_from_mesh(self):
@@ -210,12 +220,15 @@ class MeshPlanner:
                                                max_distance=self.border_threshold + 1.0)
         G = self.remove_non_connected_components(G, source_id)
 
-        filtered_reachable_frontiers = reachable_frontiers.intersection(G.nodes())
+        filtered_reachable_f_ids = reachable_frontiers.intersection(G.nodes())
         f_centroids_ids = []
-        if len(filtered_reachable_frontiers) > 0:
-            f_centroids_ids, f_centroids, f_points = self.cluster_frontier_borders(G, filtered_reachable_frontiers)
+        f_visit_ids = []
+        if len(filtered_reachable_f_ids) > 0:
+            f_visit_ids, f_centroids_ids, f_centroids, f_points = self.cluster_frontier_borders(G,
+                                                                                                filtered_reachable_f_ids,
+                                                                                                source_id)
 
-        return G, f_centroids_ids, filtered_reachable_frontiers
+        return G, f_centroids_ids, f_centroids_ids, filtered_reachable_f_ids
 
     def extract_borders_from_graph(self, G, degree_tresh=9):
         """Extract the nodes that has a degree less than two, this is a heuristic to detect which nodes
@@ -331,16 +344,18 @@ class MeshPlanner:
 
         return G
 
-    def cluster_frontier_borders(self, G, reachable_frontiers, dbscan_eps=3, dbscan_min_samples=1):
+    def cluster_frontier_borders(self, G, reachable_frontiers, source_id, dbscan_eps=2.5, dbscan_min_samples=1):
         """From a list of frontier borders, label them in clusters based on distance and extract the
         cluster centroids
 
         :param G: graph object
         :param reachable_frontiers: list of frontier node ids
+        :param source_id: the node id of the robot position
         :param dbscan_eps: maximum distance between two points
         :param dbscan_min_samples: min number of points to became a cluster
-        :return: list of centroid node ids, list of centroids points, list of frontier points by cluster
+        :return: list of visit nodes ids,  list of centroid node ids, list of centroids points, list of frontier points by cluster
         """
+
         def get_centroid_of_pts(arr):
             """ Get centroid of a list of 3D points
             :param arr: numpy arr of 3D points
@@ -366,9 +381,10 @@ class MeshPlanner:
         unique_labels = set(labels)
 
         reachable_node_3d_points = [tuple(self.centroids[n_id]) for n_id in sorted(G.nodes())]
-        list_id_to_node_id_dict = {int(i): n_id for i, n_id in enumerate(sorted(G.nodes()))}
+        pos_tuple_to_node_id_dict = {tuple(self.centroids[n_id]): n_id for n_id in G.nodes()}
 
         frontier_cluster_closest_id = []
+        frontier_cluster_visit_points_id = []
         frontier_cluster_centers = []
         frontier_cluster_points = []
 
@@ -380,20 +396,31 @@ class MeshPlanner:
 
             class_member_mask = (labels == label)
             xyz = X[class_member_mask & core_samples_mask]
+
+            closest_id = mesh_helper.find_closer_centroid(xyz,
+                                                          tuple(self.centroids[source_id]),
+                                                          force_return_closer=True)
+
+            # closest frontier node to the robot
+            tuple_xyz = list(map(tuple, xyz))
+            visit_point_id = pos_tuple_to_node_id_dict[tuple_xyz[closest_id]]
+
+            # centroid of the cluster
             centroid = get_centroid_of_pts(xyz)
-
             centroid_list_id = mesh_helper.find_closer_centroid(reachable_node_3d_points,
-                                                    tuple(centroid[0]),
-                                                    force_return_closer=True)
-            centroid_node_id = list_id_to_node_id_dict[centroid_list_id]
+                                                                tuple(centroid[0]),
+                                                                force_return_closer=True)
+            centroid_node_id = pos_tuple_to_node_id_dict[reachable_node_3d_points[centroid_list_id]]
 
-            frontier_cluster_centers.append(centroid)
-            frontier_cluster_points.append(xyz)
             frontier_cluster_closest_id.append(centroid_node_id)
+            frontier_cluster_centers.append(self.centroids[centroid_node_id])
+            frontier_cluster_visit_points_id.append(visit_point_id)
+            frontier_cluster_points.append(xyz)
 
-        return frontier_cluster_closest_id, frontier_cluster_centers, frontier_cluster_points
+        return frontier_cluster_visit_points_id, frontier_cluster_closest_id, frontier_cluster_centers, \
+               frontier_cluster_points
 
-    def run_graph_process(self, graph_metric_type, source_id, target_id, return_dict, is_debug=True):
+    def run_graph_process(self, graph_metric_type, source_id, target_id, return_dict, is_debug=False):
         """Generate a graph and run the path planning using a metric
 
         :param graph_metric_type: the metric type to use in this graph process
@@ -408,7 +435,8 @@ class MeshPlanner:
 
         # graph creation and filtering
         G = self.create_graph_from_mesh()
-        G, f_centroids_ids, filtered_reachable_frontiers = self.prepare_graph(G, source_id, target_id=target_id)
+        G, f_visit_ids, f_centroids_ids, filtered_reachable_frontiers = self.prepare_graph(G, source_id,
+                                                                                           target_id=target_id)
 
         if is_debug:
             self.plot_graph_3d(G,
@@ -416,7 +444,8 @@ class MeshPlanner:
                                source_id=source_id,
                                target_id=target_id,
                                reachable_frontiers_ids=list(filtered_reachable_frontiers),
-                               frontier_centroids_ids=f_centroids_ids)
+                               frontier_centroids_ids=f_centroids_ids,
+                               frontier_visit_ids=f_visit_ids)
 
         g_search = graph_search.MeshGraphSearch(G,
                                                 graph_metric_type,

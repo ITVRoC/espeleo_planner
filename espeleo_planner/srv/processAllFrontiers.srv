@@ -1,3 +1,3 @@
 ---
-visualization_msgs/MarkerArray frontiersMI
+float64[] mi_data
 bool success

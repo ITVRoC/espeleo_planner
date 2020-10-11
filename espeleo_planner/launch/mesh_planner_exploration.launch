@@ -1,13 +1,5 @@
 <launch>
-    <node pkg="espeleo_planner" type="mesh_planner_manual_node.py"
-            name="mesh_planner_node" output="screen">
+    <node pkg="espeleo_planner" type="mesh_planner_exploration_node.py" name="mesh_planner_node" output="screen">
+        <param name="frame_id" type="string" value="os1_init" />
     </node>
-
-    <!-- Convert nav_msgs/Path message to Espeleo Path for autonomous navigation -->
-    <node pkg="espeleo_planner" type="convert_nav_msgs_path_to_espeleo_path.py"
-            name="convert_nav_msgs_path_to_espeleo_path" output="screen">
-    </node>
-
-<!--      --><!-- Add Octomap, debug definitions and RVIZ -->
-<!--     <include file="$(find espeleo_planner)/launch/espeleo_mapping_lidar.launch" /> -->
 </launch>

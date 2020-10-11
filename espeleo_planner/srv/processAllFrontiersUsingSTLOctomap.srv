@@ -1,0 +1,4 @@
+string stl_path
+---
+float64[] mi_data
+bool success

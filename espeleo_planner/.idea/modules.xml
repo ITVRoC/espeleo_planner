@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/planning_integrated.iml" filepath="$PROJECT_DIR$/.idea/planning_integrated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/espeleo_planner.iml" filepath="$PROJECT_DIR$/.idea/espeleo_planner.iml" />
     </modules>
   </component>
 </project>

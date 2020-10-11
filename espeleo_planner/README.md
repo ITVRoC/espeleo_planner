@@ -13,6 +13,16 @@ coppelia
 # convert stl to pointcloud for testing
 snap run cloudcompare.CloudCompare
 
+# convert stl to octomap
+https://www.patrickmin.com/binvox/
+https://www.patrickmin.com/binvox/binvox.html
+https://github.com/beezees/ambientocclusion/tree/master/Source/binvox-0.4/vox/binvox
+https://www.patrickmin.com/viewvox/
+https://github.com/OctoMap/octomap/blob/devel/octomap/src/binvox2bt.cpp
+
+mkdir /tmp/mesh/
+./binvox -d 256 -e /tmp/mesh/mesh.stl && rosrun espeleo_planner binvox2bt /tmp/mesh/mesh.binvox
+octovis /tmp/mesh/mesh.binvox.bt
 
 ## Dependencies:
 

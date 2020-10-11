@@ -55,7 +55,6 @@ class MeshGraphSearch:
 
         self.border_3d_points = []
         self.border_kdtree = None
-        self.extract_borders()
 
     def get_path(self):
         """Return the list of nodes that generates the path
@@ -71,18 +70,6 @@ class MeshGraphSearch:
         :return: the estimated path distance
         """
         return self.path_distance
-
-    def extract_borders(self, degree_tresh=9):
-        """Extract the nodes that has a degree less than two, this is a heuristic to detect which nodes
-        are located at the edges of the graph (such as obstacle borders and map border limits)
-        """
-        for v in sorted(self.G.nodes()):
-            if nx.degree(self.G, v) <= degree_tresh:
-                self.border_3d_points.append((self.centroids[v][0], self.centroids[v][1], self.centroids[v][2]))
-
-        if len(self.border_3d_points) > 0:
-            # todo add warning
-            self.border_kdtree = spatial.cKDTree(self.border_3d_points)
 
     def estimate_min_max(self):
         """Estimate the minimum and maximum values for every metric inside the graph
@@ -466,47 +453,3 @@ class MeshGraphSearch:
 
         print table
 
-    def plot_graph_3d(self):
-        from mayavi import mlab
-
-        g_centroids = [(self.centroids[v][0], self.centroids[v][1], self.centroids[v][2]) for v in sorted(self.G.nodes())]
-        xyz = np.array(g_centroids)
-        scalars = xyz[:, 2]
-
-        mlab.figure(1, bgcolor=(0, 0, 0))
-        mlab.clf()
-
-        pts = mlab.points3d(xyz[:, 0], xyz[:, 1], xyz[:, 2],
-                            scalars,
-                            scale_factor=0.1,
-                            scale_mode='none',
-                            colormap='Blues',
-                            resolution=20)
-
-        centroid_gcon_dict = {v: int(i) for i, v in enumerate(g_centroids)}
-        #print "centroid_gcon_dict:", centroid_gcon_dict.keys()
-
-        edge_list = []
-        for e in self.G.edges():
-            e1 = (self.centroids[e[0]][0], self.centroids[e[0]][1], self.centroids[e[0]][2])
-            e2 = (self.centroids[e[1]][0], self.centroids[e[1]][1], self.centroids[e[1]][2])
-            edge_list.append([centroid_gcon_dict[e1], centroid_gcon_dict[e2]])
-
-        edge_list = np.array(edge_list)
-        #print "edge_list:", edge_list
-        pts.mlab_source.dataset.lines = np.array(edge_list)
-        lines = mlab.pipeline.stripper(pts)
-        mlab.pipeline.surface(lines, color=(0.2, 0.4, 0.5), line_width=1, opacity=.4)
-
-        if len(self.border_3d_points) > 0:
-            xyz_d2 = np.array(self.border_3d_points)
-            #print "xyz_d2.shape:", xyz_d2.shape
-            scalars_d2 = np.ones(xyz_d2.shape[0])
-            pts2 = mlab.points3d(xyz_d2[:, 0], xyz_d2[:, 1], xyz_d2[:, 2],
-                                 scalars_d2,
-                                 scale_factor=0.3,
-                                 scale_mode='none',
-                                 color=(1.0, 0.0, 0.0),
-                                 resolution=20)
-
-        mlab.show()
