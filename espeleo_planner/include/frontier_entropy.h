@@ -112,7 +112,7 @@ class OctomapExploration {
         /* Velodyne VPL16 FOV 30 degrees vertical (-+ 15), and 360 degrees horizontal
            16 vertical lines
            3600 points horizontal (simplified to 450 to ease calculations) */
-        DepthSensor depth_sensor = DepthSensor(450, 16, 6.28319, 15 * (M_PI/180.0), 5.0);
+        DepthSensor depth_sensor = DepthSensor(900, 16, 6.28319, 20 * (M_PI/180.0), 15.0);
 
         OctomapExploration(ros::NodeHandle _nh) : nh(_nh), pointcloud_pub(_nh), CurrentPcl_pub(_nh) {
             position = octomap::point3d(0, 0, 0);

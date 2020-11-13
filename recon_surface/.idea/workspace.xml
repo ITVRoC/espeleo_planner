@@ -4,11 +4,12 @@
     <generated>
       <config projectName="recon_surface" targetName="roscpp_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="topic_tools_generate_messages_py" />
+      <config projectName="recon_surface" targetName="topic_tools_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_py" />
-      <config projectName="recon_surface" targetName="tf_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="std_msgs_generate_messages_py" />
+      <config projectName="recon_surface" targetName="gmock" />
       <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_eus" />
       <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="octomap_msgs_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="tf_generate_messages_py" />
       <config projectName="recon_surface" targetName="std_srvs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="recon_surface_generate_messages_eus" />
@@ -17,103 +18,102 @@
       <config projectName="recon_surface" targetName="tf_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="std_msgs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="nodelet_topic_tools_gencfg" />
+      <config projectName="recon_surface" targetName="std_srvs_generate_messages_py" />
       <config projectName="recon_surface" targetName="octomap_msgs_generate_messages_eus" />
       <config projectName="recon_surface" targetName="visualization_msgs_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="actionlib_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="recon_surface_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_py" />
-      <config projectName="recon_surface" targetName="download_extra_data" />
+      <config projectName="recon_surface" targetName="std_srvs_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="pcl_ros_gencfg" />
       <config projectName="recon_surface" targetName="nodelet_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="nodelet_generate_messages_py" />
-      <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="actionlib_msgs_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="roscpp_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="gtest_main" />
-      <config projectName="recon_surface" targetName="tf_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="tests" />
       <config projectName="recon_surface" targetName="visualization_msgs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="pcl_ros_gencfg" />
+      <config projectName="recon_surface" targetName="roscpp_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="pcl_msgs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="bond_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="std_msgs_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="topic_tools_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="recon_surface_geneus" />
+      <config projectName="recon_surface" targetName="actionlib_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="recon_surface" />
       <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="nodelet_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="visualization_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="roscpp_generate_messages_py" />
       <config projectName="recon_surface" targetName="recon_surface_gencfg" />
-      <config projectName="recon_surface" targetName="actionlib_msgs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="recon_surface_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="roscpp_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="actionlib_msgs_generate_messages_eus" />
       <config projectName="recon_surface" targetName="actionlib_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="bond_generate_messages_lisp" />
+      <config projectName="recon_surface" targetName="recon_surface_genpy" />
       <config projectName="recon_surface" targetName="recon_surface_gencpp" />
-      <config projectName="recon_surface" targetName="gmock" />
+      <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="bond_generate_messages_eus" />
       <config projectName="recon_surface" targetName="octomap_msgs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="clean_test_results" />
       <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="actionlib_msgs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="recon_surface_service" />
-      <config projectName="recon_surface" targetName="roscpp_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="topic_tools_generate_messages_eus" />
       <config projectName="recon_surface" targetName="recon_surface_gennodejs" />
       <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_lisp" />
+      <config projectName="recon_surface" targetName="recon_surface_genlisp" />
+      <config projectName="recon_surface" targetName="std_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="actionlib_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="visualization_msgs_generate_messages_eus" />
       <config projectName="recon_surface" targetName="pcl_msgs_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="actionlib_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="pcl_msgs_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="bond_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="gtest" />
       <config projectName="recon_surface" targetName="gmock_main" />
+      <config projectName="recon_surface" targetName="bond_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="std_srvs_generate_messages_py" />
+      <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="octomap_msgs_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="actionlib_generate_messages_py" />
-      <config projectName="recon_surface" targetName="gtest" />
+      <config projectName="recon_surface" targetName="_recon_surface_generate_messages_check_deps_MeshFromPointCloud2" />
+      <config projectName="recon_surface" targetName="tf_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="nodelet_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="topic_tools_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="dynamic_reconfigure_gencfg" />
-      <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="bond_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="recon_surface_geneus" />
       <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="actionlib_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="pcl_msgs_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="bond_generate_messages_py" />
       <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_lisp" />
       <config projectName="recon_surface" targetName="recon_surface_generate_messages_py" />
-      <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="topic_tools_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="bond_generate_messages_lisp" />
+      <config projectName="recon_surface" targetName="roscpp_generate_messages_eus" />
       <config projectName="recon_surface" targetName="pcl_msgs_generate_messages_py" />
-      <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_lisp" />
+      <config projectName="recon_surface" targetName="run_tests" />
       <config projectName="recon_surface" targetName="nodelet_generate_messages_nodejs" />
       <config projectName="recon_surface" targetName="octomap_msgs_generate_messages_py" />
       <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_py" />
-      <config projectName="recon_surface" targetName="run_tests" />
-      <config projectName="recon_surface" targetName="std_msgs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="visualization_msgs_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="std_srvs_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="tf_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="_recon_surface_generate_messages_check_deps_MeshFromPointCloud2" />
-      <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="std_msgs_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="doxygen" />
-      <config projectName="recon_surface" targetName="recon_surface_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="recon_surface_genlisp" />
-      <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_py" />
-      <config projectName="recon_surface" targetName="topic_tools_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="octomap_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="bond_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="std_srvs_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="std_srvs_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="doxygen" />
+      <config projectName="recon_surface" targetName="std_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="nodelet_topic_tools_gencfg" />
+      <config projectName="recon_surface" targetName="visualization_msgs_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="sensor_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="tf_generate_messages_lisp" />
+      <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_cpp" />
       <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="roscpp_generate_messages_lisp" />
-      <config projectName="recon_surface" targetName="nodelet_generate_messages_cpp" />
-      <config projectName="recon_surface" targetName="tf2_msgs_generate_messages_eus" />
-      <config projectName="recon_surface" targetName="std_msgs_generate_messages_nodejs" />
-      <config projectName="recon_surface" targetName="recon_surface_genpy" />
+      <config projectName="recon_surface" targetName="std_srvs_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="recon_surface_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="dynamic_reconfigure_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_nodejs" />
+      <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_py" />
+      <config projectName="recon_surface" targetName="rosgraph_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="tf_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="std_msgs_generate_messages_eus" />
+      <config projectName="recon_surface" targetName="nodelet_generate_messages_lisp" />
+      <config projectName="recon_surface" targetName="download_extra_data" />
+      <config projectName="recon_surface" targetName="nodelet_generate_messages_py" />
+      <config projectName="recon_surface" targetName="geometry_msgs_generate_messages_cpp" />
+      <config projectName="recon_surface" targetName="recon_surface_generate_messages_lisp" />
+      <config projectName="recon_surface" targetName="bond_generate_messages_py" />
+      <config projectName="recon_surface" targetName="actionlib_msgs_generate_messages_cpp" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -123,68 +123,408 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f76bf36a-e59f-4dad-bf87-31a447b4e91f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/espeleo_planner.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/include/depth_sensor.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/include/frontier_entropy.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/include/frontier_information.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/launch/mesh_planner_manual.launch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_exploration/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_planner_base.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_planner_node.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner_exploration_node.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/obstacle_detection_3d_lidar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/src/frontier_entropy.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/src/frontier_entropy_node.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/srv/processAllFrontiers.srv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/srv/processFrontier.srv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/src/octomap_raytracing.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/src/publish_360_projection.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-13.32.01.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-13.32.01.json_odom_175.478_timesteps_1999.000_action_num_18.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-15.30.25.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-15.30.25.json_odom_331.014_timesteps_1999.000_action_num_20.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-16.08.11.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-16.08.11.json_odom_55.247_timesteps_1999.000_action_num_1.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-16.42.01.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-16.42.01.json_odom_149.519_timesteps_1999.000_action_num_16.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-17.22.03.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-17.22.03.json_odom_191.863_timesteps_1999.000_action_num_17.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-18.32.07.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-18.32.07.json_odom_295.670_timesteps_1999.000_action_num_28.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-19.24.33.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-19.24.33.json_odom_301.527_timesteps_1999.000_action_num_25.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-20.13.27.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-20.13.27.json_odom_272.219_timesteps_1999.000_action_num_28.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-21.03.29.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-21.03.29.json_odom_67.910_timesteps_1999.000_action_num_1.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-21.37.28.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_combined/simple_cave_inclined_v3.ply_23.10.2020-21.37.28.json_odom_252.126_timesteps_1999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-00.44.22.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-00.44.22.json_odom_116.274_timesteps_1999.000_action_num_16.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-10.27.14.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-10.27.14.json_odom_67.275_timesteps_1999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-11.23.07.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-11.23.07.json_odom_106.491_timesteps_1999.000_action_num_9.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-12.04.04.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-12.04.04.json_odom_282.307_timesteps_1999.000_action_num_18.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-13.21.42.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-13.21.42.json_odom_307.366_timesteps_1999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-15.01.16.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-15.01.16.json_odom_182.627_timesteps_1999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-15.43.28.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-15.43.28.json_odom_270.981_timesteps_1999.000_action_num_17.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-17.28.18.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-17.28.18.json_odom_221.527_timesteps_1999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-18.14.20.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-18.14.20.json_odom_182.144_timesteps_1999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-20.32.01.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_metric/simple_cave_inclined_v3.ply_22.10.2020-20.32.01.json_odom_658.399_timesteps_1999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_23.10.2020-23.29.13.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_23.10.2020-23.29.13.json_odom_173.721_timesteps_1999.000_action_num_7.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-00.04.52.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-00.04.52.json_odom_101.923_timesteps_1999.000_action_num_5.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-11.59.28.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-11.59.28.json_odom_176.046_timesteps_1999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-12.43.15.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-12.43.15.json_odom_278.139_timesteps_1999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-13.21.21.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-13.21.21.json_odom_295.585_timesteps_1999.000_action_num_16.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-14.04.55.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-14.04.55.json_odom_261.912_timesteps_1999.000_action_num_17.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-14.45.28.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-14.45.28.json_odom_299.395_timesteps_1999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-16.30.24.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-16.30.24.json_odom_251.337_timesteps_1999.000_action_num_16.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-17.34.40.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-17.34.40.json_odom_239.853_timesteps_1999.000_action_num_3.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-17.49.31.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-17.49.31.json_odom_153.270_timesteps_1999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-22.40.53.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_random/simple_cave_inclined_v3.ply_24.10.2020-22.40.53.json_odom_214.078_timesteps_1999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_22.10.2020-21.00.35.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_22.10.2020-21.00.35.json_odom_113.761_timesteps_1999.000_action_num_1.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_22.10.2020-21.40.31.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_22.10.2020-21.40.31.json_odom_45.183_timesteps_1999.000_action_num_3.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_22.10.2020-22.06.14.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_22.10.2020-22.06.14.json_odom_175.084_timesteps_1999.000_action_num_17.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_22.10.2020-22.50.02.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_22.10.2020-22.50.02.json_odom_178.984_timesteps_1999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_22.10.2020-23.34.49.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_22.10.2020-23.34.49.json_odom_201.030_timesteps_1999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_23.10.2020-00.14.54.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_23.10.2020-00.14.54.json_odom_223.431_timesteps_1999.000_action_num_16.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_23.10.2020-00.56.58.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_23.10.2020-00.56.58.json_odom_153.409_timesteps_1999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_23.10.2020-02.27.43.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_23.10.2020-02.27.43.json_odom_167.174_timesteps_1999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_23.10.2020-11.49.15.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_23.10.2020-11.49.15.json_odom_253.657_timesteps_1999.000_action_num_19.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_23.10.2020-12.44.11.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/inclined_15m_short/simple_cave_inclined_v3.ply_23.10.2020-12.44.11.json_odom_65.502_timesteps_1999.000_action_num_6.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-15.01.26.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-15.01.26.json_odom_161.146_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-16.30.31.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-16.30.31.json_odom_135.989_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-17.08.51.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-17.08.51.json_odom_128.141_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-17.30.46.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-17.30.46.json_odom_147.758_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-18.00.02.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-18.00.02.json_odom_143.948_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-18.25.57.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-18.25.57.json_odom_147.762_timesteps_999.000_action_num_21.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-18.58.41.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_24.10.2020-18.58.41.json_odom_120.455_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_25.10.2020-11.24.24.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_25.10.2020-11.24.24.json_odom_142.416_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_25.10.2020-11.52.46.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_25.10.2020-11.52.46.json_odom_163.140_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_25.10.2020-13.20.50.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_combined/simple_cave_delimited_v3.ply_25.10.2020-13.20.50.json_odom_146.043_timesteps_999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-13.52.51.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-13.52.51.json_odom_153.124_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-14.20.14.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-14.20.14.json_odom_159.569_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-14.50.22.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-14.50.22.json_odom_161.893_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-17.23.26.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-17.23.26.json_odom_145.359_timesteps_999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-18.43.38.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-18.43.38.json_odom_108.262_timesteps_999.000_action_num_8.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-20.46.11.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-20.46.11.json_odom_117.005_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-22.12.21.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-22.12.21.json_odom_117.171_timesteps_999.000_action_num_1.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-22.18.06.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/bkp2/simple_cave_delimited_v3.ply_25.10.2020-22.18.06.json_odom_133.133_timesteps_999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_14.10.2020-23.46.26.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_14.10.2020-23.46.26.json_odom_154.167_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_15.10.2020-00.14.38.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_15.10.2020-00.14.38.json_odom_155.506_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_15.10.2020-21.38.50.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_15.10.2020-21.38.50.json_odom_140.717_timesteps_999.000_action_num_17.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_15.10.2020-22.30.32.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_15.10.2020-22.30.32.json_odom_93.361_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_15.10.2020-23.14.13.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_15.10.2020-23.14.13.json_odom_118.495_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_16.10.2020-00.29.44.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_16.10.2020-00.29.44.json_odom_142.763_timesteps_999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_16.10.2020-01.00.44.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_16.10.2020-01.00.44.json_odom_156.615_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_16.10.2020-11.23.39.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_16.10.2020-11.23.39.json_odom_150.173_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_16.10.2020-12.00.22.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_16.10.2020-12.00.22.json_odom_145.956_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_16.10.2020-15.53.08.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/simple_cave_delimited_v2.ply_16.10.2020-15.53.08.json_odom_129.760_timesteps_999.000_action_num_21.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-16.33.04.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-16.33.04.json_odom_130.180_timesteps_999.000_action_num_9.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-17.11.47.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-17.11.47.json_odom_140.797_timesteps_999.000_action_num_6.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-17.40.34.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-17.40.34.json_odom_117.654_timesteps_999.000_action_num_7.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-18.04.22.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-18.04.22.json_odom_114.757_timesteps_999.000_action_num_6.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-18.25.20.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-18.25.20.json_odom_136.904_timesteps_999.000_action_num_8.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-18.53.12.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-18.53.12.json_odom_137.114_timesteps_999.000_action_num_9.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-22.03.12.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-22.03.12.json_odom_136.687_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-22.35.09.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-22.35.09.json_odom_108.132_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-23.05.13.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-23.05.13.json_odom_108.680_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-23.35.10.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_random/simple_cave_delimited_v2.ply_16.10.2020-23.35.10.json_odom_55.699_timesteps_999.000_action_num_7.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-00.57.00.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-00.57.00.json_odom_148.659_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-02.04.33.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-02.04.33.json_odom_150.674_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-12.32.17.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-12.32.17.json_odom_128.250_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-14.06.09.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-14.06.09.json_odom_131.581_timesteps_999.000_action_num_18.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-16.16.23.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-16.16.23.json_odom_90.661_timesteps_999.000_action_num_6.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-16.37.56.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-16.37.56.json_odom_149.586_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-18.06.57.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-18.06.57.json_odom_141.457_timesteps_999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-19.14.32.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-19.14.32.json_odom_120.124_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-19.44.54.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_17.10.2020-19.44.54.json_odom_92.861_timesteps_999.000_action_num_9.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_18.10.2020-00.03.57.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v3_short/simple_cave_delimited_v2.ply_18.10.2020-00.03.57.json_odom_125.063_timesteps_999.000_action_num_8.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-01.32.36.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-01.32.36.json_odom_191.376_timesteps_999.000_action_num_17.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-12.57.17.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-12.57.17.json_odom_205.510_timesteps_1499.000_action_num_21.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-13.58.22.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-13.58.22.json_odom_175.677_timesteps_999.000_action_num_44.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-14.51.13.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-14.51.13.json_odom_151.870_timesteps_999.000_action_num_19.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-15.29.01.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-15.29.01.json_odom_169.706_timesteps_999.000_action_num_20.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-16.22.12.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_metric/simple_cave_delimited_v3.ply_18.10.2020-16.22.12.json_odom_168.124_timesteps_999.000_action_num_18.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_random/simple_cave_delimited_v3.ply_18.10.2020-16.53.29.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_random/simple_cave_delimited_v3.ply_18.10.2020-16.53.29.json_odom_152.772_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_random/simple_cave_delimited_v3.ply_18.10.2020-17.30.44.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_random/simple_cave_delimited_v3.ply_18.10.2020-17.30.44.json_odom_159.029_timesteps_999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_random/simple_cave_delimited_v3.ply_18.10.2020-17.51.40.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_random/simple_cave_delimited_v3.ply_18.10.2020-17.51.40.json_odom_141.122_timesteps_999.000_action_num_8.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_random/simple_cave_delimited_v3.ply_18.10.2020-18.11.31.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_random/simple_cave_delimited_v3.ply_18.10.2020-18.11.31.json_odom_153.377_timesteps_999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_random/simple_cave_delimited_v3.ply_18.10.2020-18.33.50.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_random/simple_cave_delimited_v3.ply_18.10.2020-18.33.50.json_odom_162.567_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_short/simple_cave_delimited_v3.ply_18.10.2020-18.57.12.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_short/simple_cave_delimited_v3.ply_18.10.2020-18.57.12.json_odom_166.223_timesteps_999.000_action_num_26.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_short/simple_cave_delimited_v3.ply_18.10.2020-19.30.01.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_short/simple_cave_delimited_v3.ply_18.10.2020-19.30.01.json_odom_107.031_timesteps_999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_short/simple_cave_delimited_v3.ply_18.10.2020-20.04.03.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_short/simple_cave_delimited_v3.ply_18.10.2020-20.04.03.json_odom_171.479_timesteps_999.000_action_num_24.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_short/simple_cave_delimited_v3.ply_18.10.2020-20.38.18.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_short/simple_cave_delimited_v3.ply_18.10.2020-20.38.18.json_odom_130.575_timesteps_999.000_action_num_22.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_short/simple_cave_delimited_v3.ply_18.10.2020-21.05.25.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v4_8m_short/simple_cave_delimited_v3.ply_18.10.2020-21.05.25.json_odom_172.778_timesteps_999.000_action_num_18.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_19.10.2020-15.26.33.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_19.10.2020-15.26.33.json_odom_180.728_timesteps_999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_19.10.2020-21.14.40.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_19.10.2020-21.14.40.json_odom_178.208_timesteps_999.000_action_num_17.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_19.10.2020-22.10.06.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_19.10.2020-22.10.06.json_odom_181.479_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_19.10.2020-22.52.40.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_19.10.2020-22.52.40.json_odom_178.663_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-18.37.49.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-18.37.49.json_odom_223.996_timesteps_999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-18.53.54.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-18.53.54.json_odom_170.737_timesteps_999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-19.18.51.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-19.18.51.json_odom_149.598_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-19.43.36.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-19.43.36.json_odom_180.096_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-20.07.28.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-20.07.28.json_odom_149.979_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-20.47.52.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_combined/stage_cave_v0_8m.ply_23.10.2020-20.47.52.json_odom_118.237_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_20.10.2020-11.37.22.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_20.10.2020-11.37.22.json_odom_202.212_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_20.10.2020-11.52.30.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_20.10.2020-11.52.30.json_odom_184.935_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_20.10.2020-12.42.31.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_20.10.2020-12.42.31.json_odom_202.828_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_20.10.2020-13.00.06.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_20.10.2020-13.00.06.json_odom_196.486_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_20.10.2020-13.44.02.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_20.10.2020-13.44.02.json_odom_188.820_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_22.10.2020-11.53.22.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_22.10.2020-11.53.22.json_odom_190.674_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_22.10.2020-12.14.42.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_22.10.2020-12.14.42.json_odom_162.482_timesteps_999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_22.10.2020-12.41.21.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_22.10.2020-12.41.21.json_odom_164.590_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_22.10.2020-13.17.44.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_22.10.2020-13.17.44.json_odom_179.582_timesteps_999.000_action_num_19.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_22.10.2020-17.47.32.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_metric/stage_cave_v0_8m.ply_22.10.2020-17.47.32.json_odom_172.110_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_19.10.2020-23.26.56.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_19.10.2020-23.26.56.json_odom_196.281_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_19.10.2020-23.52.17.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_19.10.2020-23.52.17.json_odom_198.068_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_20.10.2020-10.33.24.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_20.10.2020-10.33.24.json_odom_209.965_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_20.10.2020-10.59.30.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_20.10.2020-10.59.30.json_odom_153.327_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_20.10.2020-11.20.25.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_20.10.2020-11.20.25.json_odom_180.329_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_22.10.2020-18.41.52.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_22.10.2020-18.41.52.json_odom_184.013_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_22.10.2020-20.32.47.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_22.10.2020-20.32.47.json_odom_183.212_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_22.10.2020-20.55.37.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_22.10.2020-20.55.37.json_odom_164.031_timesteps_999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_22.10.2020-21.18.58.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_22.10.2020-21.18.58.json_odom_161.443_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_22.10.2020-21.43.41.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_22.10.2020-21.43.41.json_odom_182.519_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_23.10.2020-17.46.38.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_random/stage_cave_v0_8m.ply_23.10.2020-17.46.38.json_odom_184.215_timesteps_999.000_action_num_17.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-14.05.22.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-14.05.22.json_odom_203.994_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-14.25.10.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-14.25.10.json_odom_204.542_timesteps_999.000_action_num_11.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-17.33.53.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-17.33.53.json_odom_191.143_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-17.49.39.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-17.49.39.json_odom_166.272_timesteps_999.000_action_num_10.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-18.14.06.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-18.14.06.json_odom_166.214_timesteps_999.000_action_num_13.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-22.42.19.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-22.42.19.json_odom_184.465_timesteps_999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-23.04.25.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_20.10.2020-23.04.25.json_odom_193.438_timesteps_999.000_action_num_19.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_21.10.2020-22.59.48.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_21.10.2020-22.59.48.json_odom_166.603_timesteps_999.000_action_num_22.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_21.10.2020-23.48.35.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_21.10.2020-23.48.35.json_odom_198.263_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_22.10.2020-11.21.12.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_15m_short/stage_cave_v0_8m.ply_22.10.2020-11.21.12.json_odom_191.156_timesteps_999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_combined/stage_cave_v0_8m.ply_19.10.2020-13.08.59.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_combined/stage_cave_v0_8m.ply_19.10.2020-13.08.59.json_odom_210.579_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_combined/stage_cave_v0_8m.ply_19.10.2020-13.25.48.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_combined/stage_cave_v0_8m.ply_19.10.2020-13.25.48.json_odom_191.682_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_combined/stage_cave_v0_8m.ply_19.10.2020-14.32.58.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_combined/stage_cave_v0_8m.ply_19.10.2020-14.32.58.json_odom_198.354_timesteps_999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_metric/stage_cave_v0_8m.ply_19.10.2020-00.58.14.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_metric/stage_cave_v0_8m.ply_19.10.2020-00.58.14.json_odom_190.652_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_metric/stage_cave_v0_8m.ply_19.10.2020-01.14.50.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_metric/stage_cave_v0_8m.ply_19.10.2020-01.14.50.json_odom_215.984_timesteps_999.000_action_num_25.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_metric/stage_cave_v0_8m.ply_19.10.2020-11.43.43.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_metric/stage_cave_v0_8m.ply_19.10.2020-11.43.43.json_odom_209.979_timesteps_999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_metric/stage_cave_v0_8m.ply_19.10.2020-12.09.24.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_metric/stage_cave_v0_8m.ply_19.10.2020-12.09.24.json_odom_199.676_timesteps_999.000_action_num_16.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_metric/stage_cave_v0_8m.ply_19.10.2020-12.31.36.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_metric/stage_cave_v0_8m.ply_19.10.2020-12.31.36.json_odom_200.983_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_short/stage_cave_v0_8m.ply_18.10.2020-22.43.17.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_short/stage_cave_v0_8m.ply_18.10.2020-22.43.17.json_odom_187.204_timesteps_999.000_action_num_15.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_short/stage_cave_v0_8m.ply_18.10.2020-23.12.10.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_short/stage_cave_v0_8m.ply_18.10.2020-23.12.10.json_odom_198.077_timesteps_999.000_action_num_14.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_short/stage_cave_v0_8m.ply_18.10.2020-23.32.23.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_short/stage_cave_v0_8m.ply_18.10.2020-23.32.23.json_odom_204.540_timesteps_999.000_action_num_18.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_short/stage_cave_v0_8m.ply_18.10.2020-23.52.56.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_short/stage_cave_v0_8m.ply_18.10.2020-23.52.56.json_odom_188.960_timesteps_999.000_action_num_12.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_short/stage_cave_v0_8m.ply_19.10.2020-00.35.25.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/stage_map_8m_short/stage_cave_v0_8m.ply_19.10.2020-00.35.25.json_odom_204.187_timesteps_999.000_action_num_21.000_plot.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/reference_maps/bkp/simple_cave_delimited_v2.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/reference_maps/bkp/simple_cave_delimited_v2.stl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/reference_maps/bkp/simple_cave_delimited_v2_test_apparent_full.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/reference_maps/bkp/simple_cave_delimited_v2_test_missing_part.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/reference_maps/bkp/simple_cave_delimited_v2_test_missing_part.stl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/reference_maps/simple_cave_delimited_v3.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/reference_maps/simple_cave_inclined_v3.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/reference_maps/stage_cave_v0_8m.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/launch/experiment_evaluation.launch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/launch/exploration_services.launch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/rviz/espeleo_coppelia_white.rviz" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/map_similarity_test/0_point_cloud.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/map_similarity_test/1_point_cloud.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/map_similarity_test/2_point_cloud.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/map_similarity_test/3_point_cloud.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/map_similarity_test/4_point_cloud.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/map_similarity_test/5_point_cloud.ply" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/scripts/map_comparison.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/scripts/plot_generator_exploration_metrics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/scripts/recon_time_metrics.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../espeleo_planner/test/src/republish_cloud_to_frame.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/espeleo_planner.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/dictionaries/h3ct0r.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/dictionaries/h3ct0r.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/libraries/ROS.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/libraries/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/planning_integrated.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/ros.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/espeleo_planner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/espeleo_planner.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../espeleo_planner/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_combined/simple_cave_delimited_v2.ply_09.10.2020-15.39.11_min_combined.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_combined/simple_cave_delimited_v2.ply_09.10.2020-15.39.11_min_combined.json_odom_99.955_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_metric/simple_cave_delimited_v2.ply_09.10.2020-16.29.20.json_odom_90.880_plot_METRIC.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_metric/simple_cave_delimited_v2.ply_09.10.2020-16.29.20_METRIC.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-18.29.46.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-18.29.46.json_odom_93.311_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-19.08.49.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-19.08.49.json_odom_92.654_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-19.40.03.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-19.40.03.json_odom_88.399_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-20.34.58.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-20.37.07.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-20.37.07.json_odom_0.691_timesteps_0.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-20.39.18.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-20.39.18.json_odom_86.437_timesteps_694.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-22.44.12.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-22.44.12.json_odom_43.447_timesteps_353.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.34.36.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.36.42.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.36.42.json_odom_1.784_timesteps_9.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.37.55.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.37.55.json_odom_11.838_timesteps_50.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.41.19.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.41.19.json_odom_20.464_timesteps_77.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.53.53.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.03.01.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.08.47.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.11.20.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.11.20.json_odom_0.292_timesteps_1.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.14.20.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.14.20.json_odom_26.777_timesteps_129.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.32.08.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.32.08.json_odom_97.500_timesteps_512.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.49.16.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.49.16.json_odom_3.850_timesteps_15.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.50.53.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.50.53.json_odom_1.834_timesteps_4.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/comparison_pointclouds/simple_cave_delimited_v2.ply" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/include/frontier_entropy.h" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/include/frontier_entropy.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../espeleo_planner/launch/espeleo_mapping_lidar.launch" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/launch/espeleo_mapping_lidar.launch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/launch/mesh_planner.launch" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/launch/mesh_planner_exploration.launch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/launch/obstacle_detection.launch" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/launch/obstacle_detection.launch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../espeleo_planner/rviz/espeleo_coppelia.rviz" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/rviz/espeleo_coppelia.rviz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/convert_nav_msgs_path_to_espeleo_path.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/convert_nav_msgs_path_to_espeleo_path.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/graph_metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/graph_metrics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/graph_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/graph_search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_helper.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_planner.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner_node.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner_manual_node.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/plan_with_fixed_stl_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/plan_with_fixed_stl_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/test/scripts/plot_obstacle_weight.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/test/scripts/plot_obstacle_weight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../espeleo_planner/test/steps_scene_espeleo2_lidar_6wheels.ttt" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/test/steps_scene_espeleo2_lidar_6wheels.ttt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/exploration_metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/exploration_metrics.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_planner_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_planner_base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_planner_node.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner/mesh_planner_node.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner_exploration_node.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/scripts/mesh_planner_exploration_node.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/src/frontier_entropy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/src/frontier_entropy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../espeleo_planner/test/scripts/remove_unreachable_faces.py" beforeDir="false" afterPath="$PROJECT_DIR$/../espeleo_planner/test/scripts/remove_unreachable_faces.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/basic_recon_v2.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/basic_recon_v2.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/recon_surface/hole_filling.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/recon_surface/hole_filling.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/recon_surface/surface_recon.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/recon_surface/surface_recon.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/recon_surface/texture.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/include/recon_surface/texture.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/launch/recon_service.launch" beforeDir="false" afterPath="$PROJECT_DIR$/launch/recon_service.launch" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/launch/test_recon_service.launch" beforeDir="false" afterPath="$PROJECT_DIR$/launch/test_recon_service.launch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hole_filling.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/hole_filling.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script/test_mesh_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/script/test_mesh_service.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/recon_service_from_pointcloud.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/recon_service_from_pointcloud.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rm_artifacts.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rm_artifacts.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/surface_recon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/surface_recon.cpp" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
-    <ignored path="$PROJECT_DIR$/../../../build/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -192,113 +532,6 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
-  </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/recon_service_from_pointcloud.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="456">
-              <caret line="302" column="88" selection-start-line="302" selection-start-column="69" selection-end-line="302" selection-end-column="88" />
-              <folding>
-                <element signature="e#0#20#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1443">
-              <caret line="111" column="55" selection-start-line="111" selection-start-column="49" selection-end-line="111" selection-end-column="55" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/recon_surface/hole_filling.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="299">
-              <caret line="23" column="13" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="13" />
-              <folding>
-                <element signature="e#47#110#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/hole_filling.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/rm_artifacts.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="98" column="58" selection-start-line="98" selection-start-column="58" selection-end-line="98" selection-end-column="58" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/recon_surface/texture.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/include/recon_surface/surface_recon.hpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="94" column="5" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
-              <folding>
-                <element signature="e#115#178#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/surface_recon.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-706">
-              <caret line="260" column="82" selection-start-line="260" selection-start-column="82" selection-end-line="260" selection-end-column="82" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/launch/test_recon_service.launch">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="2" column="76" selection-start-line="2" selection-start-column="76" selection-end-line="2" selection-end-column="76" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/launch/recon_service.launch">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13">
-              <caret line="1" column="82" selection-start-line="1" selection-start-column="82" selection-end-line="1" selection-end-column="82" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -314,107 +547,32 @@
       <find>mst_graph</find>
       <find>create_riemannian_graph</find>
       <find>off</find>
+      <find>reconstruct_surface</find>
       <find>fill_hole</find>
       <find>Not a valid off file</find>
-      <find>reconstruct_surface</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/src/pset.cpp" />
-        <option value="$PROJECT_DIR$/launch/recon_service.launch" />
-        <option value="$PROJECT_DIR$/config/general.config" />
-        <option value="$PROJECT_DIR$/script/test_mesh_service.py" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/launch/test_recon_service.launch" />
-        <option value="$PROJECT_DIR$/include/recon_surface/texture.hpp" />
-        <option value="$PROJECT_DIR$/src/rm_artifacts.cpp" />
-        <option value="$PROJECT_DIR$/include/recon_surface/surface_recon.hpp" />
-        <option value="$PROJECT_DIR$/src/surface_recon.cpp" />
-        <option value="$PROJECT_DIR$/include/recon_surface/hole_filling.hpp" />
-        <option value="$PROJECT_DIR$/src/main.cpp" />
-        <option value="$PROJECT_DIR$/src/recon_service_from_pointcloud.cpp" />
-        <option value="$PROJECT_DIR$/src/hole_filling.cpp" />
-      </list>
-    </option>
-  </component>
+  <component name="JupyterTrust" id="96dc2e88-2fe9-4f42-b4f8-3a5d50e87458" />
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1032" />
-    <option name="y" value="167" />
-    <option name="width" value="1360" />
-    <option name="height" value="724" />
+    <option name="x" value="-1" />
+    <option name="y" value="25" />
+    <option name="width" value="1368" />
+    <option name="height" value="723" />
   </component>
+  <component name="ProjectId" id="1jQIznbEEryZuYIPc9EjgKypBNc" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="recon_surface" type="b2602c69:ProjectViewProjectNode" />
-              <item name="recon_surface" type="47feb1d3:ProjectViewModuleNode" />
-            </path>
-            <path>
-              <item name="recon_surface" type="b2602c69:ProjectViewProjectNode" />
-              <item name="recon_surface" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="recon_surface" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="recon_surface" type="b2602c69:ProjectViewProjectNode" />
-              <item name="recon_surface" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="recon_surface" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="recon_surface" type="b2602c69:ProjectViewProjectNode" />
-              <item name="recon_surface" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="recon_surface" type="462c0819:PsiDirectoryNode" />
-              <item name="include" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="recon_surface" type="b2602c69:ProjectViewProjectNode" />
-              <item name="recon_surface" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="recon_surface" type="462c0819:PsiDirectoryNode" />
-              <item name="include" type="462c0819:PsiDirectoryNode" />
-              <item name="recon_surface" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="recon_surface" type="b2602c69:ProjectViewProjectNode" />
-              <item name="recon_surface" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="recon_surface" type="462c0819:PsiDirectoryNode" />
-              <item name="launch" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="recon_surface" type="b2602c69:ProjectViewProjectNode" />
-              <item name="recon_surface" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="recon_surface" type="462c0819:PsiDirectoryNode" />
-              <item name="script" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="recon_surface" type="b2602c69:ProjectViewProjectNode" />
-              <item name="recon_surface" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="recon_surface" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/config" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="Errors" />
@@ -424,19 +582,7 @@
       <recent name="$PROJECT_DIR$/config" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="CMake Application.recon_surface_service">
+  <component name="RunManager">
     <configuration name="_recon_surface_generate_messages_check_deps_MeshFromPointCloud2" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="recon_surface" TARGET_NAME="_recon_surface_generate_messages_check_deps_MeshFromPointCloud2" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -997,121 +1143,8 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="CMake Application._recon_surface_generate_messages_check_deps_MeshFromPointCloud2" />
-      <item itemvalue="CMake Application.actionlib_generate_messages_cpp" />
-      <item itemvalue="CMake Application.actionlib_generate_messages_eus" />
-      <item itemvalue="CMake Application.actionlib_generate_messages_lisp" />
-      <item itemvalue="CMake Application.actionlib_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.actionlib_generate_messages_py" />
-      <item itemvalue="CMake Application.actionlib_msgs_generate_messages_cpp" />
-      <item itemvalue="CMake Application.actionlib_msgs_generate_messages_eus" />
-      <item itemvalue="CMake Application.actionlib_msgs_generate_messages_lisp" />
-      <item itemvalue="CMake Application.actionlib_msgs_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.actionlib_msgs_generate_messages_py" />
-      <item itemvalue="CMake Application.bond_generate_messages_cpp" />
-      <item itemvalue="CMake Application.bond_generate_messages_eus" />
-      <item itemvalue="CMake Application.bond_generate_messages_lisp" />
-      <item itemvalue="CMake Application.bond_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.bond_generate_messages_py" />
-      <item itemvalue="CMake Application.clean_test_results" />
-      <item itemvalue="CMake Application.download_extra_data" />
-      <item itemvalue="CMake Application.doxygen" />
-      <item itemvalue="CMake Application.dynamic_reconfigure_gencfg" />
-      <item itemvalue="CMake Application.dynamic_reconfigure_generate_messages_cpp" />
-      <item itemvalue="CMake Application.dynamic_reconfigure_generate_messages_eus" />
-      <item itemvalue="CMake Application.dynamic_reconfigure_generate_messages_lisp" />
-      <item itemvalue="CMake Application.dynamic_reconfigure_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.dynamic_reconfigure_generate_messages_py" />
-      <item itemvalue="CMake Application.geometry_msgs_generate_messages_cpp" />
-      <item itemvalue="CMake Application.geometry_msgs_generate_messages_eus" />
-      <item itemvalue="CMake Application.geometry_msgs_generate_messages_lisp" />
-      <item itemvalue="CMake Application.geometry_msgs_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.geometry_msgs_generate_messages_py" />
-      <item itemvalue="CMake Application.gmock" />
-      <item itemvalue="CMake Application.gmock_main" />
-      <item itemvalue="CMake Application.gtest" />
-      <item itemvalue="CMake Application.gtest_main" />
-      <item itemvalue="CMake Application.nodelet_generate_messages_cpp" />
-      <item itemvalue="CMake Application.nodelet_generate_messages_eus" />
-      <item itemvalue="CMake Application.nodelet_generate_messages_lisp" />
-      <item itemvalue="CMake Application.nodelet_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.nodelet_generate_messages_py" />
-      <item itemvalue="CMake Application.nodelet_topic_tools_gencfg" />
-      <item itemvalue="CMake Application.octomap_msgs_generate_messages_cpp" />
-      <item itemvalue="CMake Application.octomap_msgs_generate_messages_eus" />
-      <item itemvalue="CMake Application.octomap_msgs_generate_messages_lisp" />
-      <item itemvalue="CMake Application.octomap_msgs_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.octomap_msgs_generate_messages_py" />
-      <item itemvalue="CMake Application.pcl_msgs_generate_messages_cpp" />
-      <item itemvalue="CMake Application.pcl_msgs_generate_messages_eus" />
-      <item itemvalue="CMake Application.pcl_msgs_generate_messages_lisp" />
-      <item itemvalue="CMake Application.pcl_msgs_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.pcl_msgs_generate_messages_py" />
-      <item itemvalue="CMake Application.pcl_ros_gencfg" />
-      <item itemvalue="CMake Application.recon_surface" />
-      <item itemvalue="CMake Application.recon_surface_gencfg" />
-      <item itemvalue="CMake Application.recon_surface_gencpp" />
-      <item itemvalue="CMake Application.recon_surface_generate_messages" />
-      <item itemvalue="CMake Application.recon_surface_generate_messages_cpp" />
-      <item itemvalue="CMake Application.recon_surface_generate_messages_eus" />
-      <item itemvalue="CMake Application.recon_surface_generate_messages_lisp" />
-      <item itemvalue="CMake Application.recon_surface_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.recon_surface_generate_messages_py" />
-      <item itemvalue="CMake Application.recon_surface_geneus" />
-      <item itemvalue="CMake Application.recon_surface_genlisp" />
-      <item itemvalue="CMake Application.recon_surface_gennodejs" />
-      <item itemvalue="CMake Application.recon_surface_genpy" />
-      <item itemvalue="CMake Application.recon_surface_service" />
-      <item itemvalue="CMake Application.roscpp_generate_messages_cpp" />
-      <item itemvalue="CMake Application.roscpp_generate_messages_eus" />
-      <item itemvalue="CMake Application.roscpp_generate_messages_lisp" />
-      <item itemvalue="CMake Application.roscpp_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.roscpp_generate_messages_py" />
-      <item itemvalue="CMake Application.rosgraph_msgs_generate_messages_cpp" />
-      <item itemvalue="CMake Application.rosgraph_msgs_generate_messages_eus" />
-      <item itemvalue="CMake Application.rosgraph_msgs_generate_messages_lisp" />
-      <item itemvalue="CMake Application.rosgraph_msgs_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.rosgraph_msgs_generate_messages_py" />
-      <item itemvalue="CMake Application.run_tests" />
-      <item itemvalue="CMake Application.sensor_msgs_generate_messages_cpp" />
-      <item itemvalue="CMake Application.sensor_msgs_generate_messages_eus" />
-      <item itemvalue="CMake Application.sensor_msgs_generate_messages_lisp" />
-      <item itemvalue="CMake Application.sensor_msgs_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.sensor_msgs_generate_messages_py" />
-      <item itemvalue="CMake Application.std_msgs_generate_messages_cpp" />
-      <item itemvalue="CMake Application.std_msgs_generate_messages_eus" />
-      <item itemvalue="CMake Application.std_msgs_generate_messages_lisp" />
-      <item itemvalue="CMake Application.std_msgs_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.std_msgs_generate_messages_py" />
-      <item itemvalue="CMake Application.std_srvs_generate_messages_cpp" />
-      <item itemvalue="CMake Application.std_srvs_generate_messages_eus" />
-      <item itemvalue="CMake Application.std_srvs_generate_messages_lisp" />
-      <item itemvalue="CMake Application.std_srvs_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.std_srvs_generate_messages_py" />
-      <item itemvalue="CMake Application.tests" />
-      <item itemvalue="CMake Application.tf2_msgs_generate_messages_cpp" />
-      <item itemvalue="CMake Application.tf2_msgs_generate_messages_eus" />
-      <item itemvalue="CMake Application.tf2_msgs_generate_messages_lisp" />
-      <item itemvalue="CMake Application.tf2_msgs_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.tf2_msgs_generate_messages_py" />
-      <item itemvalue="CMake Application.tf_generate_messages_cpp" />
-      <item itemvalue="CMake Application.tf_generate_messages_eus" />
-      <item itemvalue="CMake Application.tf_generate_messages_lisp" />
-      <item itemvalue="CMake Application.tf_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.tf_generate_messages_py" />
-      <item itemvalue="CMake Application.topic_tools_generate_messages_cpp" />
-      <item itemvalue="CMake Application.topic_tools_generate_messages_eus" />
-      <item itemvalue="CMake Application.topic_tools_generate_messages_lisp" />
-      <item itemvalue="CMake Application.topic_tools_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.topic_tools_generate_messages_py" />
-      <item itemvalue="CMake Application.visualization_msgs_generate_messages_cpp" />
-      <item itemvalue="CMake Application.visualization_msgs_generate_messages_eus" />
-      <item itemvalue="CMake Application.visualization_msgs_generate_messages_lisp" />
-      <item itemvalue="CMake Application.visualization_msgs_generate_messages_nodejs" />
-      <item itemvalue="CMake Application.visualization_msgs_generate_messages_py" />
-    </list>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -1130,41 +1163,15 @@
       <workItem from="1599524140565" duration="9762000" />
       <workItem from="1600715909595" duration="35000" />
       <workItem from="1600791483011" duration="718000" />
-      <workItem from="1601306781292" duration="2413000" />
+      <workItem from="1601306781292" duration="3672000" />
+      <workItem from="1602035046021" duration="1629000" />
+      <workItem from="1602174480380" duration="29000" />
+      <workItem from="1603730155312" duration="2050000" />
     </task>
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35867000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="1365" y="0" width="1922" height="1085" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17342582" />
-      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="2" />
-      <window_info anchor="bottom" id="CMake" order="3" visible="true" weight="0.22732012" />
-      <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Find" order="5" />
-      <window_info anchor="bottom" id="Database Changes" order="6" />
-      <window_info anchor="bottom" id="Run" order="7" />
-      <window_info anchor="bottom" id="Debug" order="8" weight="0.24817519" />
-      <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="11" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.3295099" />
-      <window_info anchor="right" id="Database" order="0" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-    </layout>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1176,238 +1183,5 @@
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file:///usr/local/include/CGAL/Surface_mesh_complex_2_in_triangulation_3.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="40" column="2" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/CGAL/IO/output_surface_facets_to_polyhedron.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/CGAL/make_surface_mesh.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="102" column="62" selection-start-line="102" selection-start-column="62" selection-end-line="102" selection-end-column="62" />
-          <folding>
-            <element signature="e#783#823#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/CGAL/Surface_mesher/Surface_mesher.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="773" column="13" selection-start-line="773" selection-start-column="13" selection-end-line="773" selection-end-column="13" />
-          <folding>
-            <element signature="e#20917#21100#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/CGAL/Mesher_level.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-456">
-          <caret line="40" column="4" selection-start-line="40" selection-start-column="4" selection-end-line="40" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/pset.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-194">
-          <caret line="188" column="36" selection-start-line="188" selection-start-column="36" selection-end-line="188" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/recon_surface/pset.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="57" column="5" selection-start-line="57" selection-start-column="5" selection-end-line="57" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/CGAL/Index_property_map.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="676">
-          <caret line="75" column="6" selection-start-line="75" selection-start-column="6" selection-end-line="75" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/CGAL/Cartesian/Point_3.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="39" column="10" selection-start-line="39" selection-start-column="2" selection-end-line="39" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/CGAL/Cartesian/Cartesian_base.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="129" column="17" selection-start-line="129" selection-start-column="17" selection-end-line="129" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/basic_recon.yaml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file:///usr/local/include/CGAL/pca_estimate_normals.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="237" column="21" selection-start-line="237" selection-start-column="10" selection-end-line="237" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/boost/graph/breadth_first_search.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="86">
-          <caret line="332" column="7" selection-start-line="332" selection-start-column="7" selection-end-line="332" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/boost/graph/detail/adjacency_list.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="137">
-          <caret line="2255" column="15" lean-forward="true" selection-start-line="2255" selection-start-column="15" selection-end-line="2255" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/ReconSurface.cfg">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/script/publish_mesh_marker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="23" column="19" selection-start-line="23" selection-start-column="19" selection-end-line="23" selection-end-column="19" />
-          <folding>
-            <element signature="e#23#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/script/test_mesh_service.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="7" column="9" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="9" />
-          <folding>
-            <element signature="e#23#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1976">
-          <caret line="152" column="54" selection-start-line="152" selection-start-column="38" selection-end-line="152" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/include/CGAL/mst_orient_normals.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4199">
-          <caret line="323" column="88" selection-start-line="323" selection-start-column="88" selection-end-line="323" selection-end-column="88" />
-          <folding>
-            <element signature="e#798#846#0" expanded="true" />
-            <element signature="e#2356#2382#0" expanded="true" />
-            <element signature="e#2515#2541#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/general.config">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="4" column="30" selection-start-line="4" selection-start-column="30" selection-end-line="4" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/launch/test_recon_service.launch">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="2" column="76" selection-start-line="2" selection-start-column="76" selection-end-line="2" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/launch/recon_service.launch">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="1" column="82" selection-start-line="1" selection-start-column="82" selection-end-line="1" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/recon_surface/texture.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/rm_artifacts.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="98" column="58" selection-start-line="98" selection-start-column="58" selection-end-line="98" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/surface_recon.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-706">
-          <caret line="260" column="82" selection-start-line="260" selection-start-column="82" selection-end-line="260" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/recon_surface/surface_recon.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="94" column="5" selection-start-line="94" selection-start-column="5" selection-end-line="94" selection-end-column="5" />
-          <folding>
-            <element signature="e#115#178#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/recon_service_from_pointcloud.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="302" column="88" selection-start-line="302" selection-start-column="69" selection-end-line="302" selection-end-column="88" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/recon_surface/hole_filling.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="23" column="13" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="13" />
-          <folding>
-            <element signature="e#47#110#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1443">
-          <caret line="111" column="55" selection-start-line="111" selection-start-column="49" selection-end-line="111" selection-end-column="55" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/hole_filling.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="6" column="32" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>

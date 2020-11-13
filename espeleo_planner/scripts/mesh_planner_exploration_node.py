@@ -5,6 +5,7 @@ import traceback
 import pymesh
 from recon_surface.srv import MeshFromPointCloud2
 from visualization_msgs.msg import MarkerArray
+import random
 
 from mesh_planner.graph_metrics import GraphMetricType
 import espeleo_control.msg
@@ -12,6 +13,12 @@ import std_msgs.msg
 from geometry_msgs.msg import Polygon, Point32
 from mesh_planner import mesh_helper, graph_metrics, mesh_planner_base, mesh_planner_node
 from espeleo_planner.srv import processAllFrontiers, processAllFrontiersUsingSTLOctomap
+from geometry_msgs.msg import Twist
+
+
+def check_is_dest_reachable():
+    return True
+
 
 if __name__ == '__main__':
     rospy.init_node('mesh_planner_exploration_main_node')
@@ -25,6 +32,31 @@ if __name__ == '__main__':
     rate_slow = rospy.Rate(1.0)
     rate_fast = rospy.Rate(10.0)
 
+    cmd_vel_pub = rospy.Publisher('/origin_gt_point', Point32, queue_size=1)
+    cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=1)
+    rospy.sleep(3.)
+
+    twist_msg = Twist()
+    twist_msg.linear.x = 1.0
+    for i in xrange(50):
+        cmd_vel_pub.publish(twist_msg)
+        #rate_fast.sleep()
+        rospy.sleep(0.2)
+
+    twist_msg.linear.x = -1.0
+    for i in xrange(20):
+        cmd_vel_pub.publish(twist_msg)
+        #rate_fast.sleep()
+        rospy.sleep(0.2)
+
+    twist_msg.linear.x = 0.0
+    for i in xrange(10):
+        cmd_vel_pub.publish(twist_msg)
+        #rate_fast.sleep()
+        rospy.sleep(0.2)
+
+    error_counter = 0
+
     # move robot front and back to generate first point cloud
     while not rospy.is_shutdown():
         try:
@@ -33,6 +65,11 @@ if __name__ == '__main__':
                 rospy.loginfo("Planner waiting for data...")
                 rate_slow.sleep()
                 continue
+
+            if error_counter > 5:
+                rospy.logerr("error_counter > 5, stopping exploration...")
+                rate_slow.sleep()
+                break
 
             rospy.loginfo("Start planning...")
 
@@ -66,6 +103,7 @@ if __name__ == '__main__':
 
             # load the mesh and locate the face closer to the src and dst points
             mesh_load = pymesh.load_mesh(mesh_filepath)
+            #mesh_load, info = pymesh.split_long_edges(mesh_load, 0.3)
             mesh_load.add_attribute("face_centroid")
             centroids = mesh_load.get_face_attribute("face_centroid")
 
@@ -91,8 +129,8 @@ if __name__ == '__main__':
             #                  graph_metrics.GraphMetricType.STRAIGHTEST]
 
             # graph_metric_types = [graph_metrics.GraphMetricType.STRAIGHTEST]
-            graph_metric_types = [graph_metrics.GraphMetricType.SHORTEST]
-            #graph_metric_types = [graph_metrics.GraphMetricType.COMBINED]
+            #graph_metric_types = [graph_metrics.GraphMetricType.SHORTEST]
+            graph_metric_types = [graph_metrics.GraphMetricType.COMBINED]
 
             planner = mesh_planner_base.MeshPlannerBase(mesh_filepath, graph_metric_types)
             G = planner.create_graph_from_mesh()
@@ -133,11 +171,11 @@ if __name__ == '__main__':
             mplanner.pub_frontiers_ground_centroids.publish(frontier_centroids_arr)
             mplanner.pub_frontiers_ground_centroids_labels.publish(frontier_centroids_arr_labels)
 
-            # planner.plot_graph_3d(G,
-            #                       title="Frontier test",
-            #                       source_id=source_face,
-            #                       reachable_frontiers_ids=list(filtered_reachable_frontiers),
-            #                       frontier_centroids_ids=f_centroids_ids)
+            planner.plot_graph_3d(G,
+                                  title="Frontier test",
+                                  source_id=source_face,
+                                  reachable_frontiers_ids=list(filtered_reachable_frontiers_ids),
+                                  frontier_centroids_ids=f_centroids_ids)
 
             # run the service to convert the point cloud to mesh
             frontiers_mi = []
@@ -166,11 +204,11 @@ if __name__ == '__main__':
                 rospy.logerr("Exception: %s", e)
 
             if frontiers_mi is None or len(frontiers_mi) <= 0:
+                error_counter += 1
                 rospy.logerr("process_all_frontiers is None, cannot continue with the planning")
                 rate_slow.sleep()
                 continue
-
-            continue
+            error_counter = 0
 
             results = []
             frontier_arr_trav_labels = MarkerArray()
@@ -192,7 +230,7 @@ if __name__ == '__main__':
                                                             z + 2.5),
                                                            color=(1.0, 1.0, 1.0), duration=60, m_scale=0.8, marker_id=i,
                                                            marker_type=9,
-                                                           marker_text="trav:{:.3f} metric:{:.3f}".format(
+                                                           marker_text="c:{:.3f} mi/c:{:.3f}".format(
                                                                trav_cost, total_cost))
                 frontier_arr_trav_labels.markers.append(f_label_marker)
             mplanner.pub_frontiers_ground_trav_labels.publish(frontier_arr_trav_labels)
@@ -202,15 +240,24 @@ if __name__ == '__main__':
                 rospy.logerr("There are no more frontiers to explore, fallback behaviour?")
                 continue
 
-            # to use for the minimum distance
-            min_cost_item = min(results, key=lambda x: x['cost'])
-            print "min_cost_item:", min_cost_item
-            path_dict_msg = mplanner.publish_paths({graph_metrics.GraphMetricType.COMBINED: min_cost_item})
+            # ------------------------------- #
+            # to use for the minimum distance #
+            # ------------------------------- #
+            # min_cost_item = min(results, key=lambda x: x['cost'])
+            # print "min_cost_item:", min_cost_item
+            # path_dict_msg = mplanner.publish_paths({graph_metrics.GraphMetricType.COMBINED: min_cost_item})
 
+            # ---------------------------------------------------------- #
             # to use to the greatest proportion mutual_info/traverability
-            # max_cost_item = max(results, key=lambda x: x['total_cost'])
-            # print "max_cost_item:", max_cost_item
-            # path_dict_msg = mplanner.publish_paths({graph_metrics.GraphMetricType.COMBINED: max_cost_item})
+            # ---------------------------------------------------------- #
+            max_cost_item = max(results, key=lambda x: x['total_cost'])
+            print "max_cost_item:", max_cost_item
+            path_dict_msg = mplanner.publish_paths({graph_metrics.GraphMetricType.COMBINED: max_cost_item})
+
+            # ----------------------- #
+            # to use random selection
+            # ----------------------- #
+            # path_dict_msg = mplanner.publish_paths({graph_metrics.GraphMetricType.COMBINED: random.choice(results)})
 
             #print "path_dict_msg:", path_dict_msg
             path_msg = path_dict_msg[graph_metrics.GraphMetricType.COMBINED]['path_msg']
@@ -233,18 +280,30 @@ if __name__ == '__main__':
             try:
                 goal = espeleo_control.msg.NavigatePathGoal()
                 goal.path = espeleo_path
-                mplanner.action_client.send_goal(goal)
+                mplanner.action_client_done = False
+                mplanner.action_client.send_goal(goal,
+                                                 feedback_cb=mplanner.action_client_feedback_callback,
+                                                 done_cb=mplanner.action_client_done_callback)
+
                 rospy.loginfo("waiting for action result...")
-                mplanner.action_client.wait_for_result()
+                while not rospy.is_shutdown() and not mplanner.action_client_done:
+                    is_reachable = check_is_dest_reachable()
+                    if not is_reachable:
+                        mplanner.action_client.cancel_all_goals()
+                        break
+
+                    rate_slow.sleep()
+
+                #mplanner.action_client.wait_for_result()
                 action_result = mplanner.action_client.get_result()
                 rospy.loginfo("action_result:%s", action_result)
             except Exception as e:
                 traceback.print_exc()
                 rospy.logerr('Error sending action goal %s', e.message)
+            # rospy.logwarn("CONTINUE CONTINUE CONTINUE debug DEBUG DEBUG")
 
             rospy.loginfo("MeshPlanner very slow sleep......")
             rate_very_slow.sleep()
-            #time.sleep(7.0)
         except Exception as e:
             tb = traceback.format_exc()
             rospy.logerr("Main Exception: %s", str(tb))

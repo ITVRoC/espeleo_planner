@@ -4,7 +4,7 @@
 
 <!--     <include file="$(find espeleo_lego_loam)/launch/espeleo_lego_loam_sim.launch" /> -->
 
-    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="screen">
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
         <param name="resolution" value="0.2" />
         <param name="publish_free_space" value="true" />
         <param name="frame_id" type="string" value="/os1_init" />
@@ -25,7 +25,18 @@
     <node name="rviz" pkg="rviz" type="rviz"
         args="-d $(find espeleo_planner)/rviz/espeleo_coppelia.rviz" required="true" />
 
-<!--     <node pkg="espeleo_planner" type="exploration_metrics.py" -->
-<!--             name="exploration_metrics" output="screen"> -->
-<!--     </node> -->
+    <node pkg="espeleo_planner" type="exploration_metrics.py"
+            name="exploration_metrics" output="screen">
+    </node>
+
+<!--     <group ns="gt_map"> -->
+<!--         <node pkg="octomap_server" type="octomap_server_node" name="octomap_server_gt"> -->
+<!--             <param name="resolution" value="0.3" /> -->
+<!--             <param name="publish_free_space" value="true" /> -->
+<!--             <param name="frame_id" type="string" value="/world" /> -->
+<!--             <param name="sensor_model/max_range" value="-1.0" /> -->
+<!--             <param name="latch" value="true"/> -->
+<!--             <remap from="cloud_in" to="/velodyne/points2" /> -->
+<!--         </node> -->
+<!--     </group> -->
 </launch>

@@ -1,0 +1,49 @@
+<launch>
+
+    <env name="ROSCONSOLE_CONFIG_FILE" value="$(find espeleo_planner)/config/general.config"/>
+
+    <include file="$(find espeleo_control)/launch/vector_field_action.launch" />
+    <include file="$(find espeleo_lego_loam)/launch/espeleo_lego_loam_sim.launch" />
+
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server">
+        <param name="resolution" value="0.2" />
+        <param name="publish_free_space" value="true" />
+        <param name="frame_id" type="string" value="/os1_init" />
+        <param name="sensor_model/max_range" value="-1.0" />
+<!--         <param name="sensor_model/max_range" value="10.0"/> -->
+        <param name="latch" value="true"/>
+
+<!--         <param name="sensor_model/hit" value="0.51"/> -->
+<!--         <param name="sensor_model/miss" value="0.49"/> -->
+
+<!--         <param name="sensor_model/min" value="0.49"/> -->
+<!--         <param name="sensor_model/max" value="0.51"/> -->
+
+<!--         <remap from="cloud_in" to="/laser_cloud_surround2" /> -->
+        <remap from="cloud_in" to="/full_cloud_projected2" />
+    </node>
+
+    <node pkg="espeleo_planner" type="republish_cloud_to_frame"
+            name="republish_cloud_to_frame">
+    </node>
+
+    <node name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find espeleo_planner)/rviz/espeleo_coppelia_white.rviz" required="true" />
+
+<!--     <node pkg="espeleo_planner" type="exploration_metrics.py" -->
+<!--             name="exploration_metrics" output="screen"> -->
+<!--     </node> -->
+
+    <include file="$(find espeleo_planner)/launch/mesh_planner_exploration.launch" />
+
+<!--     <group ns="gt_map"> -->
+<!--         <node pkg="octomap_server" type="octomap_server_node" name="octomap_server_gt"> -->
+<!--             <param name="resolution" value="0.2" /> -->
+<!--             <param name="publish_free_space" value="true" /> -->
+<!--             <param name="frame_id" type="string" value="/world" /> -->
+<!--             <param name="sensor_model/max_range" value="-1.0" /> -->
+<!--             <param name="latch" value="true"/> -->
+<!--             <remap from="cloud_in" to="/laser_cloud_surround2" /> -->
+<!--         </node> -->
+<!--     </group> -->
+</launch>

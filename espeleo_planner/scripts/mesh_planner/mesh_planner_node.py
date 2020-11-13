@@ -37,6 +37,9 @@ class MeshPlannerNode:
         self.pub_frontiers_ground_trav_labels = None
 
         self.action_client = None
+        self.action_client_feedback = 0
+        self.action_client_result = None
+        self.action_client_done = False
 
         self.init_node()
 
@@ -74,6 +77,17 @@ class MeshPlannerNode:
         self.action_client = actionlib.SimpleActionClient('espeleo_control_action',
                                                           espeleo_control.msg.NavigatePathAction)
         self.action_client.wait_for_server(rospy.Duration.from_sec(3))
+
+    def action_client_feedback_callback(self, feedback):
+        self.action_client_feedback = feedback
+
+    def action_client_done_callback(self, state, result):
+        rospy.loginfo("action_client_done_callback")
+        rospy.loginfo("state:%s result:%s", str(state), str(result))
+
+        self.action_client_result = result
+        self.action_client_done = True
+        self.action_client_feedback = 0
 
     def odom_callback(self, msg):
         self.odom_msg = msg

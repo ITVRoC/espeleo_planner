@@ -59,7 +59,7 @@ void publishSTLMarker(ros::Publisher marker_pub, string stl_filepath, string fra
 
     // Set the marker type.  Initially this is CUBE, and cycles between that and SPHERE, ARROW, and CYLINDER
     marker.type = visualization_msgs::Marker::MESH_RESOURCE;
-    marker.mesh_resource = "file:// " + stl_filepath;
+    marker.mesh_resource = "file://" + stl_filepath;
 
     // Set the marker action.  Options are ADD, DELETE, and new in ROS Indigo: 3 (DELETEALL)
     marker.action = visualization_msgs::Marker::ADD;

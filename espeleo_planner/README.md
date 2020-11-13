@@ -1,6 +1,13 @@
 # Espeleo Path Planner
 
 
+### to launch the experiments
+
+roslaunch espeleo_planner exploration_services.launch
+roslaunch espeleo_planner experiment_evaluation.launch
+
+### normal launch files
+
 roslaunch espeleo_vrep_simulation espeleo_sim.launch
 roslaunch espeleo_control vector_field.launch
 roslaunch espeleo_lego_loam espeleo_lego_loam_sim.launch

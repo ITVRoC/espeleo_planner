@@ -99,7 +99,7 @@ def create_graph(mesh, centroids, normals, robot_pos,
 
     kdtree = spatial.KDTree(g_centroids)
     pairs = kdtree.query_pairs(bumpiness_tresh)
-    #print "pairs:", len(pairs), pairs
+    print "pairs:", len(pairs), pairs
 
     joined_by_bumpiness_nodes = set()
     for pair in pairs:
@@ -200,10 +200,10 @@ def create_graph(mesh, centroids, normals, robot_pos,
 
     # estimate borders of the remainder graph
     border_centroids = []
-    for v in sorted(Gconn.nodes()):
-        print "info:", v, nx.info(Gconn, v)
-        if nx.degree(G, v) <= 8 and v not in joined_by_bumpiness_nodes:
-            border_centroids.append((centroids[v][0], centroids[v][1], centroids[v][2]))
+    # for v in sorted(Gconn.nodes()):
+    #     print "info:", v, nx.info(Gconn, v)
+    #     if nx.degree(G, v) <= 8 and v not in joined_by_bumpiness_nodes:
+    #         border_centroids.append((centroids[v][0], centroids[v][1], centroids[v][2]))
 
     # xyz_d2 = np.array(centroids_degree_2)
     # print "xyz_d2.shape:", xyz_d2.shape
@@ -229,7 +229,7 @@ def create_graph(mesh, centroids, normals, robot_pos,
     pts.mlab_source.dataset.lines = np.array(edge_list)
     #pts.update()
     lines = mlab.pipeline.stripper(pts)
-    mlab.pipeline.surface(lines, color=(0.2, 0.4, 0.5), line_width=1, opacity=.4)  #colormap='Accent',
+    mlab.pipeline.surface(lines, color=(0.2, 0.4, 0.5), line_width=1.5, opacity=.9)  #colormap='Accent',
 
     # tube = mlab.pipeline.tube(pts, tube_radius=0.1)
     # mlab.pipeline.surface(tube, color=(0.8, 0.8, 0.8))
@@ -273,13 +273,13 @@ def create_graph(mesh, centroids, normals, robot_pos,
                                 scale_mode='none',
                                 resolution=20)
 
-            centroid = get_centroid_of_pts(xyz)
-            #print "centroid:", centroid
-            pts3 = mlab.points3d(centroid[:, 0], centroid[:, 1], centroid[:, 2],
-                                 color=(col[0], col[1], col[2]),
-                                 scale_factor=0.5,
-                                 scale_mode='none',
-                                 resolution=20)
+            # centroid = get_centroid_of_pts(xyz)
+            # #print "centroid:", centroid
+            # pts3 = mlab.points3d(centroid[:, 0], centroid[:, 1], centroid[:, 2],
+            #                      color=(col[0], col[1], col[2]),
+            #                      scale_factor=0.5,
+            #                      scale_mode='none',
+            #                      resolution=20)
 
     mlab.show()
 
@@ -288,22 +288,27 @@ if __name__ == '__main__':
     rospy.init_node('filter_mesh_node')
     rospy.loginfo("filter_mesh_node start")
 
+    # test_files = [
+    #     {"map": "map_01_frontiers.stl",
+    #      "pos": (-4, 0, 0)},
+    #     {"map": "map_02_stairs_cavelike.stl",
+    #      "pos": (-4, -1.25, 0.5)},
+    #     {"map": "map_03_narrow_passage.stl",
+    #      "pos": (-4, -1.25, 0.5)},
+    #     {"map": "map_03_narrow_passage_v2.stl",
+    #      "pos": (-4, -1.25, 0.5)},
+    #     {"map": "map_04_stairs_perfect.stl",
+    #      "pos": (-4, -1.25, 0.5)},
+    #     {"map": "map_05_cavelike.stl",
+    #      "pos": (0, 0, 0)},
+    # ]
+
     test_files = [
-        {"map": "map_01_frontiers.stl",
-         "pos": (-4, 0, 0)},
-        {"map": "map_02_stairs_cavelike.stl",
-         "pos": (-4, -1.25, 0.5)},
-        {"map": "map_03_narrow_passage.stl",
-         "pos": (-4, -1.25, 0.5)},
-        {"map": "map_03_narrow_passage_v2.stl",
-         "pos": (-4, -1.25, 0.5)},
         {"map": "map_04_stairs_perfect.stl",
-         "pos": (-4, -1.25, 0.5)},
-        {"map": "map_05_cavelike.stl",
-         "pos": (0, 0, 0)},
+         "pos": (-4, -1.25, 0.5)}
     ]
 
-    for test in test_files[:1]:
+    for test in test_files:
         mesh_path = os.path.join(package_path, "test", "maps", test["map"])
         robot_pos = test["pos"]
 

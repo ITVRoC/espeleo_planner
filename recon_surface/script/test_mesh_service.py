@@ -33,9 +33,9 @@ def pointcloud2_callback(msg):
         rospy.logerr("Exception: %s", e)
         processing_service = False
 
-    os.system("rosnode kill read_stl_node");
-    rospy.signal_shutdown(0)
-    sys.exit()
+    # os.system("rosnode kill read_stl_node");
+    # rospy.signal_shutdown(0)
+    # sys.exit()
 
 if __name__ == "__main__":
     rospy.init_node("test_load_stl_call_recon_surface_service", anonymous = False)

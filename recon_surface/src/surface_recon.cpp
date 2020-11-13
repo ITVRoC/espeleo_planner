@@ -328,8 +328,8 @@ Mesh reconstruct_surface(std::list<PointVectorPair> &pwn, std::string base_path)
         ROS_DEBUG_STREAM("Warning: mesh has 0 vertices");
 
     // saves reconstructed surface mesh
-    std::ofstream out("temp1.off");
-    std::ifstream in("temp1.off");
+    std::ofstream out(base_path + "temp1.off");
+    std::ifstream in(base_path + "temp1.off");
     Polyhedron output_mesh;
     CGAL::output_surface_facets_to_polyhedron(c2t3, output_mesh);
 

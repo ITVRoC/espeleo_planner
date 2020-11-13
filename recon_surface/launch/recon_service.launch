@@ -1,6 +1,5 @@
 <launch>
     <env name="ROSCONSOLE_CONFIG_FILE" value="$(find recon_surface)/config/general.config"/>
-	<rosparam file="$(find recon_surface)/config/basic_recon_v2.yaml" command="load" ns="" subst_value="true"/> 
-	<node name="recon_service_node" pkg="recon_surface" type="recon_surface_service" respawn="false" output="screen"/>    
-	
+	<rosparam file="$(find recon_surface)/config/basic_recon_v3.yaml" command="load" ns="" subst_value="true"/>
+	<node name="recon_service_node" pkg="recon_surface" type="recon_surface_service" respawn="false" output="screen"/>
 </launch>

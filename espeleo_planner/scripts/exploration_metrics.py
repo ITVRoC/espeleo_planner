@@ -11,6 +11,7 @@ from nav_msgs.msg import Odometry
 from sensor_msgs.msg import PointCloud2
 import matplotlib.pyplot as plt
 import tf
+from visualization_msgs.msg import MarkerArray
 from geometry_msgs.msg import Twist
 import os
 import json
@@ -21,10 +22,11 @@ import argparse
 
 class ExplorationMetrics:
 
-    def __init__(self, ground_truth_pointcloud_path, json_folder):
+    def __init__(self, ground_truth_pointcloud_path, json_folder, leaf_size=0.6):
         self.ground_truth_pointcloud_path = ground_truth_pointcloud_path
         self.ground_truth_pointcloud = None
         self.current_map_pointcloud_msg = None
+        self.leaf_size = leaf_size
 
         self.json_filename = os.path.basename(ground_truth_pointcloud_path) + "_" + \
                              time.strftime("%d.%m.%Y-%H.%M.%S") + ".json"
@@ -33,6 +35,9 @@ class ExplorationMetrics:
         self.init_timestamp = None
         self.current_timestep = 0
 
+        self.frontiers_ground_centroids_msg = None
+        self.robot_action_number = 0
+
         self.pointcloud_plot_data = []
 
         self.odom_msg = None
@@ -40,8 +45,9 @@ class ExplorationMetrics:
 
         self.cmd_vel_msg = None
 
-        self.diff_percent = 0
+        self.rmse = float('inf')
         self.odom_dist = 0
+        self.last_time_updated = time.time()
 
         self.init_node()
 
@@ -49,9 +55,10 @@ class ExplorationMetrics:
         """Init node with ROS bindings
         :return:
         """
-        rospy.Subscriber('/laser_cloud_surround2', PointCloud2, self.pointcloud2_callback)
+        rospy.Subscriber('/cloud_transformed_world', PointCloud2, self.pointcloud2_callback)
         rospy.Subscriber('/integrated_to_init2', Odometry, self.odom_callback)
         rospy.Subscriber("/cmd_vel", Twist, self.cmd_vel_callback)
+        rospy.Subscriber('/frontiers_ground_centroids', MarkerArray, self.frontier_cetntroids_callback)
         self.load_gt_pointcloud()
 
     def odom_callback(self, msg):
@@ -66,14 +73,52 @@ class ExplorationMetrics:
     def cmd_vel_callback(self, msg):
         self.cmd_vel_msg = msg
 
+    def frontier_cetntroids_callback(self, msg):
+        self.frontiers_ground_centroids_msg = msg
+        self.robot_action_number += 1
+
     def load_gt_pointcloud(self):
         self.ground_truth_pointcloud = pcl.load(self.ground_truth_pointcloud_path)
+        self.ground_truth_pointcloud = ExplorationMetrics.voxelize_cloud(self.ground_truth_pointcloud, self.leaf_size)
 
         gt_size = self.ground_truth_pointcloud.size
         rospy.loginfo("GT pointcloud size:%s", gt_size)
 
         if gt_size <= 0.0:
             raise Exception("gt_size <= 0.0")
+
+    @staticmethod
+    def voxelize_cloud(cloud, leaf_size):
+        vg = cloud.make_voxel_grid_filter()
+        vg.set_leaf_size(leaf_size, leaf_size, leaf_size)
+        cloud = vg.filter()
+
+        return cloud
+
+    @staticmethod
+    def sim_outlier(cloud_a, cloud_b):
+        kd = cloud_a.make_kdtree_flann()
+        current_sum = 0
+
+        # find the single closest points to each point in point cloud 2
+        # (and the sqr distances)
+        indices, sqr_distances = kd.nearest_k_search_for_cloud(cloud_b, 1)
+        for i in range(cloud_b.size):
+            current_sum += sqr_distances[i, 0]
+
+        return math.sqrt(current_sum / cloud_a.size)
+
+    @staticmethod
+    def similarity(cloud_a, cloud_b):
+        # compare B to A
+        similarityB2A = ExplorationMetrics.sim_outlier(cloud_a, cloud_b)
+        print "similarityB2A:", similarityB2A
+
+        # compare A to B
+        similarityA2B = ExplorationMetrics.sim_outlier(cloud_b, cloud_a)
+        print "similarityA2B:", similarityA2B
+
+        return (similarityA2B * 0.5) + (similarityB2A * 0.5)
 
     def process_data(self):
         if not self.current_map_pointcloud_msg:
@@ -111,11 +156,12 @@ class ExplorationMetrics:
         # self.last_odom_msg = self.odom_msg
 
         if abs(self.cmd_vel_msg.linear.x) < 0.05 and abs(self.cmd_vel_msg.angular.z) < 0.05:
-            rospy.logwarn("No movement lin.x:%.2f ang.z:%.2f  diff:%.2f%% odom_dist:%.2f",
+            rospy.logwarn("No movement (time:%.2f) x:%.2f z:%.2f odom_dist:%.2f rmse:%.2f",
+                          self.current_timestep,
                           self.cmd_vel_msg.linear.x,
                           self.cmd_vel_msg.angular.z,
-                          self.diff_percent,
-                          self.odom_dist)
+                          self.odom_dist,
+                          self.rmse)
             return False
 
         last_point = (self.last_odom_msg.pose.pose.position.x,
@@ -132,20 +178,20 @@ class ExplorationMetrics:
 
         points = pc2.read_points_list(self.current_map_pointcloud_msg, field_names=("x", "y", "z"), skip_nans=True)
         cloud = pcl.PointCloud(np.array(points, dtype=np.float32))
+        cloud = ExplorationMetrics.voxelize_cloud(cloud, self.leaf_size)
 
-        curr_pt_size = cloud.size
-        gt_size = self.ground_truth_pointcloud.size
-
-        self.diff_percent = (curr_pt_size / float(gt_size)) * 100
-        #timestep = time.time() - self.init_timestamp
+        self.rmse = ExplorationMetrics.similarity(self.ground_truth_pointcloud, cloud)
 
         self.pointcloud_plot_data.append({'timestep': self.current_timestep,
-                                          'diff_percent': self.diff_percent,
-                                          'odom_dist': local_odom_dist})
+                                          'rmse': self.rmse,
+                                          'odom_dist': local_odom_dist,
+                                          'robot_action_number': self.robot_action_number})
 
-        rospy.loginfo("timestep:%s diff:%.2f%% odom_dist:%.2f", self.current_timestep, self.diff_percent, self.odom_dist)
+        rospy.loginfo("timestep:%s action_num:%s odom_dist:%.2f rmse:%.2f", self.current_timestep,
+                      self.robot_action_number, self.odom_dist, self.rmse)
 
         self.current_timestep += 1
+        self.last_time_updated = time.time()
         return True
 
     def save_json_to_file(self):
@@ -165,41 +211,69 @@ class ExplorationMetrics:
         x = []
         y = []
         odom_dist = []
+        action_num = []
         for e in data:
             x.append(e['timestep'])
-            y.append(e['diff_percent'])
+            y.append(e['rmse'])
             odom_dist.append(e['odom_dist'])
+            action_num.append(e['robot_action_number'])
 
         rospy.loginfo("total odom_dist:%s", sum(odom_dist))
 
         fig, ax = plt.subplots()
 
         ax.plot(x, y)
-        plt.fill_between(x, y, color='green', alpha=0.5)
+        #plt.fill_between(x, y, color='green', alpha=0.5)
 
-        ax.set_ylim([0.0, 101])
+        ax.set_ylim([0.0, max(y) + 1])
         plt.xlim([0, max(x) + 0.1])
+
+        print "max(x):", max(x)
 
         ax.grid()
         ax.set_axisbelow(True)
-        ax.set_ylabel('Coverage %')
+        ax.set_ylabel('RMSE')
         ax.set_xlabel('Timestep')
         ax.set_title('Exploration coverage', fontweight='bold')
         #fig.tight_layout()
-        plt.savefig(json_filepath + "_odom_{:.3f}_timesteps_{:.3f}_plot.pdf".format(sum(odom_dist), max(x)))
+        plt.savefig(json_filepath +
+                    "_odom_{:.3f}_timesteps_{:.3f}_action_num_{:.3f}_plot.pdf".format(
+                        sum(odom_dist), max(x), max(action_num)))
         plt.show()
 
-    def get_diff_percent(self):
-        return self.diff_percent
+    def get_rmse(self):
+        return self.rmse
+
+    def get_current_timestep(self):
+        return self.current_timestep
+
+    def get_seconds_since_last_update(self):
+        return time.time() - self.last_time_updated
+
+    def finalize_data(self, max_timesteps):
+        last_data = self.pointcloud_plot_data[-1]
+        last_timestep = last_data['timestep']
+
+        len_diff = max_timesteps - len(self.pointcloud_plot_data)
+        if len_diff > 0:
+            rospy.logwarn('Augmenting data %s timesteps', len_diff)
+            for i in xrange(len_diff):
+                d = {
+                    'timestep': last_timestep + (i + 1),
+                    'rmse': last_data['rmse'],
+                    'odom_dist': last_data['odom_dist'],
+                    'robot_action_number': last_data['robot_action_number']
+                }
+                self.pointcloud_plot_data.append(d)
 
 
 if __name__ == '__main__':
     rospy.init_node('espeleo_exploration_metrics', anonymous=True)
     rospy.loginfo("espeleo_exploration_metrics node start")
 
-    gt_pointcloud_file = "simple_cave_delimited_v2.ply"
-    gt_pointcloud_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/"
-    save_json_metrics_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/json/map_delimited_v2_short"
+    gt_pointcloud_file = "simple_cave_delimited_v3.ply"
+    gt_pointcloud_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/reference_maps/"
+    save_json_metrics_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/"
     exp_metrics = ExplorationMetrics(os.path.join(gt_pointcloud_folder, gt_pointcloud_file), save_json_metrics_folder)
 
     ap = argparse.ArgumentParser()
@@ -216,6 +290,11 @@ if __name__ == '__main__':
 
     rate = rospy.Rate(1.0)
 
+    max_timesteps = 1000
+    max_stopped_time = 300
+
+    start_time = time.time()
+
     while not rospy.is_shutdown():
         try:
             time1 = time.time()
@@ -224,8 +303,16 @@ if __name__ == '__main__':
             if res:
                 rospy.loginfo('process_data %0.3f ms' % ((time2 - time1) * 1000.0))
 
-            if exp_metrics.get_diff_percent() >= 100.0:
-                rospy.logwarn("diff percent >= 100: %s", exp_metrics.get_diff_percent())
+            # if exp_metrics.get_rmse() <= 0.25:
+            #     rospy.logwarn("rmse <= 0.25: %s", exp_metrics.get_rmse())
+            #     break
+
+            if exp_metrics.get_current_timestep() >= max_timesteps or \
+                    exp_metrics.get_seconds_since_last_update() > max_stopped_time:
+
+                rospy.logwarn("ending experiment... timestep:%s seconds_since_update:%s",
+                              exp_metrics.get_current_timestep(),
+                              exp_metrics.get_seconds_since_last_update())
                 break
 
         except Exception as e:
@@ -234,6 +321,9 @@ if __name__ == '__main__':
 
         rate.sleep()
 
+    rospy.loginfo("Experiment duration:%s", time.time() - start_time)
+
+    exp_metrics.finalize_data(max_timesteps)
     fname = exp_metrics.save_json_to_file()
     exp_metrics.plot_data_from_json_file(fname)
 

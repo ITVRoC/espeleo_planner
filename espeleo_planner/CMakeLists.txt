@@ -247,6 +247,18 @@ target_link_libraries(
         ${catkin_LIBRARIES}
 )
 
+add_executable(
+        republish_cloud_to_frame
+        test/src/republish_cloud_to_frame.cpp
+)
+
+target_link_libraries(
+        republish_cloud_to_frame
+        ${catkin_LIBRARIES}
+        ${OCTOMAP_LIBRARIES}
+        ${Boost_LIBRARIES}
+)
+
 
 
 #############

@@ -37,7 +37,7 @@ void OctomapExploration::octomap_callback(const octomap_msgs::Octomap::ConstPtr 
 
     std::unique_lock<std::mutex> lock(octomap_mutex);
     if (octomap_load != NULL) {
-        ROS_DEBUG_STREAM("octomap_load is not NULL, cleaning octomap");
+        //ROS_DEBUG_STREAM("octomap_load is not NULL, cleaning octomap");
         delete octomap_load;
     }
 
@@ -45,13 +45,13 @@ void OctomapExploration::octomap_callback(const octomap_msgs::Octomap::ConstPtr 
 }
 
 void OctomapExploration::frontier_centers_callback(const visualization_msgs::MarkerArray::ConstPtr &msg) {
-    ROS_INFO("frontier_marker_callback");
+    ROS_INFO_ONCE("frontier_marker_callback");
     frontier_centers_array = msg;
 
     int frontier_size = frontier_centers_array->markers.size();
-    ROS_INFO("Frontier size: %d", frontier_size);
+    //ROS_INFO("Frontier size: %d", frontier_size);
     if (frontier_size <= 0) {
-        ROS_ERROR("frontier_centers_array is empty, not updating frontierInfoMap map");
+        //ROS_ERROR("frontier_centers_array is empty, not updating frontierInfoMap map");
         return;
     }
 
@@ -134,10 +134,15 @@ double OctomapExploration::calc_MI(octomap::OcTree *octree, const octomap::point
     high_resolution_clock::time_point t1 = high_resolution_clock::now();
 
     auto octree_copy = new octomap::OcTree(*octree);
+    // TODO REMOVE THIS
+    //publish_virtual_octomap(octree_copy);
+
     octree_copy->insertPointCloud(hits, origin, depth_sensor.max_range, false, false);
-    double after = get_free_volume(octree_copy);
+    double after = get_free_volume(octree_copy) + 0.01;
 
     publish_virtual_octomap(octree_copy);
+    ros::Duration(5.0).sleep();
+    // TODO TEMPORAL --- THIS IS TO ONLY PUBLISH THE FILLED OCTOMAP
 
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(t2 - t1).count();
@@ -257,13 +262,15 @@ std::vector<double> OctomapExploration::process_octomap(octomap::OcTree *octomap
         frontier_pos.push_back(origin);
         ROS_DEBUG_STREAM(" <<<< ------ <<<< " << i + 1 << "/" << frontier_size);
 
-        ros::Duration(2.0).sleep();
+//        ros::Duration(2.0).sleep();
 //        std::string inputString;
 //        std::cout << "Give input";
 //        std::cin.clear();
 //        std::cin.ignore(INT_MAX,'\n');
 //        std::getline(std::cin, inputString);
     }
+
+    publish_virtual_octomap(octomap_curr);
 
 //    double x1 = 362.816040039;
 //    double y1 = 74.552520752;
@@ -323,7 +330,7 @@ bool OctomapExploration::processAllFrontiersSrvCallback(espeleo_planner::process
     }
 
     if (octomap_load != NULL) {
-        ROS_DEBUG_STREAM("exception octomap_load is not NULL, cleaning octomap_load");
+        ROS_DEBUG_STREAM("octomap_load is not NULL, cleaning octomap_load");
         delete octomap_load;
         octomap_load = NULL;
     }
@@ -422,7 +429,7 @@ bool OctomapExploration::processAllFrontiersUsingSTLOctomapSrvCallback(
     }
 
     if (octomap_load != NULL) {
-        ROS_DEBUG_STREAM("exception octomap_load is not NULL, cleaning octomap_load");
+        ROS_DEBUG_STREAM("octomap_load is not NULL, cleaning octomap_load");
         delete octomap_load;
         octomap_load = NULL;
     }

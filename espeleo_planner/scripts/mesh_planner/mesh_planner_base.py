@@ -35,9 +35,9 @@ class MeshPlannerBase:
         else:
             raise TypeError("graph_metrics is not a valid object type [list, tuple]")
 
-        self.transversality_threshold = 30  # max inclination (in degrees) the robot could climb
+        self.transversality_threshold = 28  # max inclination (in degrees) the robot could climb
         self.bumpiness_threshold = 0.5  # maximum bump the robot could jump between surfaces TODO add reference here
-        self.border_threshold = 0.3  # distance to expand from borders to other face centroids
+        self.border_threshold = 0.35  # distance to expand from borders to other face centroids
 
         self.shortest_comb_weight = 0.25  # this is a shortest weight to combine the weights of the metrics
         self.energy_comb_weight = 0.25  # this is a energy weight to combine the weights of the metrics
@@ -214,10 +214,10 @@ class MeshPlannerBase:
         if target_id:
             unchecked_nodes.append(target_id)
 
-        G = self.reconnect_non_removable_nodes(G,
-                                               checked_nodes,
-                                               unchecked_nodes=unchecked_nodes,
-                                               max_distance=self.border_threshold + 1.0)
+        G, reachable_frontiers = self.reconnect_non_removable_nodes(G,
+                                                                    checked_nodes,
+                                                                    unchecked_nodes=unchecked_nodes,
+                                                                    max_distance=self.border_threshold + 1.0)
         G = self.remove_non_connected_components(G, source_id)
 
         filtered_reachable_f_ids = reachable_frontiers.intersection(G.nodes())
@@ -303,7 +303,7 @@ class MeshPlannerBase:
         conn_nodes = nx.node_connected_component(G, source)
         return G.subgraph(conn_nodes).copy()
 
-    def reconnect_non_removable_nodes(self, G, checked_nodes, unchecked_nodes=None, max_distance=1.0):
+    def reconnect_non_removable_nodes(self, G, checked_nodes, unchecked_nodes=None, max_distance=0.1):
         """Add non removable nodes to the graph which can be deleted by
         previous filtering algorithms such as the source and destination points
         The checked_nodes list will be added to the graph after validation for a maximum distance established by the
@@ -314,35 +314,51 @@ class MeshPlannerBase:
         :param checked_nodes: nodes to check against a maximum distance threshold
         :param unchecked_nodes:
         :param max_distance:
-        :return: G with important nodes and edges added to it
+        :return: G with important nodes and edges added to it and nearest_checked_nodes, a list of the nearest
+                checked nodes
         """
+
+        nearest_checked_nodes = set()
+
         if not unchecked_nodes:
             unchecked_nodes = []
 
         # check if the source, the target, and the frontiers are reachable
-        if not all(G.has_node(n_idx) for n_idx in checked_nodes):
-            borderless_g_centroids = [tuple(self.centroids[v]) for v in sorted(G.nodes())]
-            assert len(borderless_g_centroids) > 0, "The expand borders function did not leave any nodes, maybe" \
-                                                    "the treshold is too high? " \
-                                                    "border_tresh:{}".format(self.border_threshold)
+        borderless_g_centroids = [tuple(self.centroids[v]) for v in sorted(G.nodes())]
+        assert len(borderless_g_centroids) > 0, "The expand borders function did not leave any nodes, maybe" \
+                                                "the treshold is too high? " \
+                                                "border_tresh:{}".format(self.border_threshold)
 
-            borderless_g_dict = {i: v for i, v in enumerate(sorted(G.nodes()))}
-            borderless_kdtree = spatial.KDTree(borderless_g_centroids)
+        borderless_g_dict = {i: v for i, v in enumerate(sorted(G.nodes()))}
+        borderless_kdtree = spatial.KDTree(borderless_g_centroids)
 
-            for n_idx in checked_nodes + unchecked_nodes:
-                if G.has_node(n_idx):
-                    continue
+        # unchecked nodes
+        for n_idx in unchecked_nodes:
+            if G.has_node(n_idx):
+                continue
 
-                d, nearest_idx = borderless_kdtree.query(self.centroids[n_idx])
-                nearest_idx = int(nearest_idx)
-                # print "n_idx:", n_idx, "distances:", d, "nearest_idx:", nearest_idx, \
-                #     "checked_nodes:", checked_nodes, "uncheched_nodes:", uncheched_nodes
+            d, nearest_idx = borderless_kdtree.query(self.centroids[n_idx])
+            nearest_idx = int(nearest_idx)
+            G.add_node(n_idx)
+            G.add_edge(n_idx, borderless_g_dict[nearest_idx])
 
-                if d <= max_distance or n_idx in unchecked_nodes:
-                    G.add_node(n_idx)
-                    G.add_edge(n_idx, borderless_g_dict[nearest_idx])
+        # checked nodes
+        for n_idx in checked_nodes:
+            if G.has_node(n_idx):
+                nearest_checked_nodes.add(n_idx)
+                continue
 
-        return G
+            d, nearest_idx = borderless_kdtree.query(self.centroids[n_idx])
+            nearest_idx = int(nearest_idx)
+
+            if d <= max_distance:
+                G.add_node(n_idx)
+                G.add_edge(n_idx, borderless_g_dict[nearest_idx])
+                nearest_checked_nodes.add(n_idx)
+            else:
+                nearest_checked_nodes.add(nearest_idx)
+
+        return G, nearest_checked_nodes
 
     def cluster_frontier_borders(self, G, reachable_frontiers, source_id, dbscan_eps=2.5, dbscan_min_samples=1):
         """From a list of frontier borders, label them in clusters based on distance and extract the
