@@ -17,6 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   visualization_msgs
   sensor_msgs
+  geometry_msgs
   pcl_ros
   pcl_conversions
   std_srvs

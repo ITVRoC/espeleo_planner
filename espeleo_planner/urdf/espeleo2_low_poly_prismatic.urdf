@@ -1,0 +1,377 @@
+<?xml version="1.0" ?>
+
+<robot name="espeleo" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+  <material name="grey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
+  </material>
+  <material name="brown">
+    <color rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+
+  <link name="world">
+  <inertial>
+      <mass value="0"/>
+      <inertia ixx="0.2125" ixy="-0.005" ixz="0.0225" iyy="0.205" iyz="0.045" izz="0.0125"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
+
+  <link name="z_prismatic">
+   <inertial>
+      <mass value="0.01"/>
+      <inertia ixx="0.2125" ixy="-0.005" ixz="0.0225" iyy="0.205" iyz="0.045" izz="0.0125"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+    </inertial>
+  </link>
+
+<joint name="z_to_world" type="prismatic">
+    <parent link="world"/>
+    <child link="z_prismatic"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="0.0" lower="1" upper="-1" velocity="1000.0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+  </joint>
+
+
+<joint name="base_link_to_z" type="continuous">
+    <parent link="z_prismatic"/>
+    <child link="base_link"/>
+    <axis xyz="1 0 0"/>
+    <origin rpy="0 0 0" xyz="0 0 1.4"/>
+  </joint>
+
+ 
+  <link name="base_link"/>
+
+  <joint name="base_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+    <origin rpy="0 0 0.0" xyz="0 0 .15 "/>
+    <parent link="base_link"/>
+    <child link="chassis"/>
+  </joint>
+
+
+
+
+  <link name="chassis">
+
+
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.54 0.27 0.145"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="-1.57079632679 0 0" xyz="-0.283 -0.23 0.0725"/>
+      <geometry>
+        <mesh filename="package://espeleo_planner/espeleo_planner/urdf/stl/corpo.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.15"/>
+      <mass value="0.5"/>
+      <inertia ixx="0.01215" ixy="0" ixz="0" iyy="0.0030375" iyz="0" izz="0.0151875"/>
+    </inertial>
+  </link>
+
+
+  <link name="left_front_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_planner/espeleo_planner/urdf/stl/roda_esquerda_v2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+
+  </link>
+  
+
+  <joint name="left_front_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="left_front_wheel"/>
+    <origin rpy="0 0 0" xyz="0.215 0.175 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/>   
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="left_front_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_front_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_frontMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+
+  <link name="left_middle_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_planner/espeleo_planner/urdf/stl/roda_esquerda_v2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+
+  </link>
+
+
+  <joint name="left_middle_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="left_middle_wheel"/>
+    <origin rpy="0 0 0" xyz="0.0 0.225 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/> 
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="left_middle_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_middle_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_middleMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+
+  <link name="left_back_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_planner/espeleo_planner/urdf/stl/roda_esquerda_v2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+  </link>
+  
+  <joint name="left_back_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="left_back_wheel"/>
+    <origin rpy="0 0 0" xyz="-0.212 0.175 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/> 
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="left_back_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_back_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_backMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <link name="right_front_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="3.1415 0 3.14159265359" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_planner/espeleo_planner/urdf/stl/roda_esquerda_v2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+  </link>
+  
+  <joint name="right_front_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="right_front_wheel"/>
+    <origin rpy="3.1415 0 0" xyz="0.215 -0.175 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/> 
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="right_front_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_front_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_frontMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <link name="right_middle_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="3.1415 0 3.14159265359" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_planner/espeleo_planner/urdf/stl/roda_esquerda_v2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+  </link>
+  
+  <joint name="right_middle_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="right_middle_wheel"/>
+    <origin rpy="3.1415 0 0" xyz="0.0 -0.225 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/> 
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="right_middle_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_middle_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_middleMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <link name="right_back_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="3.1415 0 3.14159265359" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_planner/espeleo_planner/urdf/stl/roda_esquerda_v2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+  </link>
+  
+  <joint name="right_back_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="right_back_wheel"/>
+    <origin rpy="3.1415 0 0" xyz="-0.212 -0.175 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/> 
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="right_back_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_back_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_backMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+</robot>

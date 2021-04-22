@@ -1,0 +1,669 @@
+<?xml version="1.0" ?>
+
+<robot name="espeleo" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.0 0.0 0.8 1.0"/>
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+  <material name="grey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
+  </material>
+  <material name="brown">
+    <color rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
+  </material>
+  <material name="red">
+    <color rgba="0.8 0.0 0.0 1.0"/>
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+
+ 
+  <link name="base_link"/>
+
+  <joint name="base_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+    <origin rpy="0 0 0.0" xyz="0 0 .15 "/>
+    <parent link="base_link"/>
+    <child link="chassis"/>
+  </joint>
+
+
+  <link name="chassis">
+
+
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.54 0.27 0.145"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="-1.57079632679 0 0" xyz="-0.283 -0.23 0.0725"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/Espeleo-22.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0.15"/>
+      <mass value="0.5"/>
+      <inertia ixx="0.01215" ixy="0" ixz="0" iyy="0.0030375" iyz="0" izz="0.0151875"/>
+    </inertial>
+  </link>
+
+
+  <link name="left_front_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/roda_esquerda.stl"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+
+  </link>
+  
+
+  <joint name="left_front_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="left_front_wheel"/>
+    <origin rpy="0 0 0" xyz="0.215 0.175 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/>   
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="left_front_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_front_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_frontMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+
+  <link name="left_middle_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/roda_esquerda.stl"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+
+  </link>
+
+
+  <joint name="left_middle_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="left_middle_wheel"/>
+    <origin rpy="0 0 0" xyz="0.0 0.225 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/> 
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="left_middle_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_middle_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_middleMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+
+  <link name="left_back_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/roda_esquerda.stl"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+  </link>
+  
+  <joint name="left_back_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="left_back_wheel"/>
+    <origin rpy="0 0 0" xyz="-0.212 0.175 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/> 
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="left_back_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_back_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_backMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <link name="right_front_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="3.1415 0 3.14159265359" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/roda_esquerda.stl"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+  </link>
+  
+  <joint name="right_front_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="right_front_wheel"/>
+    <origin rpy="3.1415 0 0" xyz="0.215 -0.175 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/> 
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="right_front_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_front_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_frontMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <link name="right_middle_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="3.1415 0 3.14159265359" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/roda_esquerda.stl"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+  </link>
+  
+  <joint name="right_middle_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="right_middle_wheel"/>
+    <origin rpy="3.1415 0 0" xyz="0.0 -0.225 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/> 
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="right_middle_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_middle_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_middleMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <link name="right_back_wheel">
+
+    <collision>
+      <origin rpy="1.57079632679 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder length="0.043" radius="0.14"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="3.1415 0 3.14159265359" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/roda_esquerda.stl"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <origin rpy="1.57079632679 0 0 " xyz="0 0 0"/>
+      <mass value="0.2"/>
+      <inertia ixx="0.00101081666667" ixy="0" ixz="0" iyy="0.00101081666667" iyz="0" izz="0.00196"/>
+    </inertial>
+  </link>
+  
+  <joint name="right_back_wheel_joint" type="revolute">
+    <parent link="chassis"/>
+    <child link="right_back_wheel"/>
+    <origin rpy="3.1415 0 0" xyz="-0.212 -0.175 -0.01"/>
+    <axis rpy="0 0 0" xyz="0 1 0"/>
+    <limit command_effort="100" current="10" effort="80" gear_velocity="10" lower="-9.42" upper="9.42" velocity="15"/> 
+    <joint_properties damping="0.0" friction="0.0"/>
+  </joint>
+
+  <transmission name="right_back_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_back_wheel_joint">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_backMotor">
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>10</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <!-- sensor_tower -->
+
+
+  <link name="sensor_tower">
+
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.109"/>
+      <geometry>
+        <box size="0.19 0.19 0.18"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="1.57079632679 0 0" xyz="-0.08 0.2 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/Torre.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <inertial>
+      <mass value="2"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
+    </inertial>
+  </link>
+
+  <joint name="sensor_tower_joint" type="fixed">
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz=".0 .0 .055 "/>
+    <parent link="chassis"/>
+    <child link="sensor_tower"/>
+  </joint>
+
+  <!-- Caso necessite utilizar a TF da IMU na torre altere o parent link para (<parent link="chassis"/>) e utilize as seguintes coordenadas de origin (<origin rpy="0 0 0" xyz="-0.025 -0.015 .087"/>) -->
+
+
+  <!-- Imu --> 
+
+  <link name="imu_link"/>
+
+  <joint name="imu_joint" type="fixed">
+    <axis xyz="0 1 0"/>
+    <origin rpy="0 0 0" xyz="0.1275 -0.0175 0.0445"/> 
+    <parent link="chassis"/>
+    <child link="imu_link"/>
+  </joint>
+  
+
+  <!-- Laser Lidar -->
+  
+
+  <link name="os1_sensor">
+
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.045"/>
+      <geometry>
+        <box size="0.13 0.13 0.095"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="1.57079632679 0 1.57079632679" xyz="-0.09 -0.054 -0.01"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/Lidar.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+  </link>
+
+  <joint name="laser_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+    <origin rpy="0 0 0" xyz="0 0 .205 "/>
+    <parent link="sensor_tower"/>
+    <child link="os1_sensor"/>
+  </joint>
+
+
+  <!-- Camera T265  Nao se utiliza esta TF este link foi criado apenas com finalidade de visualizacao-->
+  
+
+  <link name="only_visual_t265">
+
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="0 3.1415 0" xyz="0.05 -0.012 0.004"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/realsense_t265.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+  </link>
+
+  <joint name="realsense_t265_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+    <origin rpy="-1.57 3.1415 1.57" xyz="0.06 0 .18 "/>
+    <parent link="sensor_tower"/>
+    <child link="only_visual_t265"/>
+  </joint>
+
+
+  <!-- Camera D435i -->
+  
+
+  <link name="d435i_link">
+
+    <collision>
+      <origin rpy="0 0 3.14" xyz="0.01 0 0"/>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.045 -0.0125 -0.005"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/realsense_d435.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+
+  </link>
+
+  <joint name="realsense_d435_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+     <origin rpy="-1.57 0 -1.57" xyz="0.06 0 .152 "/> 
+    <parent link="sensor_tower"/>
+    <child link="d435i_link"/>
+  </joint>
+
+
+  <!-- Camera D435i simulada -->
+  
+
+  <!--link name="d435i_sim_link"/>
+  
+  <joint name="realsense_d435_sim_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+     <origin rpy="0 0 3.1415" xyz="0 0 0"/> 
+    <parent link="d435i_link"/>
+    <child link="d435i_sim_link"/>
+  </joint-->
+
+
+<!-- Gazebo -->
+
+  <gazebo reference="base_link">
+    <material>Gazebo/White</material>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <robotNamespace>/espeleo</robotNamespace>
+    </plugin>
+  </gazebo>
+
+  <gazebo>
+    <plugin filename="libdiffdrive_plugin_multi_wheel.so" name="diffdrive_plugin_multiwheel">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>100.0</updateRate>
+      <leftJoints>left_front_wheel_joint left_middle_wheel_joint left_back_wheel_joint</leftJoints>
+      <rightJoints>right_front_wheel_joint right_middle_wheel_joint right_back_wheel_joint</rightJoints>
+      <!-- <wheelSeparation>${chassisWidth+wheelWidth}</wheelSeparation> THis is the right one, but the robot takes too much time to turn -->
+      <wheelSeparation>1</wheelSeparation>
+      <wheelDiameter>0.28</wheelDiameter>
+      <torque>1000000</torque>
+      <position name="position_iface_2"/>
+      <robotBaseFrame>robot_footprint</robotBaseFrame>
+      <commandTopic>/cmd_vel</commandTopic>
+      <publishOdometryTf>1</publishOdometryTf>
+      <publishOdometryMsg>1</publishOdometryMsg>
+    </plugin>
+  </gazebo>
+  <gazebo reference="camera">
+    <material>Gazebo/Green</material>
+    <sensor name="camera1" type="camera">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.3962634</horizontal_fov>
+        <image>
+          <width>800</width>
+          <height>800</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+      </camera>
+      <plugin filename="libgazebo_ros_camera.so" name="camera_controller">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>0.0</updateRate>
+        <cameraName>espeleo/camera1</cameraName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <frameName>camera</frameName>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- hokuyo -->
+  <gazebo reference="hokuyo">
+    <sensor name="head_hokuyo_sensor" type="ray">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>false</visualize>
+      <update_rate>40</update_rate>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>720</samples>
+            <resolution>1</resolution>
+            <min_angle>-1.570796</min_angle>
+            <max_angle>1.570796</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.20</min>
+          <max>30.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <!-- Noise parameters based on published spec for Hokuyo laser
+
+               achieving "+-30mm" accuracy at range < 10m.  A mean of 0.0m and
+
+               stddev of 0.01m will put 99.7% of samples within 0.03m of the true
+
+               reading. -->
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <plugin filename="libgazebo_ros_laser.so" name="gazebo_ros_head_hokuyo_controller">
+        <topicName>/espeleo/laser/scan</topicName>
+        <frameName>hokuyo</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+<gazebo reference="left_front_wheel">
+    <mu1 value="1"/>
+    <mu2 value="1"/>
+    <kp value="1000000.0"/>
+    <kd value="10.0"/>
+    <fdir1 value="0 0 1"/>
+    <minDepth>0.001</minDepth>
+    <maxContacts>1</maxContacts>
+    <!--maxVel>1.0</maxVel-->
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+<gazebo reference="left_middle_wheel">
+    <mu1 value="1"/>
+    <mu2 value="1"/>
+    <kp value="1000000.0"/>
+    <kd value="10.0"/>
+    <fdir1 value="0 0 1"/>
+    <minDepth>0.001</minDepth>
+    <maxContacts>1</maxContacts>
+    <!--maxVel>1.0</maxVel-->
+    <material>Gazebo/Red</material>
+</gazebo>
+
+<gazebo reference="left_back_wheel">
+    <mu1 value="1"/>
+    <mu2 value="1"/>
+    <kp value="1000000.0"/>
+    <kd value="10.0"/>
+    <fdir1 value="0 0 1"/>
+    <minDepth>0.001</minDepth>
+    <maxContacts>1</maxContacts>
+    <!--maxVel>1.0</maxVel-->
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+
+<gazebo reference="right_front_wheel">
+    <mu1 value="1"/>
+    <mu2 value="1"/>
+    <kp value="1000000.0"/>
+    <kd value="10.0"/>
+    <fdir1 value="0 0 1"/>
+    <minDepth>0.001</minDepth>
+    <maxContacts>1</maxContacts>
+    <!--maxVel>1.0</maxVel-->
+    <material>Gazebo/Red</material>
+</gazebo>
+
+<gazebo reference="right_middle_wheel">
+    <mu1 value="1"/>
+    <mu2 value="1"/>
+    <kp value="1000000.0"/>
+    <kd value="10.0"/>
+    <fdir1 value="0 0 1"/>
+    <minDepth>0.001</minDepth>
+    <maxContacts>1</maxContacts>
+    <!--maxVel>1.0</maxVel-->
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+<gazebo reference="right_back_wheel">
+    <mu1 value="1"/>
+    <mu2 value="1"/>
+    <kp value="1000000.0"/>
+    <kd value="10.0"/>
+    <fdir1 value="0 0 1"/>
+    <minDepth>0.001</minDepth>
+    <maxContacts>1</maxContacts>
+    <!--maxVel>1.0</maxVel-->
+    <material>Gazebo/Red</material>
+  </gazebo>
+</robot>

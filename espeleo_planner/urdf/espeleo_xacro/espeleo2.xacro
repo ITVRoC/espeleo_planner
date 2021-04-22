@@ -1,0 +1,116 @@
+<?xml version='1.0'?>
+<robot name="espeleo" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="Half_PI" value="1.570796327"/>
+
+  <xacro:property name="chassisGround" value="0.15"/>
+  <xacro:property name="chassisHeight" value="0.145"/>  
+  <xacro:property name="chassisLength" value="0.54"/>  
+  <xacro:property name="chassisWidth" value="0.27"/>
+  <xacro:property name="chassisMass" value="0.5"/>  
+  
+  <xacro:property name="wheelWidth" value="0.043"/>
+  <xacro:property name="wheelRadius" value="0.14"/>
+  
+  <xacro:property name="wheelPos_x" value="0.215"/>
+  <xacro:property name="wheelPos_y" value="0.175"/>
+  <xacro:property name="wheelMass" value="0.2"/>
+    
+  <xacro:include filename="$(find espeleo_description)/urdf/espeleo_xacro/espeleo.gazebo" />
+  <xacro:include filename="$(find espeleo_description)/urdf/espeleo_xacro/materials.xacro" />
+  <xacro:include filename="$(find espeleo_description)/urdf/espeleo_xacro/macros_espeleo.xacro" />
+  
+  <!--					Espeleo Configurations					 -->
+
+  <!-- If you need to use EspeleoRobo with tower configuration use this include-->
+  <xacro:include filename="$(find espeleo_description)/urdf/espeleo_xacro/espeleo_sensors.xacro" />
+
+  <!-- If you need to use EspeleoRobo with PanTilt configuration use this include-->
+  <!-- <xacro:include filename="$(find espeleo_description)/urdf/espeleo_xacro/pantilt.xacro" /> -->
+
+  <!-- For the sensorless EspeleoRobo comment the two includes above  -->
+
+  <link name="base_link" />
+
+  <joint name="base_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0 0 .15 " rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="chassis"/>
+  </joint>
+  
+
+  <link name='chassis'>
+    
+    <collision>
+
+      <origin xyz="0 0 0" rpy="0 0 0"/> 
+      <geometry> 
+        <box size="${chassisLength} ${chassisWidth} ${chassisHeight}"/> 
+      </geometry> 
+
+    </collision>
+    
+    <visual> 
+
+      <origin xyz="-0.283 -0.23 0.0752" rpy="${-Half_PI} 0 0"/> 
+      <geometry> 
+        <mesh filename="package://espeleo_description/urdf/stl/Espeleo-22.STL" scale="0.001 0.001 0.001"/>
+      </geometry> 
+      <material name="white"/>
+
+    </visual>
+    
+    <inertial> 
+
+      <origin xyz="0 0 ${chassisGround}" rpy="0 0 0"/> 
+      <mass value="${chassisMass}"/> 
+      <box_inertia m="${chassisMass}" x="${chassisLength}" y="${chassisWidth}" z="0"/>
+
+    </inertial>
+
+  </link>
+  
+
+
+  <wheel lr="left_front" x_pos="${wheelPos_x}" y_pos="${wheelPos_y}" rot="0"/>
+  <wheel lr="left_middle" x_pos="0.0" y_pos="0.225" rot="0"/>
+  <wheel lr="left_back" x_pos="-${wheelPos_x}" y_pos="${wheelPos_y}" rot="0"/>
+  <wheel lr="right_front" x_pos="${wheelPos_x}" y_pos="-${wheelPos_y}" rot="${PI}"/>
+  <wheel lr="right_middle" x_pos="0.0" y_pos="-0.225" rot="${PI}"/>
+  <wheel lr="right_back" x_pos="-${wheelPos_x}" y_pos="-${wheelPos_y}" rot="${PI}"/>
+      
+
+
+
+  <!-- Imu -->
+
+
+  <link name="imu_link"/>
+
+   <joint name="imu_joint" type="fixed">
+
+    <axis xyz="0 1 0" />
+    <origin xyz="0.1275 -0.0175 0.0445" rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="imu_link"/>
+
+  </joint>
+
+  <!-- GPS -->
+  <link name="gps_antenna"/>
+  
+  <joint name="gps_antenna_joint" type="fixed">
+
+    <axis xyz="0 0 0" />
+    <origin xyz="0 0 0.1 " rpy="0 0 0"/>
+    <parent link="imu_link"/>
+    <child link="gps_antenna"/>
+
+  </joint>
+
+
+
+
+</robot>

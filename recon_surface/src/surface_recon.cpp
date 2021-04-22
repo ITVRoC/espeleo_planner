@@ -10,10 +10,14 @@ std::list<PointVectorPair> grab_normals(std::vector<Point> &pts, std::vector<Vec
     ROS_DEBUG_STREAM("Using provided normals...");
 
     return points;
-
 }
 
 void estimate_normals(std::vector<Point> &pts, std::list<PointVectorPair> &points) {
+    auto src_point = Point_3(0.0, 0.0, 0.0);
+    estimate_normals(pts, src_point, points);
+}
+
+void estimate_normals(std::vector<Point> &pts, Point_3 src, std::list<PointVectorPair> &points) {
     points.clear();
 
     // std::sort(pts.begin(), pts.end(), ComparePointsToOrigin());
@@ -48,7 +52,8 @@ void estimate_normals(std::vector<Point> &pts, std::list<PointVectorPair> &point
                                      CGAL::First_of_pair_property_map<PointVectorPair>(),
                                      CGAL::Second_of_pair_property_map<PointVectorPair>(),
                                      nb_neighbors + 48,
-                                     Kernel());
+                                     Kernel(),
+                                     src);
 
     // Optional: delete points with an unoriented normal
     // if you plan to call a reconstruction algorithm that expects oriented normals.
@@ -79,7 +84,8 @@ mst_orient_normals_modified(
         PointPMap point_pmap, ///< property map: value_type of ForwardIterator -> Point_3.
         NormalPMap normal_pmap, ///< property map: value_type of ForwardIterator -> Vector_3.
         unsigned int k, ///< number of neighbors
-        const Kernel& kernel) ///< geometric traits.
+        const Kernel& kernel,
+        Point_3 src) ///< geometric traits.
 {
     ROS_DEBUG_STREAM("Calls mst_orient_normals()\n");
 
@@ -119,22 +125,22 @@ mst_orient_normals_modified(
 
     // Find the closer point to the 0, 0, 0
     // This is a heuristic to prevent the reconstruction of only
-    // small remote poitn cloud components
+    // small remote point cloud components
     // This point will be used as origin by the MST algorithm over the
     // Riemannian Graph
     ForwardIterator closest_point = first2;
     double p_dist = std::sqrt(
-            std::pow(get(point_pmap,*closest_point).x(), 2) +
-            std::pow(get(point_pmap,*closest_point).y(), 2) +
-            std::pow(get(point_pmap,*closest_point).z(), 2));
+            std::pow(get(point_pmap,*closest_point).x() - src.x(), 2) +
+            std::pow(get(point_pmap,*closest_point).y() - src.y(), 2) +
+            std::pow(get(point_pmap,*closest_point).z() - src.z(), 2));
 
     double local_dist = 0;
     for (ForwardIterator v = ++first2; v != beyond; v++)
     {
         local_dist = std::sqrt(
-                std::pow(get(point_pmap,*v).x(), 2) +
-                std::pow(get(point_pmap,*v).y(), 2) +
-                std::pow(get(point_pmap,*v).z(), 2));
+                std::pow(get(point_pmap,*v).x() - src.x(), 2) +
+                std::pow(get(point_pmap,*v).y() - src.y(), 2) +
+                std::pow(get(point_pmap,*v).z() - src.z(), 2));
 
         if (local_dist < p_dist){
             closest_point = v;
@@ -262,7 +268,7 @@ Mesh reconstruct_surface(std::list<PointVectorPair> &pwn, std::string base_path)
     // Poisson options
     FT sm_angle = 20.0; //20.0 Min triangle angle in degrees.
     FT sm_radius = 8.0; // Max triangle size w.r.t. point set average spacing. //10.0
-    FT sm_distance = 0.4;//0.375; // Surface Approximation error w.r.t. point set average spacing. //0.5
+    FT sm_distance = 0.5;//0.375; // Surface Approximation error w.r.t. point set average spacing. //0.5
     // Reads the point set file in points[].
     // Note: read_xyz_points_and_normals() requires an iterator over points
     // + property maps to access each point's position and normal.

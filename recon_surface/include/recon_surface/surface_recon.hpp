@@ -90,6 +90,8 @@ std::list<PointVectorPair> grab_normals(std::vector<Point> &pts, std::vector<Vec
 
 void estimate_normals(std::vector<Point> &pts, std::list<PointVectorPair> &points);
 
+void estimate_normals(std::vector<Point> &pts, Point_3 src, std::list<PointVectorPair> &points);
+
 std::list<PointVectorPair> register_normals(std::vector<Point> sampled_points, std::list<PointVectorPair> original);
 
 Mesh reconstruct_surface(std::list<PointVectorPair> &pwn, std::string base_path);
@@ -111,7 +113,8 @@ mst_orient_normals_modified(
         PointPMap point_pmap, ///< property map: value_type of ForwardIterator -> Point_3.
         NormalPMap normal_pmap, ///< property map: value_type of ForwardIterator -> Vector_3.
         unsigned int k, ///< number of neighbors
-        const Kernel& kernel); ///< geometric traits.
+        const Kernel& kernel, ///< geometric traits.
+        Point_3 src);  ///< origin of the MST algorithm over the Riemannian Graph
 
 struct ComparePointsToOrigin
 {

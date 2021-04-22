@@ -1,0 +1,210 @@
+<?xml version='1.0'?>
+<robot>
+
+  <link name="box">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.0775"/>
+      <geometry>
+        <box size="0.15 0.25 0.045"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.0775"/>
+      <geometry>
+        <box size="0.15 0.25 0.045"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+  <joint name="box_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+    <origin rpy="0 0 3.1415" xyz="0 0 0 "/>
+    <parent link="chassis"/>
+    <child link="box"/>
+  </joint>
+
+
+<!-- Camera D435i -->
+  <joint name="realsense_d435_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+     <origin rpy="0 0 0" xyz="0. 0.1 0.12 "/> 
+    <parent link="box"/>
+    <child link="d435i_link"/>
+  </joint>
+  <link name="d435i_link">
+    <collision>
+      <origin rpy="0 0 3.14" xyz="0.01 0 0"/>
+      <geometry>
+        <box size="0 0 0"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="-0.045 -0.0125 -0.005"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/realsense_d435.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+  </link>
+<!-- Camera D435i simulada -->
+  <joint name="realsense_d435_sim_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+     <origin rpy="1.57 0 0" xyz="0 0 0"/> 
+    <parent link="d435i_link"/>
+    <child link="d435i_sim_link"/>
+  </joint>
+  <link name="d435i_sim_link">
+  </link>
+
+
+<!-- PanTilt -->
+<link name="ptu_tilt_link">
+    <inertial>
+      <mass value="0.65"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <material name="ptu_body_color">
+        <color rgba="0.3 0.3 0.3 1.0"/>
+      </material>
+      <geometry>
+        <mesh filename="package://flir_ptu_description/meshes/flir-ptu-tilt-motor.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://flir_ptu_description/meshes/flir-ptu-tilt-motor-collision.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="ptu_tilt_link">
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <link name="ptu_pan_link">
+    <inertial>
+      <mass value="0.65"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <material name="ptu_body_color">
+        <color rgba="0.3 0.3 0.3 1.0"/>
+      </material>
+      <geometry>
+        <mesh filename="package://flir_ptu_description/meshes/flir-ptu-pan-motor.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://flir_ptu_description/meshes/flir-ptu-pan-motor-collision.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <gazebo reference="ptu_pan_link">
+    <material>Gazebo/DarkGrey</material>
+  </gazebo>
+  <link name="ptu_base_link">
+    <inertial>
+      <mass value="2e-06"/>
+      <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+    </inertial>
+  </link>
+  <link name="ptu_tilted_link">
+    <visual>
+      <material name="ptu_body_color">
+        <color rgba="0.3 0.3 0.3 1.0"/>
+      </material>
+      <geometry>
+        <mesh filename="package://flir_ptu_description/meshes/flir-ptu-camera-mount.stl"/>
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://flir_ptu_description/meshes/flir-ptu-camera-mount.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="ptu_mount_link">
+    <inertial>
+      <mass value="2e-06"/>
+      <inertia ixx="1.1e-09" ixy="0" ixz="0" iyy="1.1e-09" iyz="0" izz="1.1e-09"/>
+    </inertial>
+  </link>
+  <joint name="ptu_base" type="fixed">
+    <parent link="ptu_base_link"/>
+    <child link="ptu_pan_link"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+  <!-- The pan joint -->
+  <joint name="ptu_pan" type="revolute">
+    <parent link="ptu_pan_link"/>
+    <origin rpy="-1.5708 0 0.0" xyz="0 -0.00955 0.046774"/>
+    <child link="ptu_tilt_link"/>
+    <axis rpy="3.14159 0 0" xyz="0 -1 0"/>
+    <limit effort="30" lower="-2.775" upper="2.775" velocity="1.0"/>
+  </joint>
+  <transmission name="ptu_pan_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="ptu_pan">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="ptu_pan_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- The tilt joint -->
+  <joint name="ptu_tilt" type="revolute">
+    <parent link="ptu_tilt_link"/>
+    <origin rpy="-1.5708 0 0" xyz="0 -0.043713 0"/>
+    <child link="ptu_tilted_link"/>
+    <axis xyz="0 1 0"/>
+    <limit effort="30" lower="-0.82" upper="0.52" velocity="1.0"/>
+  </joint>
+  <transmission name="ptu_tilt_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="ptu_tilt">
+      <hardwareInterface>PositionJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="ptu_tilt_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+  <!-- Fixed joint to provide a convenient attachment point for accessories. -->
+  <joint name="ptu_mount" type="fixed">
+    <parent link="ptu_tilted_link"/>
+    <child link="ptu_mount_link"/>
+    <origin rpy="3.1416 0 0" xyz="0 0 -0.039116"/>
+  </joint>
+  <!-- Create a fixed joint to connect the PTU to the rest of the robot -->
+  <joint name="base_to_ptu_base" type="fixed">
+    <parent link="box"/>
+    <child link="ptu_base_link"/>
+    <origin xyz="0 -0.09 0.1"/>
+  </joint>
+
+
+  <!-- Laser Lidar -->
+  <joint name="laser_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+    <origin rpy="0 -1.57 0" xyz="0 0 0.05 "/>
+    <parent link="ptu_mount_link"/>
+    <child link="os1_sensor"/>
+  </joint>
+  <link name="os1_sensor">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.025"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.05"/>
+      </geometry>
+      <material name="orange"/>
+    </visual>
+  </link>
+
+</robot>

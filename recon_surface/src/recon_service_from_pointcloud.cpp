@@ -16,6 +16,7 @@
 
 #include <map>
 #include <sensor_msgs/PointCloud2.h>
+#include <geometry_msgs/Point.h>
 
 #include <iostream>
 #include <iomanip>
@@ -180,15 +181,18 @@ void writeSTLfromMesh(Mesh mesh_obj, string output_stl_filepath, bool flip_norma
     }
 }
 
-string generate_mesh(const sensor_msgs::PointCloud2 msg, string output) {
+string generate_mesh(const sensor_msgs::PointCloud2 msg, const geometry_msgs::Point src, string output) {
     std::vector<Point> points;
     std::vector<Vector> normals;
     std::vector<Color> colors;
     std::list<PointVectorPair> estimated_pwn;
     std::vector<Point_3> orig_points;
     std::vector<unsigned int> indices;
+    auto src_point = Point_3(src.x, src.y, src.z);
 
     FT average_spacing = 0.;
+
+    auto start_total_time = chrono::high_resolution_clock::now();
 
     auto start = chrono::high_resolution_clock::now();
     Pset pointset(points, normals, colors, sample); // init my point cloud
@@ -248,7 +252,7 @@ string generate_mesh(const sensor_msgs::PointCloud2 msg, string output) {
     start = chrono::high_resolution_clock::now();
     if (normals.size() == 0){
         //ROS_INFO_STREAM("Estimating normals");
-        estimate_normals(points, estimated_pwn);
+        estimate_normals(points, src_point, estimated_pwn);
     }
     else{
         //ROS_INFO_STREAM("Registering normals normals");
@@ -298,6 +302,12 @@ string generate_mesh(const sensor_msgs::PointCloud2 msg, string output) {
     string output_stl_filepath = output + "_mesh.stl";
     string output_stl_filepath_inverted = output + "_inverted_mesh.stl";
     Mesh mesh_obj;
+
+
+    stop = chrono::high_resolution_clock::now();
+    ROS_INFO_STREAM("Time total reconstruction: "
+                            << float(chrono::duration_cast<chrono::microseconds>(stop - start_total_time).count() / 1000000.0)
+                            << " seconds");
 
     if (!input_off3 || !(input_off3 >> mesh_obj)) {
         ROS_ERROR_STREAM("Not a valid off file (generate_mesh): " << output_stl_filepath);
@@ -359,6 +369,7 @@ bool genMeshFromPointCloudCallback(recon_surface::MeshFromPointCloud2::Request &
 
     try {
         const sensor_msgs::PointCloud2 ptcloud = req.input;
+        const geometry_msgs::Point src = req.src;
 
         time_t rawtime;
         struct tm *timeinfo;
@@ -379,7 +390,7 @@ bool genMeshFromPointCloudCallback(recon_surface::MeshFromPointCloud2::Request &
 
         ROS_INFO_STREAM("Output file:" << output_file);
 
-        string output_path = generate_mesh(ptcloud, output_file);
+        string output_path = generate_mesh(ptcloud, src, output_file);
 
         res.success = true;
         res.path = output_path;

@@ -1,0 +1,174 @@
+<?xml version='1.0'?>
+<robot>
+
+  <!-- sensor_tower -->
+
+
+  <link name="sensor_tower">
+
+    <collision>
+      <origin xyz="0 0 0.109" rpy="0 0 0"/>
+      <geometry>
+          <box size="0.19 0.19 0.18"/>
+      </geometry>
+    </collision>
+
+
+    <visual>
+
+      <origin xyz="-0.08 0.2 0" rpy="${Half_PI} 0 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/Torre.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="grey"/>
+    
+    </visual>
+
+
+    <inertial>
+
+      <mass value="2" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+
+    </inertial>
+
+
+  </link>
+
+  <joint name="sensor_tower_joint" type="fixed">
+
+    <axis xyz="0 1 0" />
+    <origin xyz=".0 .0 .055 " rpy="0 0 0"/>
+    <parent link="chassis"/>
+    <child link="sensor_tower"/>
+
+  </joint>
+
+  <!-- Laser Lidar -->
+
+
+  <link name="os1_sensor">
+      
+    <collision>
+
+      <origin xyz="0 0 0.045" rpy="0 0 0"/>
+      <geometry>
+          <box size="0.13 0.13 0.095"/>
+      </geometry>
+
+    </collision>
+
+    <visual>
+
+      <origin xyz="-0.09 -0.054 -0.01" rpy="${Half_PI} 0 ${Half_PI}"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/Lidar.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="orange"/>
+
+    </visual>
+
+
+  </link>
+
+
+  <joint name="laser_joint" type="fixed">
+
+    <axis xyz="0 0 0" />
+    <origin xyz="0 0 .205 " rpy="0 0 0"/>
+    <parent link="sensor_tower"/>
+    <child link="os1_sensor"/>
+
+  </joint>
+
+  <!-- Camera T265  Nao se utiliza esta TF este link foi criado apenas com finalidade de visualizacao-->
+
+
+  <link name="only_visual_t265">
+      
+    <collision>
+
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+          <box size="0. 0. 0."/>
+      </geometry>
+
+    </collision>
+
+    <visual>
+
+      <origin xyz="0.05 -0.012 0.004" rpy="0 ${PI} 0"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/realsense_t265.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="orange"/>
+
+    </visual>
+
+
+  </link>
+
+
+  <joint name="realsense_t265_joint" type="fixed">
+
+    <axis xyz="0 0 0" />
+    <origin xyz="0.06 0 .18 " rpy="-${Half_PI} ${PI} ${Half_PI}"/>
+    <parent link="sensor_tower"/>
+    <child link="only_visual_t265"/>
+
+  </joint>
+
+  <link name="d435i_link">
+       
+    <collision>
+
+      <origin xyz="0.01 0 0" rpy="0 0 ${PI}"/>
+      <geometry>
+          <box size="0.027 0.09 0.025"/>
+      </geometry>
+
+    </collision>
+
+    <visual>
+
+      <origin xyz="0.012 -0.045 -0.005" rpy="0 0 ${Half_PI}"/>
+      <geometry>
+        <mesh filename="package://espeleo_description/urdf/stl/realsense_d435.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="orange"/>
+
+    </visual>
+
+
+  </link>
+
+
+  <joint name="realsense_d435_joint" type="fixed">
+
+    <axis xyz="0 0 0" />
+    <origin xyz="0.28 0 .055 " rpy="0 ${Half_PI} 0"/>
+    <parent link="chassis"/>
+    <child link="d435i_link"/>
+
+  </joint>
+
+  <!-- Camera D435i simulada -->
+
+<!-- 
+  <link name="d435i_sim_link"/>
+  
+  <joint name="realsense_d435_sim_joint" type="fixed">
+
+    <axis xyz="0 0 0" />
+    <origin xyz="0 0 0 " rpy="0 -${Half_PI} 0"/>
+    <parent link="d435i_link"/>
+    <child link="d435i_sim_link"/>
+
+  </joint> -->
+
+
+
+
+
+</robot>
