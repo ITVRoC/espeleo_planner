@@ -20,9 +20,9 @@ Please refer to the local modules `READMES` for instalation and execution.
 
 ## Demo
 
-A demo of the system performing an iteration of the exploration pipeline with the mesh planner is depicted below:
+A demo of the system performing an iteration of the exploration pipeline with the mesh planner is depicted below ([Link to complete ICRA 2021 video](https://youtu.be/UyMl2uS-Ils)):
 
-[![N|Solid](https://raw.githubusercontent.com/ITVRoC/espeleo_planner/master/espeleo_planner/img/video_github_exploration.gif)](https://youtu.be/UyMl2uS-Ils)
+<img src="https://raw.githubusercontent.com/ITVRoC/espeleo_planner/master/espeleo_planner/img/video_github_exploration.gif" width="400">
 
 ## License
 
