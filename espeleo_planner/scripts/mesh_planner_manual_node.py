@@ -17,7 +17,6 @@ import numpy as np
 import ctypes
 import struct
 from sensor_msgs.msg import PointCloud2, PointField
-import traceback
 from scipy.ndimage import gaussian_filter1d
 import matplotlib.pyplot as plt
 

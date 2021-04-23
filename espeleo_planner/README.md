@@ -35,6 +35,8 @@ octovis /tmp/mesh/mesh.binvox.bt
 
 **Pymesh**
 
+This is the library used for Mesh manipulation in Python. Future works will remove this dependency and use other more friendly library.
+
 1 - Install PyMesh dependencies
 ```
   $ sudo apt install libeigen3-dev libgmp-dev libgmpxx4ldbl libmpfr-dev libboost-dev libboost-thread-dev libtbb-dev python3-dev
@@ -88,30 +90,39 @@ And replace by this:
   $ pip install prettytable
   $ pip install tqdm
   $ pip install pybullet
-```
-**Build surface reconstruction algorithm:**
-
-1 - Build and install the surface reconstruction dependencies:
-
-```
-  sudo apt install libboost-all-dev libpng-dev
-  wget https://github.com/CGAL/cgal/archive/releases/CGAL-4.11.tar.gz
-  tar -xfz CGAL-4.11.tar.gz
-  cd CGAL-4.11
-  mkdir build
-  cd build
-  cmake ..
-  make -j$(nproc)
-  sudo make install
-```
-2 - Build surface reconstruction executable:
-
-```
-  cd include/surface_recon/build
-  cmake ..
+  $ pip install python-pcl
+  $ pip install sys
+  $ pip install traceback
+  $ pip install multiprocessing
+  $ pip install numpy
+  $ pip install scipy
+  $ pip install sklearn
+  $ pip install heapq
+  $ pip install itertools
+  $ pip install prettytable
+  $ pip install enum
+  $ pip install matplotlib
+  $ pip install mayavi
+  $ pip install timeit
+  $ pip install pyquaternion
+  $ pip install pybullet
 ```
 
+**Build surface reconstruction algorithm:** 
+
+For building the `recon_surface` package, refer to: [Recon Surface README](https://github.com/ITVRoC/espeleo_planner/tree/master/recon_surface)
 
 ## Running:
 
-Use ``catkin build`` to build the package. Run the package with ``rosrun espeleo_planner espeleo_planner_node``.
+Use ``catkin build espeleo_planner`` to build the package. 
+
+Run the package with:
+
+``roslaunch recon_surface recon_service.launch``
+``rosrun espeleo_planner mesh_planner_manual.launch``
+
+This node in the manual version subscribes to the following topics:
+
+- `/laser_cloud_surround2` (PointCloud2) pointcloud of the environment
+- `/integrated_to_init2` (Odometry) estimate robot position
+- `/clicked_point` (PointStamped) to determine the goal location. This point cloud be easily sent using RViz point option in the GUI while clicking in a pointcloud point or mesh face

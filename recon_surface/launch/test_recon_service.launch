@@ -1,6 +1,6 @@
 <launch>
     <node pkg="point_cloud_io" type="read" name="read_stl_node" output="screen">
-        <param name="file_path" value="/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/reference_maps/stage_cave_v0_8m.ply" />
+        <param name="file_path" value="$(find recon_surface)/test/map_medium.ply" />
         <param name="topic"     value="/test_point_cloud" />
         <param name="frame"     value="/initial_base" />
         <param name="rate"      value="0.2" />
