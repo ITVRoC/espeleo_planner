@@ -15,8 +15,8 @@ This meta-package is subdivided in two modules:
 ## Installation
 
 Please refer to the local modules `READMES` for instalation and execution.
-- [Recon Surface README](https://github.com/ITVRoC/espeleo_planner/tree/master/recon_surface)
 - [Espeleo Planner README](https://github.com/ITVRoC/espeleo_planner/tree/master/espeleo_planner)
+- [Recon Surface README](https://github.com/ITVRoC/espeleo_planner/tree/master/recon_surface)
 
 ## Demo
 
