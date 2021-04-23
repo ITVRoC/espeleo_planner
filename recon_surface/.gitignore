@@ -1,3 +1,5 @@
 *.pyc
 tmp_reconstructions/*
 cmake-build-debug
+
+!tmp_reconstructions/.gitkeep 
