@@ -126,7 +126,7 @@ def find_closer_centroid(centroids, p, tol=1.e-2, force_return_closer=False):
     source_face = -1
     min_dist = 999999999999
 
-    rospy.loginfo("p:%s centroid_size:%d", p, len(centroids))
+    #rospy.loginfo("p:%s centroid_size:%d", p, len(centroids))
 
     for idx, face_pt in enumerate(centroids):
         d = math.sqrt((face_pt[0] - p[0]) ** 2 + (face_pt[1] - p[1]) ** 2 + (face_pt[2] - p[2]) ** 2)
@@ -145,10 +145,10 @@ def find_closer_centroid(centroids, p, tol=1.e-2, force_return_closer=False):
 
             min_dist = d
             source_face = idx
-            rospy.loginfo("find direct tolerance: %f", min_dist)
+            #rospy.loginfo("find direct tolerance: %f", min_dist)
             break
 
-    rospy.loginfo("Returned face idx:%f min_dist:%s", source_face, min_dist)
+    #rospy.loginfo("Returned face idx:%f min_dist:%s", source_face, min_dist)
     return source_face
 
 

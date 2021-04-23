@@ -10,6 +10,7 @@ import time
 from scipy import spatial
 import mesh_helper
 from sklearn.cluster import DBSCAN
+import traceback
 
 
 class MeshPlannerBase:
@@ -35,13 +36,16 @@ class MeshPlannerBase:
         else:
             raise TypeError("graph_metrics is not a valid object type [list, tuple]")
 
-        self.transversality_threshold = 28  # max inclination (in degrees) the robot could climb
-        self.bumpiness_threshold = 0.5  # maximum bump the robot could jump between surfaces TODO add reference here
-        self.border_threshold = 0.35  # distance to expand from borders to other face centroids
+        self.transversality_threshold = 55  # max inclination (in degrees) the robot could climb
+        self.bumpiness_threshold = 0.2  # maximum bump the robot could jump between surfaces TODO add reference here
+        self.border_threshold = 0.40 # distance to expand from borders to other face centroids
 
-        self.shortest_comb_weight = 0.25  # this is a shortest weight to combine the weights of the metrics
-        self.energy_comb_weight = 0.25  # this is a energy weight to combine the weights of the metrics
-        self.transversality_comb_weight = 0.50  # this is a transversality weight to combine the weights of the metrics
+        # self.shortest_comb_weight = 0.80  # this is a shortest weight to combine the weights of the metrics
+        # self.energy_comb_weight = 0.10  # this is a energy weight to combine the weights of the metrics
+        # self.transversality_comb_weight = 0.10  # this is a transversality weight to combine the weights of the metrics
+        self.shortest_comb_weight = 0.25
+        self.energy_comb_weight = 0.25
+        self.transversality_comb_weight = 0.50
 
         self.mesh.enable_connectivity()  # enables connectivity on mesh
         self.mesh.add_attribute("face_centroid")  # adds the face centroids to be accessed
@@ -199,7 +203,9 @@ class MeshPlannerBase:
         :param target_id: target node id
         :return: G, f_centroids_ids, filtered_reachable_frontiers
         """
+        print "G size:", len(G.nodes)
         G = self.filter_graph_by_traversable_faces(G)
+        print "G size:", len(G.nodes)
         G = self.remove_non_connected_components(G, source_id)
 
         mesh_frontiers = self.extract_frontiers_from_mesh()
@@ -300,8 +306,14 @@ class MeshPlannerBase:
         :param source: 
         :return: smaller G with the non connected components removed
         """
-        conn_nodes = nx.node_connected_component(G, source)
-        return G.subgraph(conn_nodes).copy()
+        try:
+            conn_nodes = nx.node_connected_component(G, source)
+            return G.subgraph(conn_nodes).copy()
+        except Exception as e:
+            traceback.print_exc()
+            rospy.logerr('Error returning connected components %s', e.message)
+            return G
+
 
     def reconnect_non_removable_nodes(self, G, checked_nodes, unchecked_nodes=None, max_distance=0.1):
         """Add non removable nodes to the graph which can be deleted by
@@ -480,7 +492,7 @@ class MeshPlannerBase:
             # could not get any path for the pair source/target
             return_dict[graph_metric_type] = None
 
-    def run(self, source_id, target_id, is_multithread=False):
+    def run(self, source_id, target_id, is_multithread=False, is_debug=False):
         """Run the graphs using the provided metrics and returns the path list
         :param source_id: node source id
         :param target_id: node target id
@@ -495,7 +507,7 @@ class MeshPlannerBase:
             # run the processes simultaneously
             for gmt in self.graph_metrics_types:
                 graph_proc = multiprocessing.Process(target=self.run_graph_process,
-                                                     args=[gmt, source_id, target_id, return_dict])
+                                                     args=[gmt, source_id, target_id, return_dict, is_debug])
                 graph_proc.start()
                 processes_list.append(graph_proc)
 
@@ -504,7 +516,7 @@ class MeshPlannerBase:
         else:
             # run processes sequentially
             for gmt in self.graph_metrics_types:
-                self.run_graph_process(gmt, source_id, target_id, return_dict)
+                self.run_graph_process(gmt, source_id, target_id, return_dict, is_debug=is_debug)
 
         # prepare result from face id to world point
         world_path_dict = {}

@@ -151,7 +151,9 @@ include_directories(
 )
 
 add_executable(recon_surface src/main.cpp src/hole_filling.cpp src/my_png.cpp src/pset.cpp src/rm_artifacts.cpp src/surface_recon.cpp src/texture.cpp)
+add_dependencies(recon_surface recon_surface_generate_messages_cpp)
 target_link_libraries(recon_surface ${catkin_LIBRARIES} ${LINK_LIBS} ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${PNG_LIBRARY})
 
 add_executable(recon_surface_service src/recon_service_from_pointcloud.cpp src/hole_filling.cpp src/my_png.cpp src/pset.cpp src/rm_artifacts.cpp src/surface_recon.cpp src/texture.cpp)
+add_dependencies(recon_surface_service recon_surface_generate_messages_cpp)
 target_link_libraries(recon_surface_service ${catkin_LIBRARIES} ${LINK_LIBS} ${CGAL_LIBRARIES} ${CGAL_3RD_PARTY_LIBRARIES} ${PNG_LIBRARY})

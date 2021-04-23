@@ -89,8 +89,6 @@ And replace by this:
   $ pip install tqdm
   $ pip install pybullet
 ```
-After installing Networkx, copy the file ``weighted.py`` to your Networkx python library folder. Use the command ``pip show networkx`` to find its folder. Then overwrite the file in ``/networkx/algorithms/shortest_paths/weighted.py``. 
-
 **Build surface reconstruction algorithm:**
 
 1 - Build and install the surface reconstruction dependencies:

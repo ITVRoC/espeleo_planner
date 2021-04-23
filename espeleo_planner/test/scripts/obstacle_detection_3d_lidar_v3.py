@@ -39,7 +39,7 @@ from geometry_msgs.msg import Twist, Pose, Point
 viewer = pcl.pcl_visualization.PCLVisualizering(b"3D Viewer")
 viewer.InitCameraParameters()
 
-# viewer.setCameraPosition(0, 30, 0,    0, 0, 0,   0, 0, 1)
+#viewer.setCameraPosition(0, 30, 0,    0, 0, 0,   0, 0, 1)
 # viewer.setCameraFieldOfView(0.523599)
 # viewer.setCameraClipDistances(0.00522511, 50)
 pub_closest_obstacle_marker = rospy.Publisher('/closest_obstacle_marker', Marker, latch=True, queue_size=1)
@@ -230,7 +230,7 @@ def find_max_list_idx(list):
     return np.argmax(np.array(list_len))
 
 
-def process_lidar_msg(is_plot=True):
+def process_lidar_msg(is_plot=False):
     global lidar_msg
 
     if not lidar_msg:
@@ -330,6 +330,8 @@ def process_lidar_msg(is_plot=True):
 
     if n_clusters <= 0:
         rospy.logerr("n_clusters <= 0")
+        viewer.remove_all_pointclouds()
+        viewer.remove_all_shapes()
         return
 
     #print "n_clusters:", n_clusters
@@ -425,14 +427,25 @@ if __name__ == '__main__':
     rospy.loginfo("init node...")
 
     rospy.Subscriber('/velodyne/points2', sensor_msgs.msg.PointCloud2, lidar_callback)
-    rate_slow = rospy.Rate(10.0)
+    rate_slow = rospy.Rate(20.0)
+
+    time_arr = []
 
     while not rospy.is_shutdown():
         try:
             time1 = time.time()
             process_lidar_msg()
             time2 = time.time()
-            print 'process_lidar_msg %0.3f ms' % ((time2 - time1) * 1000.0)
+
+            delay_time = ((time2 - time1) * 1000.0)
+            print 'process_lidar_msg %0.3f ms (%0.3f)' % (delay_time, len(time_arr))
+
+            if len(time_arr) >= 30:
+                time_np = np.array(time_arr)
+                print '\tmean %0.3f ms %0.3f std' % (np.mean(time_np), np.std(time_np))
+
+                time_arr.pop(0)
+            time_arr.append(delay_time)
         except Exception as e:
             tb = traceback.format_exc()
             rospy.logerr("Main Exception: %s", str(tb))

@@ -12,10 +12,13 @@ import pybullet_data
 import pyquaternion
 import datetime
 
-physicsClient = p.connect(p.GUI)
-#physicsClient = p.connect(p.DIRECT)
+#physicsClient = p.connect(p.GUI)
+physicsClient = p.connect(p.DIRECT)
+p.resetSimulation()
 p.setAdditionalSearchPath(pybullet_data.getDataPath()) #optionally
-p.setGravity(0, 0, -10)
+p.setGravity(0, 0, -9.8)
+dt = 1e-3
+p.setTimeStep(dt)
 
 col_shape_id = p.createCollisionShape(
     shapeType=pybullet.GEOM_MESH,
@@ -26,6 +29,7 @@ col_shape_id = p.createCollisionShape(
 viz_shape_id = p.createVisualShape(
     shapeType=p.GEOM_MESH,
     fileName="/tmp/tmp.stl",
+    rgbaColor=(0.6, 0.3, 0.1, 0.7)
 )
 
 body_id = p.createMultiBody(
@@ -35,35 +39,82 @@ body_id = p.createMultiBody(
     baseOrientation=(0, 0, 0, 1),
 )
 
+cam_dist = 2.60
+cam_yaw = 97.60
+cam_pitch = -6.20
+cam_pos = [-0.03, 0.24, 0]
+p.resetDebugVisualizerCamera( cameraDistance=cam_dist, cameraYaw=cam_yaw, cameraPitch=cam_pitch, cameraTargetPosition=cam_pos)
+
 
 def estimate_position(startPos, startOrientation):
     start_time = datetime.datetime.now()
     startQuatOrientation = p.getQuaternionFromEuler(startOrientation)
 
-    boxId = p.loadURDF("/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/urdf/espeleo2_low_poly.urdf",startPos, startQuatOrientation)
+    # boxId = p.loadURDF("/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/urdf/espeleo2_low_poly.urdf",startPos, startQuatOrientation)
+    # linkId = 0
 
-    prevCubePos, prevCubeOrn = p.getBasePositionAndOrientation(boxId)
+    boxId = p.loadURDF(
+        "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/urdf/espeleo2_low_poly_prismatic.urdf",
+        startPos, startQuatOrientation)
+    linkId = 1
+
+    jointFrictionForce = 0
+    for joint in range(p.getNumJoints(boxId)):
+        p.setJointMotorControl2(boxId, joint, p.POSITION_CONTROL, force=jointFrictionForce)
+
+    #print " ------------- ", p.getNumBodies()
+
+    # prevCubePos, prevCubeOrn = p.getBasePositionAndOrientation(boxId)
+
+    linkStateFull = p.getLinkState(boxId, linkId)
+    prevCubePos, prevCubeOrn = linkStateFull[4], linkStateFull[5]
+
     for i in range(1000):
         p.stepSimulation()
-        cubePos, cubeOrn = p.getBasePositionAndOrientation(boxId)
 
-        dist = math.sqrt((cubePos[0] - prevCubePos[0])**2 +
-                         (cubePos[1] - prevCubePos[1])**2 +
-                         (cubePos[2] - prevCubePos[2])**2)
+        #print " ------------- 0 ", p.getLinkState(boxId, 0)
+        # print " ------------- 1 ", p.getLinkState(boxId, 1)
+        # print " ------------- 2 ", p.getLinkState(boxId, 2)
+        # print " ------------- 3 ", p.getLinkState(boxId, 3)
+        # print " ------------- 4 ", p.getLinkState(boxId, 4)
+        # print " ------------- 5 ", p.getLinkState(boxId, 5)
+        # print " ------------- 6 ", p.getLinkState(boxId, 6)
+        #multiplyTransforms
+
+        #print "------- p.getLinkState():", p.getLinkState(boxId, 0)
+        #print "------- p.getDynamicsInfo:", p.getDynamicsInfo(boxId, -1)
+
+        #cubePos, cubeOrn = p.getBasePositionAndOrientation(boxId)
+
+        linkStateFull = p.getLinkState(boxId, linkId)
+        cubePos, cubeOrn = linkStateFull[4], linkStateFull[5]
+
+        #print "cubePos:", cubePos, cubeOrn
+
+        # dist = math.sqrt((cubePos[0] - prevCubePos[0])**2 +
+        #                  (cubePos[1] - prevCubePos[1])**2 +
+        #                  (cubePos[2] - prevCubePos[2])**2)
+
+        dist = math.sqrt((cubePos[2] - prevCubePos[2]) ** 2) # only z
 
         q0 = pyquaternion.Quaternion(cubeOrn)
         q1 = pyquaternion.Quaternion(prevCubeOrn)
         quat_dist = pyquaternion.Quaternion.absolute_distance(q0, q1)
 
-        #print "dist:{:.6f}".format(dist), "quat_dist:{:.6f}".format(quat_dist)
+        #print "dist:{:.8f}".format(dist), "quat_dist:{:.6f}".format(quat_dist)
 
         prevCubePos, prevCubeOrn = cubePos, cubeOrn
 
-        if i > 5 and (dist <= 0.001 and quat_dist <= 0.001):
-            print "breaking at step:", i
+        if i > 10 and (dist <= 0.00001 and quat_dist <= 0.0001):
+            print "breaking at step:", i, dist, quat_dist
             break
 
-        time.sleep(1./360.)
+        #time.sleep(1./360.)
+
+        # # bv = p.getBaseVelocity(boxId)
+        # # print "base_vel:", bv
+        # # bv = (0.0, 0.0, bv[0][2] + 0.5, bv[1][0], bv[1][1], bv[1][2])
+        # # p.resetBaseVelocity(boxId, bv)
 
     end_time = datetime.datetime.now()
     delta = end_time - start_time
@@ -75,9 +126,9 @@ def estimate_position(startPos, startOrientation):
     return prevCubePos, prevCubeOrn
 
 
-pos, orn = estimate_position([0, 0, 2], [0, 0, 0])
-#pos, orn = estimate_position([0, 0, 2], [0, 0, 0])
-pos, orn = estimate_position([1, 1, 2], [0, 0, 0])
+pos, orn = estimate_position([0, 0, 1], [0, 0, 0])
+#pos, orn = estimate_position([0, 0, 1], [0, 0, 0])
+pos, orn = estimate_position([1, 0.5, 1], [0, 0, 0])
 
 print "finishing..."
 time.sleep(4)

@@ -7,6 +7,8 @@ Panels:
         - /Global Options1
         - /TF1/Frames1
         - /Paths1
+        - /LegoLOAM1
+        - /LegoLOAM1/laser_cloud_surround21
         - /LegoLOAM1/laser_cloud_surround21/Autocompute Value Bounds1
         - /LegoLOAM1/KeyPoseOrigin21/Status1
       Splitter Ratio: 0.627451003
@@ -39,7 +41,7 @@ Visualization Manager:
       Cell Size: 2
       Class: rviz/Grid
       Color: 160; 160; 164
-      Enabled: true
+      Enabled: false
       Line Style:
         Line Width: 0.0299999993
         Value: Lines
@@ -52,7 +54,7 @@ Visualization Manager:
       Plane: XY
       Plane Cell Count: 300
       Reference Frame: <Fixed Frame>
-      Value: true
+      Value: false
     - Class: rviz/TF
       Enabled: false
       Frame Timeout: 15
@@ -347,13 +349,13 @@ Visualization Manager:
     - Class: rviz/Group
       Displays:
         - Class: rviz/MarkerArray
-          Enabled: true
+          Enabled: false
           Marker Topic: /visualization_trajectory
           Name: VisualizationTrajectory
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
-          Value: true
+          Value: false
         - Class: rviz/Marker
           Enabled: true
           Marker Topic: /visualization_ref_vel
@@ -369,8 +371,8 @@ Visualization Manager:
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 3.5
-            Min Value: -1
+            Max Value: 5
+            Min Value: -1.72345793
             Value: false
           Axis: Z
           Channel Name: intensity
@@ -389,7 +391,7 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.0399999991
+          Size (m): 0.0799999982
           Style: Spheres
           Topic: /laser_cloud_surround2
           Unreliable: false
@@ -705,25 +707,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 59.3432045
+      Distance: 40.190567
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 15.1807308
-        Y: -4.31303453
-        Z: -0.404444009
+        X: -9.67108345
+        Y: -11.4568844
+        Z: -3.00408626
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.57979691
+      Pitch: 0.779797077
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.84058547
+      Yaw: 2.86872768
     Saved: ~
 Window Geometry:
   Displays:

@@ -109,6 +109,9 @@ class MeshPlannerNode:
                 self.map_pointcloud_msg is not None:
             return True
         else:
+            rospy.loginfo("self.odom_msg: %s", True if self.odom_msg is not None else False)
+            rospy.loginfo("self.clicked_point_msg: %s", True if self.clicked_point_msg is not None else False)
+            rospy.loginfo("self.map_pointcloud_msg: %s", True if self.map_pointcloud_msg is not None else False)
             return False
 
     def is_ready_to_explore(self):

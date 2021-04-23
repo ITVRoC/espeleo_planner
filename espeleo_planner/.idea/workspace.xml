@@ -2,123 +2,123 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
-      <config projectName="espeleo_planner" targetName="gmock" />
-      <config projectName="espeleo_planner" targetName="tests" />
-      <config projectName="espeleo_planner" targetName="gtest_main" />
-      <config projectName="espeleo_planner" targetName="visualization_msgs_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="sensor_msgs_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="tf_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="std_srvs_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="sensor_msgs_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="std_msgs_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="espeleo_planner_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="std_srvs_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="gtest" />
-      <config projectName="espeleo_planner" targetName="roscpp_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="topic_tools_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="nodelet_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="espeleo_planner_genpy" />
-      <config projectName="espeleo_planner" targetName="run_tests" />
+      <config projectName="espeleo_planner" targetName="roscpp_generate_messages_py" />
       <config projectName="espeleo_planner" targetName="tf_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="visualization_msgs_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="_espeleo_planner_generate_messages_check_deps_processFrontier" />
-      <config projectName="espeleo_planner" targetName="tf2_msgs_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="espeleo_planner_genlisp" />
-      <config projectName="espeleo_planner" targetName="espeleo_planner_gencpp" />
+      <config projectName="espeleo_planner" targetName="topic_tools_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="actionlib_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="bond_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="nodelet_generate_messages_py" />
       <config projectName="espeleo_planner" targetName="_espeleo_planner_generate_messages_check_deps_processAllFrontiers" />
       <config projectName="espeleo_planner" targetName="nodelet_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="std_srvs_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="bond_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="espeleo_planner_generate_messages" />
-      <config projectName="espeleo_planner" targetName="std_srvs_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="pcl_msgs_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="tf2_msgs_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="espeleo_planner_geneus" />
-      <config projectName="espeleo_planner" targetName="tf2_msgs_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="visualization_msgs_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="actionlib_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="espeleo_planner_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="_espeleo_planner_generate_messages_check_deps_processFrontier" />
       <config projectName="espeleo_planner" targetName="rosgraph_msgs_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="binvox2bt" />
-      <config projectName="espeleo_planner" targetName="pcl_ros_gencfg" />
-      <config projectName="espeleo_planner" targetName="tf2_msgs_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="nodelet_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="tf2_msgs_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="actionlib_msgs_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="topic_tools_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="espeleo_planner_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="obstacle_detection_pcl" />
-      <config projectName="espeleo_planner" targetName="topic_tools_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="roscpp_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="frontier_entropy_node" />
-      <config projectName="espeleo_planner" targetName="geometry_msgs_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="octomap_msgs_generate_messages_py" />
       <config projectName="espeleo_planner" targetName="geometry_msgs_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="pcl_msgs_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="actionlib_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="tf_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="espeleo_planner_gennodejs" />
-      <config projectName="espeleo_planner" targetName="clean_test_results" />
-      <config projectName="espeleo_planner" targetName="roscpp_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="octomap_msgs_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="octomap_msgs_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="roscpp_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="visualization_msgs_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="tf2_msgs_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="roscpp_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="bond_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="visualization_msgs_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="std_srvs_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="run_tests" />
+      <config projectName="espeleo_planner" targetName="dynamic_reconfigure_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="espeleo_planner_genlisp" />
+      <config projectName="espeleo_planner" targetName="actionlib_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="espeleo_planner_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="tf_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="tf_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="nodelet_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="topic_tools_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="dynamic_reconfigure_gencfg" />
+      <config projectName="espeleo_planner" targetName="std_msgs_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="bond_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="nodelet_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="actionlib_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="pcl_msgs_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="bond_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="binvox2bt" />
+      <config projectName="espeleo_planner" targetName="std_msgs_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="roscpp_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="espeleo_planner_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="dynamic_reconfigure_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="espeleo_planner_gencpp" />
       <config projectName="espeleo_planner" targetName="topic_tools_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="sensor_msgs_generate_messages_lisp" />
       <config projectName="espeleo_planner" targetName="geometry_msgs_generate_messages_eus" />
       <config projectName="espeleo_planner" targetName="transform_origin_test" />
-      <config projectName="espeleo_planner" targetName="octomap_msgs_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="pcl_msgs_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="bond_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="actionlib_msgs_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="visualization_msgs_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="dynamic_reconfigure_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="tf_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="octomap_raytracing" />
-      <config projectName="espeleo_planner" targetName="tf_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="visualization_msgs_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="publish_360_projection" />
-      <config projectName="espeleo_planner" targetName="actionlib_msgs_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="nodelet_topic_tools_gencfg" />
-      <config projectName="espeleo_planner" targetName="nodelet_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="dynamic_reconfigure_gencfg" />
-      <config projectName="espeleo_planner" targetName="sensor_msgs_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="rosgraph_msgs_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="nodelet_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="espeleo_planner_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="doxygen" />
-      <config projectName="espeleo_planner" targetName="roscpp_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="dynamic_reconfigure_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="tf2_msgs_generate_messages_eus" />
       <config projectName="espeleo_planner" targetName="dynamic_reconfigure_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="rosgraph_msgs_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="actionlib_msgs_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="bond_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="std_msgs_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="dynamic_reconfigure_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="_espeleo_planner_generate_messages_check_deps_processAllFrontiersUsingSTLOctomap" />
-      <config projectName="espeleo_planner" targetName="actionlib_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="geometry_msgs_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="std_srvs_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="sensor_msgs_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="pcl_ros_gencfg" />
+      <config projectName="espeleo_planner" targetName="visualization_msgs_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="std_srvs_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="espeleo_planner_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="sensor_msgs_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="tf_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="tf2_msgs_generate_messages_nodejs" />
       <config projectName="espeleo_planner" targetName="actionlib_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="dynamic_reconfigure_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="download_extra_data" />
-      <config projectName="espeleo_planner" targetName="std_msgs_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="geometry_msgs_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="rosgraph_msgs_generate_messages_nodejs" />
-      <config projectName="espeleo_planner" targetName="gmock_main" />
+      <config projectName="espeleo_planner" targetName="nodelet_topic_tools_gencfg" />
+      <config projectName="espeleo_planner" targetName="visualization_msgs_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="frontier_entropy_node" />
+      <config projectName="espeleo_planner" targetName="espeleo_planner_generate_messages" />
+      <config projectName="espeleo_planner" targetName="geometry_msgs_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="nodelet_generate_messages_eus" />
       <config projectName="espeleo_planner" targetName="rosgraph_msgs_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="actionlib_msgs_generate_messages_eus" />
-      <config projectName="espeleo_planner" targetName="topic_tools_generate_messages_py" />
       <config projectName="espeleo_planner" targetName="octomap_msgs_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="pcl_msgs_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="bond_generate_messages_lisp" />
-      <config projectName="espeleo_planner" targetName="pcl_msgs_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="std_msgs_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="clean_test_results" />
+      <config projectName="espeleo_planner" targetName="gmock" />
+      <config projectName="espeleo_planner" targetName="espeleo_planner_geneus" />
+      <config projectName="espeleo_planner" targetName="obstacle_detection_pcl" />
+      <config projectName="espeleo_planner" targetName="octomap_msgs_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="doxygen" />
+      <config projectName="espeleo_planner" targetName="actionlib_msgs_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="geometry_msgs_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="roscpp_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="std_srvs_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="geometry_msgs_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="roscpp_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="rosgraph_msgs_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="dynamic_reconfigure_generate_messages_lisp" />
       <config projectName="espeleo_planner" targetName="std_msgs_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="std_msgs_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="actionlib_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="std_srvs_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="sensor_msgs_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="espeleo_planner_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="espeleo_planner_gennodejs" />
+      <config projectName="espeleo_planner" targetName="sensor_msgs_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="sensor_msgs_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="espeleo_planner_genpy" />
+      <config projectName="espeleo_planner" targetName="actionlib_msgs_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="octomap_msgs_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="pcl_msgs_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="std_msgs_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="actionlib_msgs_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="rosgraph_msgs_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="gmock_main" />
+      <config projectName="espeleo_planner" targetName="publish_360_projection" />
+      <config projectName="espeleo_planner" targetName="actionlib_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="topic_tools_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="sensor_msgs_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="download_extra_data" />
+      <config projectName="espeleo_planner" targetName="gtest" />
+      <config projectName="espeleo_planner" targetName="pcl_msgs_generate_messages_nodejs" />
+      <config projectName="espeleo_planner" targetName="actionlib_msgs_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="actionlib_msgs_generate_messages_eus" />
       <config projectName="espeleo_planner" targetName="espeleo_planner_generate_messages_cpp" />
-      <config projectName="espeleo_planner" targetName="octomap_msgs_generate_messages_py" />
-      <config projectName="espeleo_planner" targetName="bond_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="octomap_raytracing" />
+      <config projectName="espeleo_planner" targetName="gtest_main" />
+      <config projectName="espeleo_planner" targetName="pcl_msgs_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="octomap_msgs_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="tests" />
+      <config projectName="espeleo_planner" targetName="visualization_msgs_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="_espeleo_planner_generate_messages_check_deps_processAllFrontiersUsingSTLOctomap" />
+      <config projectName="espeleo_planner" targetName="topic_tools_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="bond_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="tf2_msgs_generate_messages_lisp" />
+      <config projectName="espeleo_planner" targetName="rosgraph_msgs_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="pcl_msgs_generate_messages_eus" />
+      <config projectName="espeleo_planner" targetName="dynamic_reconfigure_generate_messages_cpp" />
+      <config projectName="espeleo_planner" targetName="std_srvs_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="tf2_msgs_generate_messages_py" />
+      <config projectName="espeleo_planner" targetName="tf_generate_messages_cpp" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -128,59 +128,102 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b195b9bd-f66f-49af-a21e-2a2211611e10" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/launch/frontier_entropy_service.launch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/launch/obstacle_detection.launch" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/exploration_metrics.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/srv/processAllFrontiersUsingSTLOctomap.srv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/scripts/obstacle_detection_3d_lidar.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/scripts/obstacle_detection_3d_lidar_v2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/scripts/obstacle_detection_3d_lidar_v3.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/src/obstacle_detection_pcl.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/src/transform_origin_test.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/.name" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/espeleo_planner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/espeleo_planner.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/h3ct0r.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/h3ct0r.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/espeleo_planner.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/espeleo_planner.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/ROS.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/planning_integrated.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ros.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/depth_sensor.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/depth_sensor.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/frontier_entropy.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/frontier_entropy.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/frontier_information.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/frontier_information.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/launch/espeleo_mapping_lidar.launch" beforeDir="false" afterPath="$PROJECT_DIR$/launch/espeleo_mapping_lidar.launch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/launch/mesh_planner_exploration.launch" beforeDir="false" afterPath="$PROJECT_DIR$/launch/mesh_planner_exploration.launch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rviz/espeleo_coppelia.rviz" beforeDir="false" afterPath="$PROJECT_DIR$/rviz/espeleo_coppelia.rviz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/convert_nav_msgs_path_to_espeleo_path.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/convert_nav_msgs_path_to_espeleo_path.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/mesh_planner/graph_metrics.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/mesh_planner/graph_metrics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/mesh_planner/graph_search.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/mesh_planner/graph_search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_combined/simple_cave_delimited_v2.ply_09.10.2020-15.39.11_min_combined.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_combined/simple_cave_delimited_v2.ply_09.10.2020-15.39.11_min_combined.json_odom_99.955_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_metric/simple_cave_delimited_v2.ply_09.10.2020-16.29.20.json_odom_90.880_plot_METRIC.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_metric/simple_cave_delimited_v2.ply_09.10.2020-16.29.20_METRIC.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-18.29.46.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-18.29.46.json_odom_93.311_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-19.08.49.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-19.08.49.json_odom_92.654_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-19.40.03.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-19.40.03.json_odom_88.399_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-20.34.58.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-20.37.07.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-20.37.07.json_odom_0.691_timesteps_0.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-20.39.18.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-20.39.18.json_odom_86.437_timesteps_694.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-22.44.12.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-22.44.12.json_odom_43.447_timesteps_353.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.34.36.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.36.42.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.36.42.json_odom_1.784_timesteps_9.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.37.55.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.37.55.json_odom_11.838_timesteps_50.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.41.19.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.41.19.json_odom_20.464_timesteps_77.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_10.10.2020-23.53.53.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.03.01.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.08.47.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.11.20.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.11.20.json_odom_0.292_timesteps_1.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.14.20.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.14.20.json_odom_26.777_timesteps_129.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.32.08.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.32.08.json_odom_97.500_timesteps_512.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.49.16.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.49.16.json_odom_3.850_timesteps_15.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.50.53.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/json/map_delimited_v2_short/simple_cave_delimited_v2.ply_11.10.2020-00.50.53.json_odom_1.834_timesteps_4.000_plot.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/comparison_pointclouds/simple_cave_delimited_v2.ply" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/install-deps.sh" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/launch/experiment_evaluation_manual.launch" beforeDir="false" afterPath="$PROJECT_DIR$/launch/experiment_evaluation_manual.launch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/launch/exploration_services_manual.launch" beforeDir="false" afterPath="$PROJECT_DIR$/launch/exploration_services_manual.launch" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rviz/espeleo_coppelia_JINT_EXPLORATION.rviz" beforeDir="false" afterPath="$PROJECT_DIR$/rviz/espeleo_coppelia_JINT_EXPLORATION.rviz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rviz/espeleo_coppelia_VELOSO.rviz" beforeDir="false" afterPath="$PROJECT_DIR$/rviz/espeleo_coppelia_VELOSO.rviz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rviz/espeleo_coppelia_white.rviz" beforeDir="false" afterPath="$PROJECT_DIR$/rviz/espeleo_coppelia_white.rviz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/mesh_planner/mesh_helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/mesh_planner/mesh_helper.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/mesh_planner/mesh_planner_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/mesh_planner/mesh_planner_base.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/mesh_planner/mesh_planner_node.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/mesh_planner/mesh_planner_node.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/mesh_planner_exploration_node.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/mesh_planner_exploration_node.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scripts/mesh_planner_manual_node.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/mesh_planner_manual_node.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/obstacle_detection_3d_lidar.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/plan_with_fixed_stl_file.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/plan_with_fixed_stl_file.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontier_entropy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontier_entropy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/frontier_entropy_node.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/frontier_entropy_node.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srv/processAllFrontiers.srv" beforeDir="false" afterPath="$PROJECT_DIR$/srv/processAllFrontiers.srv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/scripts/plot_obstacle_weight.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/scripts/plot_obstacle_weight.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/src/octomap_raytracing.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/src/octomap_raytracing.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/src/publish_360_projection.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test/src/publish_360_projection.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/steps_scene_espeleo2_lidar_6wheels.ttt" beforeDir="false" afterPath="$PROJECT_DIR$/test/steps_scene_espeleo2_lidar_6wheels.ttt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/republish_smaller_pointcloud.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/republish_smaller_pointcloud.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/plot_times_planning.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/plot_times_planning.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/scripts/decay_function_angle_neighbors.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/scripts/decay_function_angle_neighbors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/scripts/extract_centroid_normal_list_from_mesh.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/scripts/extract_centroid_normal_list_from_mesh.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/scripts/obstacle_detection_3d_lidar_v3.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/scripts/obstacle_detection_3d_lidar_v3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/scripts/optimization_mesh_angle_position.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/scripts/optimization_mesh_angle_position.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/scripts/optimization_pose_mesh_pybullet.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/scripts/optimization_pose_mesh_pybullet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/scripts/rotation_angle_from_mesh.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/scripts/rotation_angle_from_mesh.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo2_base.urdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo2_leg.urdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo2_low_poly.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/urdf/espeleo2_low_poly.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo2_low_poly_prismatic.urdf" beforeDir="false" afterPath="$PROJECT_DIR$/urdf/espeleo2_low_poly_prismatic.urdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo2_pantilt.urdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo2_star.urdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo_xacro/espeleo.gazebo" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo_xacro/espeleo2.xacro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo_xacro/espeleo2_leg.xacro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo_xacro/espeleo2_pantilt.xacro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo_xacro/espeleo2_star.xacro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo_xacro/espeleo_sensors.xacro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo_xacro/macros_espeleo.xacro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo_xacro/materials.xacro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/espeleo_xacro/pantilt.xacro" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/Espeleo-22.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/Lidar.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/Torre - torre 2-1.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/Torre - xsens-1.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/Torre.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/baseMancalLongo.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/base_marcal_curto.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/eixoLongo.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/leg.stl" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/leg_2.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/realsense_d435.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/realsense_t265.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/roda.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/urdf/stl/rodaEstrela.STL" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../recon_surface/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../recon_surface/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../recon_surface/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../recon_surface/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../recon_surface/launch/recon_service.launch" beforeDir="false" afterPath="$PROJECT_DIR$/../recon_surface/launch/recon_service.launch" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../recon_surface/script/test_mesh_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/../recon_surface/script/test_mesh_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../recon_surface/src/surface_recon.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../recon_surface/src/surface_recon.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,49 +232,6 @@
   </component>
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/frontier_entropy.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="136" column="84" selection-start-line="136" selection-start-column="84" selection-end-line="136" selection-end-column="84" />
-              <folding>
-                <element signature="e#0#19#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-379">
-              <caret line="236" column="28" lean-forward="true" selection-start-line="236" selection-start-column="28" selection-end-line="236" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/include/frontier_entropy.h">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="114" column="67" selection-start-line="114" selection-start-column="67" selection-end-line="114" selection-end-column="67" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/binvox2bt.cpp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="210" column="8" selection-start-line="210" selection-start-column="8" selection-end-line="210" selection-end-column="8" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -243,112 +243,41 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/include/frontier_entropy.h" />
-      </list>
-    </option>
-  </component>
   <component name="JupyterTrust" id="96dc2e88-2fe9-4f42-b4f8-3a5d50e87458" />
   <component name="OCFindUsagesOptions" text="false" ivars="false" properties="true" derivedClasses="false" />
   <component name="OCResolveContextSettings">
     <option name="configuration" value="0-transform_origin_test" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-1" />
-    <option name="y" value="25" />
-    <option name="width" value="1368" />
-    <option name="height" value="723" />
-  </component>
   <component name="ProjectId" id="1hCYb0AiutY3yTxAAXROfyZ5Jwh" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
-  <component name="ProjectView">
-    <navigator proportions="" version="1">
-      <foldersAlwaysOnTop value="true" />
-    </navigator>
-    <panes>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="espeleo_planner" type="b2602c69:ProjectViewProjectNode" />
-              <item name="espeleo_planner" type="47feb1d3:ProjectViewModuleNode" />
-            </path>
-            <path>
-              <item name="espeleo_planner" type="b2602c69:ProjectViewProjectNode" />
-              <item name="espeleo_planner" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="espeleo_planner" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="espeleo_planner" type="b2602c69:ProjectViewProjectNode" />
-              <item name="espeleo_planner" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="espeleo_planner" type="462c0819:PsiDirectoryNode" />
-              <item name="include" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="espeleo_planner" type="b2602c69:ProjectViewProjectNode" />
-              <item name="espeleo_planner" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="espeleo_planner" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="espeleo_planner" type="b2602c69:ProjectViewProjectNode" />
-              <item name="espeleo_planner" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="espeleo_planner" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="espeleo_planner" type="b2602c69:ProjectViewProjectNode" />
-              <item name="espeleo_planner" type="47feb1d3:ProjectViewModuleNode" />
-              <item name="espeleo_planner" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
-    </panes>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/srv" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/scripts" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PythonContentEntriesConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/srv" />
+      <recent name="$PROJECT_DIR$/scripts" />
       <recent name="$PROJECT_DIR$/launch" />
-      <recent name="$PROJECT_DIR$/test/scripts" />
       <recent name="$PROJECT_DIR$/test/src" />
-      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/srv" />
+      <recent name="$PROJECT_DIR$/test/scripts" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test/src" />
     </key>
   </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
-  <component name="RunManager" selected="Python.mesh_planner_exploration_node">
+  <component name="RunManager" selected="Python.optimization_mesh_angle_position">
     <configuration name="_espeleo_planner_generate_messages_check_deps_processAllFrontiersUsingSTLOctomap" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="espeleo_planner" TARGET_NAME="_espeleo_planner_generate_messages_check_deps_processAllFrontiersUsingSTLOctomap" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -694,6 +623,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="republish_cloud_to_frame" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="espeleo_planner" TARGET_NAME="republish_cloud_to_frame" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="espeleo_planner" RUN_TARGET_NAME="republish_cloud_to_frame">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="roscpp_generate_messages_cpp" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="espeleo_planner" TARGET_NAME="roscpp_generate_messages_cpp" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -956,16 +890,40 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="optimization_mesh_angle_position" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="espeleo_planner" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test/scripts" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/scripts/optimization_mesh_angle_position.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Python.mesh_planner_exploration_node" />
+      <item itemvalue="Python.optimization_mesh_angle_position" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.optimization_mesh_angle_position" />
         <item itemvalue="Python.mesh_planner_exploration_node" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -991,89 +949,50 @@
       <workItem from="1601856145930" duration="19077000" />
       <workItem from="1602174625020" duration="4574000" />
       <workItem from="1602374044957" duration="4947000" />
-      <workItem from="1602384497624" duration="4302000" />
+      <workItem from="1602384497624" duration="6197000" />
+      <workItem from="1602460832435" duration="2745000" />
+      <workItem from="1603069080869" duration="42055000" />
+      <workItem from="1607788811496" duration="1154000" />
+      <workItem from="1607960885327" duration="34904000" />
+      <workItem from="1608499541916" duration="12931000" />
+      <workItem from="1614281700952" duration="1656000" />
+      <workItem from="1617142865340" duration="55227000" />
+      <workItem from="1617475328776" duration="10000" />
+      <workItem from="1619141410954" duration="2986000" />
     </task>
     <servers />
   </component>
-  <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="105000" />
-  </component>
-  <component name="ToolWindowManager">
-    <frame x="-1" y="25" width="1368" height="723" extended-state="6" />
-    <editor active="true" />
-    <layout>
-      <window_info id="Favorites" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="bottom" id="CMake" visible="true" weight="0.32998326" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-  </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="422" y="297" width="514" height="179" key="#com.jetbrains.python.refactoring.move.PyMakeFunctionTopLevelDialog" timestamp="1600795097865" />
-    <state x="422" y="297" width="514" height="179" key="#com.jetbrains.python.refactoring.move.PyMakeFunctionTopLevelDialog/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1600795097877" />
-    <state x="462" y="132" width="426" height="510" key="FileChooserDialogImpl" timestamp="1601933998809">
-      <screen x="0" y="25" width="1366" height="718" />
-    </state>
-    <state x="462" y="132" width="426" height="510" key="FileChooserDialogImpl/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1601933998809" />
-    <state width="1320" height="175" key="GridCell.Tab.0.bottom" timestamp="1600878929570">
-      <screen x="0" y="25" width="1366" height="718" />
-    </state>
-    <state width="1320" height="175" key="GridCell.Tab.0.bottom/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1600878929570" />
-    <state width="1320" height="175" key="GridCell.Tab.0.center" timestamp="1600878929569">
-      <screen x="0" y="25" width="1366" height="718" />
-    </state>
-    <state width="1320" height="175" key="GridCell.Tab.0.center/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1600878929569" />
-    <state width="1320" height="175" key="GridCell.Tab.0.left" timestamp="1600878929568">
-      <screen x="0" y="25" width="1366" height="718" />
-    </state>
-    <state width="1320" height="175" key="GridCell.Tab.0.left/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1600878929568" />
-    <state width="1320" height="175" key="GridCell.Tab.0.right" timestamp="1600878929570">
-      <screen x="0" y="25" width="1366" height="718" />
-    </state>
-    <state width="1320" height="175" key="GridCell.Tab.0.right/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1600878929570" />
-    <state width="1320" height="175" key="GridCell.Tab.1.bottom" timestamp="1600878929570">
-      <screen x="0" y="25" width="1366" height="718" />
-    </state>
-    <state width="1320" height="175" key="GridCell.Tab.1.bottom/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1600878929570" />
-    <state width="1320" height="175" key="GridCell.Tab.1.center" timestamp="1600878929570">
-      <screen x="0" y="25" width="1366" height="718" />
-    </state>
-    <state width="1320" height="175" key="GridCell.Tab.1.center/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1600878929570" />
-    <state width="1320" height="175" key="GridCell.Tab.1.left" timestamp="1600878929570">
-      <screen x="0" y="25" width="1366" height="718" />
-    </state>
-    <state width="1320" height="175" key="GridCell.Tab.1.left/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1600878929570" />
-    <state width="1320" height="175" key="GridCell.Tab.1.right" timestamp="1600878929570">
-      <screen x="0" y="25" width="1366" height="718" />
-    </state>
-    <state width="1320" height="175" key="GridCell.Tab.1.right/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1600878929570" />
-    <state x="1650" y="0" width="962" height="731" key="SettingsEditor" timestamp="1602291578459">
+    <state width="1874" height="289" key="GridCell.Tab.0.bottom" timestamp="1618351067645">
       <screen x="1366" y="0" width="1920" height="1080" />
     </state>
-    <state x="202" y="25" key="SettingsEditor/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1601861967088" />
-    <state x="1650" y="0" width="962" height="731" key="SettingsEditor/1366.0.1920.1080/0.25.1366.718@1366.0.1920.1080" timestamp="1602291578459" />
-    <state x="346" y="64" width="672" height="678" key="search.everywhere.popup" timestamp="1601474349523">
-      <screen x="0" y="25" width="1366" height="718" />
+    <state width="1874" height="289" key="GridCell.Tab.0.bottom/1366.0.1920.1080/0.0.1366.743@1366.0.1920.1080" timestamp="1618351067645" />
+    <state width="1874" height="289" key="GridCell.Tab.0.center" timestamp="1618351067643">
+      <screen x="1366" y="0" width="1920" height="1080" />
     </state>
-    <state x="346" y="64" width="672" height="678" key="search.everywhere.popup/1366.0.1920.1080/0.25.1366.718@0.25.1366.718" timestamp="1601474349523" />
+    <state width="1874" height="289" key="GridCell.Tab.0.center/1366.0.1920.1080/0.0.1366.743@1366.0.1920.1080" timestamp="1618351067643" />
+    <state width="1874" height="289" key="GridCell.Tab.0.left" timestamp="1618351067642">
+      <screen x="1366" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="289" key="GridCell.Tab.0.left/1366.0.1920.1080/0.0.1366.743@1366.0.1920.1080" timestamp="1618351067642" />
+    <state width="1874" height="289" key="GridCell.Tab.0.right" timestamp="1618351067644">
+      <screen x="1366" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1874" height="289" key="GridCell.Tab.0.right/1366.0.1920.1080/0.0.1366.743@1366.0.1920.1080" timestamp="1618351067644" />
+    <state x="2151" y="460" width="342" height="165" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1617143547787">
+      <screen x="1366" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2151" y="460" width="342" height="165" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1366.0.1920.1080/0.0.1366.743@1366.0.1920.1080" timestamp="1617143547787" />
+    <state x="1989" y="240" width="672" height="678" key="search.everywhere.popup" timestamp="1617245884078">
+      <screen x="1366" y="0" width="1920" height="1080" />
+    </state>
+    <state x="1989" y="240" width="672" height="678" key="search.everywhere.popup/1366.0.1920.1080/0.0.1366.743@1366.0.1920.1080" timestamp="1617245884078" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1087,35 +1006,7 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/espeleo_planner$optimization_test.coverage" NAME="optimization_mesh_angle_position Coverage Results" MODIFIED="1617293910214" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test/scripts" />
     <SUITE FILE_PATH="coverage/espeleo_planner$mesh_planner_exploration_node.coverage" NAME="mesh_planner_exploration_node Coverage Results" MODIFIED="1600128878935" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/test/src/transform_origin_test.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="13" column="12" lean-forward="true" selection-start-line="13" selection-start-column="12" selection-end-line="13" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#20#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/frontier_entropy.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="136" column="84" selection-start-line="136" selection-start-column="84" selection-end-line="136" selection-end-column="84" />
-          <folding>
-            <element signature="e#0#19#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/include/frontier_entropy.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="114" column="67" selection-start-line="114" selection-start-column="67" selection-end-line="114" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>

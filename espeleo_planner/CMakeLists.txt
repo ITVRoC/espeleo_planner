@@ -143,7 +143,7 @@ include_directories(
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
 ## either from message generation or dynamic reconfigure
-# add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+#add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
@@ -161,6 +161,7 @@ include_directories(
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
+#espeleo_planner_generate_messages_cpp
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
@@ -185,6 +186,8 @@ add_executable(
         include/frontier_entropy.h
 )
 
+add_dependencies(publish_360_projection espeleo_planner_generate_messages_cpp)
+
 target_link_libraries(
         publish_360_projection
         ${catkin_LIBRARIES}
@@ -198,6 +201,8 @@ add_executable(
         include/frontier_entropy.h
 )
 
+add_dependencies(octomap_raytracing espeleo_planner_generate_messages_cpp)
+
 target_link_libraries(
         octomap_raytracing
         ${catkin_LIBRARIES}
@@ -207,6 +212,8 @@ target_link_libraries(
 add_executable(
         frontier_entropy_node
         src/frontier_entropy_node.cpp src/frontier_entropy.cpp include/frontier_entropy.h)
+
+add_dependencies(frontier_entropy_node espeleo_planner_generate_messages_cpp)
 
 target_link_libraries(
         frontier_entropy_node

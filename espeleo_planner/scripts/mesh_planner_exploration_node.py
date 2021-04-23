@@ -10,7 +10,7 @@ import random
 from mesh_planner.graph_metrics import GraphMetricType
 import espeleo_control.msg
 import std_msgs.msg
-from geometry_msgs.msg import Polygon, Point32
+from geometry_msgs.msg import Polygon, Point32, Point
 from mesh_planner import mesh_helper, graph_metrics, mesh_planner_base, mesh_planner_node
 from espeleo_planner.srv import processAllFrontiers, processAllFrontiersUsingSTLOctomap
 from geometry_msgs.msg import Twist
@@ -88,6 +88,7 @@ if __name__ == '__main__':
             try:
                 rospy.wait_for_service('/mesh_from_pointclouds', timeout=3)
                 mesh_from_pointcloud = rospy.ServiceProxy('/mesh_from_pointclouds', MeshFromPointCloud2)
+                mesh_src_point = Point(0.0, 0.0, 0.0)
                 resp1 = mesh_from_pointcloud(pcloud)
                 mesh_filepath = resp1.path
                 rospy.loginfo("pointcloud processed result: %s", resp1)

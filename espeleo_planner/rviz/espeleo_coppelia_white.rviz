@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /TF1/Frames1
-        - /LegoLOAM1/laser_cloud_surround21
       Splitter Ratio: 0.627451003
     Tree Height: 730
   - Class: rviz/Selection
@@ -75,73 +74,6 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        chassis:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        d435i_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        gps_antenna:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        imu_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        left_back_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_front_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_middle_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        only_visual_t265:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        os1_sensor:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_back_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_front_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_middle_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        sensor_tower:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -243,7 +175,7 @@ Visualization Manager:
           Marker Topic: /reconstructed_mesh_marker_inverted
           Name: Marker
           Namespaces:
-            {}
+            basic_shapes: true
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -251,7 +183,7 @@ Visualization Manager:
           Marker Topic: /reconstructed_mesh_marker_normal
           Name: Marker
           Namespaces:
-            {}
+            basic_shapes: true
           Queue Size: 100
           Value: true
       Enabled: true
@@ -373,7 +305,7 @@ Visualization Manager:
           Topic: /robot_path_straightest
           Unreliable: false
           Value: true
-      Enabled: false
+      Enabled: true
       Name: Paths
     - Class: rviz/Group
       Displays:
@@ -426,7 +358,7 @@ Visualization Manager:
           Marker Topic: /closest_obstacle_marker
           Name: ClosestObstalceMarker
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -434,7 +366,7 @@ Visualization Manager:
           Marker Topic: /obstacles_points_markers
           Name: ObstaclesMarkerArray
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
       Enabled: true
@@ -446,7 +378,7 @@ Visualization Manager:
           Marker Topic: /visualization_trajectory
           Name: VisualizationTrajectory
           Namespaces:
-            {}
+            "": true
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -476,7 +408,7 @@ Visualization Manager:
           Enabled: true
           Invert Rainbow: false
           Max Color: 255; 255; 255
-          Max Intensity: 15
+          Max Intensity: 15.0679998
           Min Color: 0; 0; 0
           Min Intensity: 0
           Name: laser_cloud_surround2
@@ -484,7 +416,7 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.0799999982
+          Size (m): 0.0500000007
           Style: Flat Squares
           Topic: /laser_cloud_surround2
           Unreliable: false
@@ -620,25 +552,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 51.1065636
+      Distance: 61.1053658
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.54710996
-        Y: -2.61415052
-        Z: -3.7998724
+        X: 20.8353329
+        Y: -3.42536139
+        Z: 0.174637914
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.17479658
+      Pitch: 0.754796803
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.44358826
+      Yaw: 4.21856022
     Saved: ~
 Window Geometry:
   Displays:
