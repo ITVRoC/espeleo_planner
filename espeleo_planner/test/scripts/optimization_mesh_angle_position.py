@@ -55,7 +55,18 @@ def Rz(theta):
 
 
 def Rxyz(x, y, z, order="ZXY"):
+    """
+    # Convert Euler Angles passed in a vector of Radians
+    # into a rotation matrix.  The individual Euler Angles are
+    # processed in the order requested.
     # https://stackoverflow.com/questions/1568568/how-to-convert-euler-angles-to-directional-vector
+    :param x:
+    :param y:
+    :param z:
+    :param order:
+    :return:
+    """
+
     Sx = math.sin(x)
     Sy = math.sin(y)
     Sz = math.sin(z)

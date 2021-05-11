@@ -6,11 +6,8 @@ Panels:
       Expanded:
         - /Global Options1
         - /TF1/Frames1
-        - /Paths1
-        - /LegoLOAM1
         - /LegoLOAM1/laser_cloud_surround21
         - /LegoLOAM1/laser_cloud_surround21/Autocompute Value Bounds1
-        - /LegoLOAM1/KeyPoseOrigin21/Status1
       Splitter Ratio: 0.627451003
     Tree Height: 732
   - Class: rviz/Selection
@@ -79,6 +76,73 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        chassis:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        d435i_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gps_antenna:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        imu_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        left_back_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_front_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        left_middle_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        only_visual_t265:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        os1_sensor:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_back_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_front_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        right_middle_wheel:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        sensor_tower:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -132,14 +196,14 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: octomap_rviz_plugin/OccupancyGrid
-      Enabled: true
+      Enabled: false
       Max. Height Display: 3.40282347e+38
       Max. Octree Depth: 16
       Min. Height Display: -3.40282347e+38
       Name: VirtualOctomap
-      Octomap Topic: ""
+      Octomap Topic: /virtual_octomap
       Queue Size: 5
-      Value: true
+      Value: false
       Voxel Alpha: 1
       Voxel Coloring: Z-Axis
       Voxel Rendering: Occupied Voxels
@@ -150,7 +214,7 @@ Visualization Manager:
           Marker Topic: /reconstructed_mesh_marker_inverted
           Name: Marker
           Namespaces:
-            {}
+            basic_shapes: true
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -158,10 +222,10 @@ Visualization Manager:
           Marker Topic: /reconstructed_mesh_marker_normal
           Name: Marker
           Namespaces:
-            {}
+            basic_shapes: true
           Queue Size: 100
           Value: true
-      Enabled: false
+      Enabled: true
       Name: MainMesh
     - Class: rviz/Group
       Displays:
@@ -289,7 +353,7 @@ Visualization Manager:
           Marker Topic: /frontiers_ground_centroids
           Name: FrontierCentroids
           Namespaces:
-            {}
+            "": true
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -297,7 +361,7 @@ Visualization Manager:
           Marker Topic: /frontiers_ground_pts
           Name: FrontierBorders
           Namespaces:
-            {}
+            "": true
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -305,7 +369,7 @@ Visualization Manager:
           Marker Topic: /frontiers_mutual_information
           Name: FrontiersMI
           Namespaces:
-            {}
+            "": true
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -313,7 +377,7 @@ Visualization Manager:
           Marker Topic: /frontiers_ground_centroids_labels
           Name: FrontierCentroidLabels
           Namespaces:
-            {}
+            "": true
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -321,10 +385,10 @@ Visualization Manager:
           Marker Topic: /frontiers_ground_centroids_traversability_labels
           Name: FrontierTraversabilityLabels
           Namespaces:
-            {}
+            "": true
           Queue Size: 100
           Value: true
-      Enabled: false
+      Enabled: true
       Name: Frontiers
     - Class: rviz/Group
       Displays:
@@ -361,7 +425,7 @@ Visualization Manager:
           Marker Topic: /visualization_ref_vel
           Name: RefVelMarker
           Namespaces:
-            {}
+            "": true
           Queue Size: 100
           Value: true
       Enabled: true
@@ -707,25 +771,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 40.190567
+      Distance: 40.9276657
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -9.67108345
-        Y: -11.4568844
-        Z: -3.00408626
+        X: 7.08904219
+        Y: 1.61017025
+        Z: -2.48678088
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 0.779797077
+      Pitch: 0.909797192
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 2.86872768
+      Yaw: 3.71051884
     Saved: ~
 Window Geometry:
   Displays:

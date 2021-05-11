@@ -63,14 +63,15 @@ if __name__ == '__main__':
             rate_slow.sleep()
             sys.exit()
 
-        graph_metric_types = [graph_metrics.GraphMetricType.SHORTEST,
-                              graph_metrics.GraphMetricType.FLATTEST,
-                              graph_metrics.GraphMetricType.ENERGY,
-                              graph_metrics.GraphMetricType.COMBINED,
-                              graph_metrics.GraphMetricType.STRAIGHTEST]
+        # graph_metric_types = [graph_metrics.GraphMetricType.SHORTEST,
+        #                       graph_metrics.GraphMetricType.FLATTEST,
+        #                       graph_metrics.GraphMetricType.ENERGY,
+        #                       graph_metrics.GraphMetricType.COMBINED,
+        #                       graph_metrics.GraphMetricType.STRAIGHTEST]
 
         # graph_metric_types = [graph_metrics.GraphMetricType.STRAIGHTEST]
         # graph_metric_types = [graph_metrics.GraphMetricType.SHORTEST]
+        graph_metric_types = [graph_metrics.GraphMetricType.COMBINED]
 
         planner = mesh_planner_base.MeshPlannerBase(mesh_filepath, graph_metric_types)
         return_dict = planner.run(source_face, target_face)

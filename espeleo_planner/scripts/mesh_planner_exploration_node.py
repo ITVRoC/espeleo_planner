@@ -6,6 +6,7 @@ import pymesh
 from recon_surface.srv import MeshFromPointCloud2
 from visualization_msgs.msg import MarkerArray
 import random
+import numpy as np
 
 from mesh_planner.graph_metrics import GraphMetricType
 import espeleo_control.msg
@@ -14,6 +15,23 @@ from geometry_msgs.msg import Polygon, Point32, Point
 from mesh_planner import mesh_helper, graph_metrics, mesh_planner_base, mesh_planner_node
 from espeleo_planner.srv import processAllFrontiers, processAllFrontiersUsingSTLOctomap
 from geometry_msgs.msg import Twist
+
+from pyquaternion import Quaternion
+
+
+def rotation_matrix_from_vectors(vec1, vec2):
+    """ Find the rotation matrix that aligns vec1 to vec2
+    :param vec1: A 3d "source" vector
+    :param vec2: A 3d "destination" vector
+    :return mat: A transform matrix (3x3) which when applied to vec1, aligns it with vec2.
+    """
+    a, b = (vec1 / np.linalg.norm(vec1)).reshape(3), (vec2 / np.linalg.norm(vec2)).reshape(3)
+    v = np.cross(a, b)
+    c = np.dot(a, b)
+    s = np.linalg.norm(v)
+    kmat = np.array([[0, -v[2], v[1]], [v[2], 0, -v[0]], [-v[1], v[0], 0]])
+    rotation_matrix = np.eye(3) + kmat + kmat.dot(kmat) * ((1 - c) / (s ** 2))
+    return rotation_matrix
 
 
 def check_is_dest_reachable():
@@ -38,19 +56,19 @@ if __name__ == '__main__':
 
     twist_msg = Twist()
     twist_msg.linear.x = 1.0
-    for i in xrange(50):
+    for i in xrange(30):
         cmd_vel_pub.publish(twist_msg)
         #rate_fast.sleep()
         rospy.sleep(0.2)
 
     twist_msg.linear.x = -1.0
-    for i in xrange(20):
+    for i in xrange(30):
         cmd_vel_pub.publish(twist_msg)
         #rate_fast.sleep()
         rospy.sleep(0.2)
 
     twist_msg.linear.x = 0.0
-    for i in xrange(10):
+    for i in xrange(30):
         cmd_vel_pub.publish(twist_msg)
         #rate_fast.sleep()
         rospy.sleep(0.2)
@@ -89,7 +107,7 @@ if __name__ == '__main__':
                 rospy.wait_for_service('/mesh_from_pointclouds', timeout=3)
                 mesh_from_pointcloud = rospy.ServiceProxy('/mesh_from_pointclouds', MeshFromPointCloud2)
                 mesh_src_point = Point(0.0, 0.0, 0.0)
-                resp1 = mesh_from_pointcloud(pcloud)
+                resp1 = mesh_from_pointcloud(pcloud, mesh_src_point)
                 mesh_filepath = resp1.path
                 rospy.loginfo("pointcloud processed result: %s", resp1)
             except rospy.ServiceException as e:
@@ -106,7 +124,9 @@ if __name__ == '__main__':
             mesh_load = pymesh.load_mesh(mesh_filepath)
             #mesh_load, info = pymesh.split_long_edges(mesh_load, 0.3)
             mesh_load.add_attribute("face_centroid")
+            mesh_load.add_attribute("face_normal")
             centroids = mesh_load.get_face_attribute("face_centroid")
+            normals = mesh_load.get_face_attribute("face_normal")
 
             vertices = mesh_load.vertices
             ver_face = mesh_load.faces
@@ -155,9 +175,13 @@ if __name__ == '__main__':
             frontier_centroids_arr_labels = MarkerArray()
             for i, f_id in enumerate(f_centroids_ids):
                 x, y, z = centroids[f_id]
+                R = rotation_matrix_from_vectors((0, 0, 1), normals[f_id])
+                q = Quaternion(matrix=R)
+
                 f_marker = mesh_helper.create_marker((x,
                                                       y,
                                                       z),
+                                                     orientation=[q[3], q[0], q[1], q[2]],
                                                      color=(0.7, 0.0, 0.0), duration=60, m_scale=1.0, marker_id=f_id,
                                                      marker_type=1)
                 frontier_centroids_arr.markers.append(f_marker)
@@ -172,11 +196,12 @@ if __name__ == '__main__':
             mplanner.pub_frontiers_ground_centroids.publish(frontier_centroids_arr)
             mplanner.pub_frontiers_ground_centroids_labels.publish(frontier_centroids_arr_labels)
 
-            planner.plot_graph_3d(G,
-                                  title="Frontier test",
-                                  source_id=source_face,
-                                  reachable_frontiers_ids=list(filtered_reachable_frontiers_ids),
-                                  frontier_centroids_ids=f_centroids_ids)
+            # plot 3D graph
+            # planner.plot_graph_3d(G,
+            #                       title="Frontier test",
+            #                       source_id=source_face,
+            #                       reachable_frontiers_ids=list(filtered_reachable_frontiers_ids),
+            #                       frontier_centroids_ids=f_centroids_ids)
 
             # run the service to convert the point cloud to mesh
             frontiers_mi = []

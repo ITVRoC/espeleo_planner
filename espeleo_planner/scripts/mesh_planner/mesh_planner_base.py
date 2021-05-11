@@ -36,7 +36,7 @@ class MeshPlannerBase:
         else:
             raise TypeError("graph_metrics is not a valid object type [list, tuple]")
 
-        self.transversality_threshold = 55  # max inclination (in degrees) the robot could climb
+        self.transversality_threshold = 35  # max inclination (in degrees) the robot could climb
         self.bumpiness_threshold = 0.2  # maximum bump the robot could jump between surfaces TODO add reference here
         self.border_threshold = 0.40 # distance to expand from borders to other face centroids
 

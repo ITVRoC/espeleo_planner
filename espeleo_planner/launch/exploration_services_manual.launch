@@ -2,7 +2,6 @@
     <env name="ROSCONSOLE_CONFIG_FILE" value="$(find espeleo_planner)/config/general.config"/>
 
     <include file="$(find recon_surface)/launch/recon_service.launch" />
-<!--     <include file="$(find espeleo_planner)/launch/frontier_entropy_service.launch" /> -->
 <!--     <include file="$(find espeleo_planner)/launch/obstacle_detection.launch" /> -->
 
 </launch>

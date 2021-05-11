@@ -1,0 +1,6 @@
+sensor_msgs/PointCloud2 input
+geometry_msgs/Point src
+---
+bool success
+string msg
+string path

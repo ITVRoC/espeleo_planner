@@ -21,7 +21,7 @@ def normalize_from_minmax(v, min_v, max_v):
     return (v - min_v) / float(max_v - min_v)
 
 
-def create_marker(pos, orientation=1.0, color=(1.0, 1.0, 1.0), m_scale=0.5, frame_id="/os1_init", duration=10,
+def create_marker(pos, orientation=None, color=(1.0, 1.0, 1.0), m_scale=0.5, frame_id="/os1_init", duration=10,
                   marker_id=0, mesh_resource=None, marker_type=2, marker_text=""):
     """Create marker object using the map information and the node position
 
@@ -69,7 +69,14 @@ def create_marker(pos, orientation=1.0, color=(1.0, 1.0, 1.0), m_scale=0.5, fram
     marker.color.r = color[0]
     marker.color.g = color[1]
     marker.color.b = color[2]
-    marker.pose.orientation.w = orientation
+
+    if not orientation:
+        marker.pose.orientation.w = 1
+    else:
+        marker.pose.orientation.x = orientation[0]
+        marker.pose.orientation.y = orientation[1]
+        marker.pose.orientation.z = orientation[2]
+        marker.pose.orientation.w = orientation[3]
 
     marker.text = marker_text
 

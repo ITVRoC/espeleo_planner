@@ -28,7 +28,7 @@
     </node>
 
     <node name="rviz" pkg="rviz" type="rviz"
-        args="-d $(find espeleo_planner)/rviz/espeleo_coppelia_white.rviz" required="true" />
+        args="-d $(find espeleo_planner)/rviz/espeleo_coppelia_JINT_EXPLORATION.rviz" required="true" />
 
 <!--     <node pkg="espeleo_planner" type="exploration_metrics.py" -->
 <!--             name="exploration_metrics" output="screen"> -->
