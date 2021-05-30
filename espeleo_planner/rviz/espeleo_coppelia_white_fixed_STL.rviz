@@ -1,16 +1,17 @@
 Panels:
   - Class: rviz/Displays
-    Help Height: 81
+    Help Height: 78
     Name: Displays
     Property Tree Widget:
       Expanded:
         - /Global Options1
         - /TF1/Frames1
-        - /LegoLOAM1
-        - /LegoLOAM1/laser_cloud_surround21
-        - /LegoLOAM1/laser_cloud_surround21/Autocompute Value Bounds1
+        - /MainMesh1
+        - /Paths1
+        - /Paths1/PathStraightest1/Offset1
+        - /Paths1/PathTraversalPybullet1/Status1
       Splitter Ratio: 0.627451003
-    Tree Height: 732
+    Tree Height: 730
   - Class: rviz/Selection
     Name: Selection
   - Class: rviz/Tool Properties
@@ -29,17 +30,17 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: KeyPoseOrigin2
+    SyncSource: ""
 Toolbars:
   toolButtonStyle: 2
 Visualization Manager:
   Class: ""
   Displays:
     - Alpha: 0.5
-      Cell Size: 2
+      Cell Size: 1
       Class: rviz/Grid
       Color: 160; 160; 164
-      Enabled: true
+      Enabled: false
       Line Style:
         Line Width: 0.0299999993
         Value: Lines
@@ -50,9 +51,9 @@ Visualization Manager:
         Y: 0
         Z: 0
       Plane: XY
-      Plane Cell Count: 300
+      Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
-      Value: true
+      Value: false
     - Class: rviz/TF
       Enabled: false
       Frame Timeout: 15
@@ -70,91 +71,24 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
-      Enabled: true
+      Enabled: false
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
-        base_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        chassis:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        d435i_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        gps_antenna:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        imu_link:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-        left_back_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_front_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        left_middle_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        only_visual_t265:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        os1_sensor:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_back_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_front_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        right_middle_wheel:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
-        sensor_tower:
-          Alpha: 1
-          Show Axes: false
-          Show Trail: false
-          Value: true
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
       Update Interval: 0
-      Value: true
+      Value: false
       Visual Enabled: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 6.58669806
-        Min Value: -1.16208732
+        Max Value: 4.75
+        Min Value: -0.649999976
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -180,6 +114,36 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: false
+    - Alpha: 1
+      Autocompute Intensity Bounds: true
+      Autocompute Value Bounds:
+        Max Value: 10
+        Min Value: -10
+        Value: true
+      Axis: Z
+      Channel Name: intensity
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Enabled: false
+      Invert Rainbow: false
+      Max Color: 255; 255; 255
+      Max Intensity: 4096
+      Min Color: 0; 0; 0
+      Min Intensity: 0
+      Name: VelodynePoints
+      Position Transformer: XYZ
+      Queue Size: 10
+      Selectable: true
+      Size (Pixels): 3
+      Size (m): 0.00999999978
+      Style: Flat Squares
+      Topic: /velodyne/points2
+      Unreliable: false
+      Use Fixed Frame: true
+      Use rainbow: true
+      Value: false
     - Class: rviz/Marker
       Enabled: false
       Marker Topic: /source_path_point
@@ -197,15 +161,15 @@ Visualization Manager:
       Queue Size: 100
       Value: false
     - Class: octomap_rviz_plugin/OccupancyGrid
-      Enabled: false
+      Enabled: true
       Max. Height Display: 3.40282347e+38
       Max. Octree Depth: 16
       Min. Height Display: -3.40282347e+38
       Name: VirtualOctomap
       Octomap Topic: /virtual_octomap
       Queue Size: 5
-      Value: false
-      Voxel Alpha: 1
+      Value: true
+      Voxel Alpha: 0.5
       Voxel Coloring: Z-Axis
       Voxel Rendering: Occupied Voxels
     - Class: rviz/Group
@@ -215,7 +179,7 @@ Visualization Manager:
           Marker Topic: /reconstructed_mesh_marker_inverted
           Name: Marker
           Namespaces:
-            basic_shapes: true
+            "": true
           Queue Size: 100
           Value: true
         - Class: rviz/Marker
@@ -223,7 +187,7 @@ Visualization Manager:
           Marker Topic: /reconstructed_mesh_marker_normal
           Name: Marker
           Namespaces:
-            basic_shapes: true
+            "": true
           Queue Size: 100
           Value: true
       Enabled: true
@@ -239,12 +203,12 @@ Visualization Manager:
           Head Length: 0.200000003
           Length: 0.300000012
           Line Style: Billboards
-          Line Width: 0.400000006
+          Line Width: 0.200000003
           Name: PathCombined
           Offset:
             X: 0
             Y: 0
-            Z: 0
+            Z: 0.100000001
           Pose Color: 255; 85; 255
           Pose Style: None
           Radius: 0.0299999993
@@ -267,7 +231,7 @@ Visualization Manager:
           Offset:
             X: 0
             Y: 0
-            Z: 0
+            Z: 0.100000001
           Pose Color: 255; 85; 255
           Pose Style: None
           Radius: 0.0299999993
@@ -290,7 +254,7 @@ Visualization Manager:
           Offset:
             X: 0
             Y: 0
-            Z: 0
+            Z: 0.100000001
           Pose Color: 255; 85; 255
           Pose Style: None
           Radius: 0.0299999993
@@ -313,7 +277,7 @@ Visualization Manager:
           Offset:
             X: 0
             Y: 0
-            Z: 0
+            Z: 0.100000001
           Pose Color: 255; 85; 255
           Pose Style: None
           Radius: 0.0299999993
@@ -336,13 +300,105 @@ Visualization Manager:
           Offset:
             X: 0
             Y: 0
-            Z: 0
+            Z: 0.100000001
           Pose Color: 255; 85; 255
           Pose Style: None
           Radius: 0.0299999993
           Shaft Diameter: 0.100000001
           Shaft Length: 0.100000001
           Topic: /robot_path_straightest
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 239; 6; 81
+          Enabled: true
+          Head Diameter: 0.300000012
+          Head Length: 0.200000003
+          Length: 0.300000012
+          Line Style: Billboards
+          Line Width: 0.200000003
+          Name: PathTraversalPybullet
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0.100000001
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.0299999993
+          Shaft Diameter: 0.100000001
+          Shaft Length: 0.100000001
+          Topic: /robot_path_traversal_pybullet
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 247; 141; 175
+          Enabled: true
+          Head Diameter: 0.300000012
+          Head Length: 0.200000003
+          Length: 0.300000012
+          Line Style: Billboards
+          Line Width: 0.200000003
+          Name: PathTraversalPybulletNormal
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0.100000001
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.0299999993
+          Shaft Diameter: 0.100000001
+          Shaft Length: 0.100000001
+          Topic: /robot_path_traversal_pybullet_normal
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 3; 81; 252
+          Enabled: true
+          Head Diameter: 0.300000012
+          Head Length: 0.200000003
+          Length: 0.300000012
+          Line Style: Billboards
+          Line Width: 0.200000003
+          Name: PathTraversalOptimization
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0.100000001
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.0299999993
+          Shaft Diameter: 0.100000001
+          Shaft Length: 0.100000001
+          Topic: /robot_path_traversal_optimization
+          Unreliable: false
+          Value: true
+        - Alpha: 1
+          Buffer Length: 1
+          Class: rviz/Path
+          Color: 141; 174; 247
+          Enabled: true
+          Head Diameter: 0.300000012
+          Head Length: 0.200000003
+          Length: 0.300000012
+          Line Style: Billboards
+          Line Width: 0.200000003
+          Name: PathTraversalOptimizationNormal
+          Offset:
+            X: 0
+            Y: 0
+            Z: 0.100000001
+          Pose Color: 255; 85; 255
+          Pose Style: None
+          Radius: 0.0299999993
+          Shaft Diameter: 0.100000001
+          Shaft Length: 0.100000001
+          Topic: /robot_path_traversal_optimization_normal
           Unreliable: false
           Value: true
       Enabled: true
@@ -354,7 +410,7 @@ Visualization Manager:
           Marker Topic: /frontiers_ground_centroids
           Name: FrontierCentroids
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
@@ -362,33 +418,33 @@ Visualization Manager:
           Marker Topic: /frontiers_ground_pts
           Name: FrontierBorders
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
         - Class: rviz/MarkerArray
-          Enabled: true
+          Enabled: false
           Marker Topic: /frontiers_mutual_information
           Name: FrontiersMI
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
-          Value: true
+          Value: false
         - Class: rviz/MarkerArray
-          Enabled: true
+          Enabled: false
           Marker Topic: /frontiers_ground_centroids_labels
           Name: FrontierCentroidLabels
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
-          Value: true
+          Value: false
         - Class: rviz/MarkerArray
-          Enabled: true
+          Enabled: false
           Marker Topic: /frontiers_ground_centroids_traversability_labels
           Name: FrontierTraversabilityLabels
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
-          Value: true
+          Value: false
       Enabled: true
       Name: Frontiers
     - Class: rviz/Group
@@ -409,24 +465,24 @@ Visualization Manager:
             {}
           Queue Size: 100
           Value: true
-      Enabled: false
+      Enabled: true
       Name: ObstacleDetection
     - Class: rviz/Group
       Displays:
         - Class: rviz/MarkerArray
-          Enabled: false
+          Enabled: true
           Marker Topic: /visualization_trajectory
           Name: VisualizationTrajectory
           Namespaces:
             {}
           Queue Size: 100
-          Value: false
+          Value: true
         - Class: rviz/Marker
           Enabled: true
           Marker Topic: /visualization_ref_vel
           Name: RefVelMarker
           Namespaces:
-            "": true
+            {}
           Queue Size: 100
           Value: true
       Enabled: true
@@ -436,14 +492,14 @@ Visualization Manager:
         - Alpha: 1
           Autocompute Intensity Bounds: true
           Autocompute Value Bounds:
-            Max Value: 7.60212708
-            Min Value: -14.1684723
-            Value: false
+            Max Value: 10
+            Min Value: -10
+            Value: true
           Axis: Z
           Channel Name: intensity
           Class: rviz/PointCloud2
           Color: 255; 255; 255
-          Color Transformer: AxisColor
+          Color Transformer: Intensity
           Decay Time: 0
           Enabled: true
           Invert Rainbow: false
@@ -456,8 +512,8 @@ Visualization Manager:
           Queue Size: 10
           Selectable: true
           Size (Pixels): 3
-          Size (m): 0.0799999982
-          Style: Spheres
+          Size (m): 0.0500000007
+          Style: Flat Squares
           Topic: /laser_cloud_surround2
           Unreliable: false
           Use Fixed Frame: true
@@ -472,7 +528,7 @@ Visualization Manager:
           Axis: Z
           Channel Name: intensity
           Class: rviz/PointCloud2
-          Color: 255; 255; 255
+          Color: 0; 0; 0
           Color Transformer: FlatColor
           Decay Time: 0
           Enabled: true
@@ -567,189 +623,25 @@ Visualization Manager:
         {}
       Queue Size: 100
       Value: false
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: Intensity
-      Decay Time: 0
-      Enabled: false
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 836
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: os1_cloud_node_points
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.0399999991
-      Style: Flat Squares
-      Topic: /os1_cloud_node/points
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: false
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: Intensity
-      Decay Time: 0
-      Enabled: false
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 666
-      Min Color: 0; 0; 0
-      Min Intensity: 0.111480601
-      Name: filtered_voxel_grid_points
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.0399999991
-      Style: Flat Squares
-      Topic: /filtered/voxel_grid_points
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: false
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: Intensity
-      Decay Time: 0
-      Enabled: false
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 709
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: PointCloud2
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.00999999978
-      Style: Flat Squares
-      Topic: /filtered/x_points
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: false
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: Intensity
-      Decay Time: 0
-      Enabled: false
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 734
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: PointCloud2
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.00999999978
-      Style: Flat Squares
-      Topic: /filtered/y_points
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: false
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 10
-        Min Value: -10
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: Intensity
-      Decay Time: 0
-      Enabled: false
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 1614
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: PointCloud2
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.00999999978
-      Style: Flat Squares
-      Topic: /filtered/z_points
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: false
-    - Alpha: 1
-      Autocompute Intensity Bounds: true
-      Autocompute Value Bounds:
-        Max Value: 6.69407177
-        Min Value: -5.74980545
-        Value: true
-      Axis: Z
-      Channel Name: intensity
-      Class: rviz/PointCloud2
-      Color: 255; 255; 255
-      Color Transformer: AxisColor
-      Decay Time: 0
-      Enabled: false
-      Invert Rainbow: false
-      Max Color: 255; 255; 255
-      Max Intensity: 4096
-      Min Color: 0; 0; 0
-      Min Intensity: 0
-      Name: laser_cloud_surround_small
-      Position Transformer: XYZ
-      Queue Size: 10
-      Selectable: true
-      Size (Pixels): 3
-      Size (m): 0.100000001
-      Style: Flat Squares
-      Topic: /laser_cloud_surround2_small
-      Unreliable: false
-      Use Fixed Frame: true
-      Use rainbow: true
-      Value: false
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /source_path_point
+      Name: SrcPoint
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
+    - Class: rviz/Marker
+      Enabled: true
+      Marker Topic: /target_path_point
+      Name: DstPoint
+      Namespaces:
+        "": true
+      Queue Size: 100
+      Value: true
   Enabled: true
   Global Options:
-    Background Color: 48; 48; 48
+    Background Color: 255; 255; 255
     Default Light: true
     Fixed Frame: os1_init
     Frame Rate: 30
@@ -772,25 +664,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 78.897644
+      Distance: 46.5770073
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 24.7574005
-        Y: 1.53715229
-        Z: -0.614929199
+        X: 1.35711288
+        Y: -1.69220293
+        Z: 0.814486563
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.0500000007
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Pitch: 1.03979635
+      Pitch: 1.08479667
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.68818617
+      Yaw: 3.07818651
     Saved: ~
 Window Geometry:
   Displays:
@@ -798,7 +690,7 @@ Window Geometry:
   Height: 1054
   Hide Left Dock: false
   Hide Right Dock: false
-  QMainWindow State: 000000ff00000000fd00000004000000000000017900000388fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005e00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afc0000003c00000388000000eb0100001bfa000000010100000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000000ffffffff0000007f00fffffffb000000100044006900730070006c0061007900730100000000000003280000016700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d0061006700650000000000ffffffff0000000000000000000000010000010f00000388fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003c00000388000000a600fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000078000000039fc0100000002fb0000000800540069006d0065010000000000000780000001fb00fffffffb0000000800540069006d00650100000000000004500000000000000000000004ee0000038800000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd00000004000000000000017c00000383fc0200000008fb0000001200530065006c0065006300740069006f006e00000001e10000009b0000005e00fffffffb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afc0000003c00000383000000eb0100001bfa000000010100000002fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000000ffffffff0000007f00fffffffb000000100044006900730070006c0061007900730100000000000003280000016700fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d0061006700650000000000ffffffff0000000000000000000000010000010f00000383fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a00560069006500770073010000003c00000383000000a600fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000007800000003efc0100000002fb0000000800540069006d0065010000000000000780000001fb00fffffffb0000000800540069006d00650100000000000004500000000000000000000004eb0000038300000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:

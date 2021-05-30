@@ -43,6 +43,7 @@
 #include <CGAL/Surface_mesh.h>
 
 #include <CGAL/Polygon_mesh_processing/connected_components.h>
+#include <CGAL/Polygon_mesh_processing/measure.h>
 
 typedef CGAL::Simple_cartesian<double>::Point_3 CPoint3;
 typedef CGAL::Surface_mesh<CPoint3> Mesh;
@@ -100,6 +101,7 @@ void
 write_ply_wnormals(std::string out, std::list<PointVectorPair> &point_list, Tree &tree, std::vector<Color> &colors);
 
 void trim_mesh(Mesh m, Tree &tree, double average_spacing, std::string base_path);
+int remove_borders(std::string mesh_path, int iterations, std::string base_path);
 
 template <typename ForwardIterator,
         typename PointPMap,

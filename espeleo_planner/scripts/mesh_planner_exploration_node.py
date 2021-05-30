@@ -56,13 +56,13 @@ if __name__ == '__main__':
 
     twist_msg = Twist()
     twist_msg.linear.x = 1.0
-    for i in xrange(30):
+    for i in xrange(50):
         cmd_vel_pub.publish(twist_msg)
         #rate_fast.sleep()
         rospy.sleep(0.2)
 
     twist_msg.linear.x = -1.0
-    for i in xrange(30):
+    for i in xrange(40):
         cmd_vel_pub.publish(twist_msg)
         #rate_fast.sleep()
         rospy.sleep(0.2)
@@ -181,8 +181,8 @@ if __name__ == '__main__':
                 f_marker = mesh_helper.create_marker((x,
                                                       y,
                                                       z),
-                                                     orientation=[q[3], q[0], q[1], q[2]],
-                                                     color=(0.7, 0.0, 0.0), duration=60, m_scale=1.0, marker_id=f_id,
+                                                     #orientation=[q[3], q[0], q[1], q[2]],
+                                                     color=(0.8, 0.0, 0.0), duration=60, m_scale=0.8, marker_id=f_id,
                                                      marker_type=1)
                 frontier_centroids_arr.markers.append(f_marker)
 

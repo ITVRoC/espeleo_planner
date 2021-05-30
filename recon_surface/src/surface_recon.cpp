@@ -447,3 +447,65 @@ void trim_mesh(Mesh m, Tree &tree, double threshold, std::string base_path) {
     std::ofstream out(base_path + "temp2.off");
     out << m;
 }
+
+int remove_borders(std::string mesh_path, int iterations, std::string base_path) {
+
+    if(iterations <= 0){
+        ROS_ERROR_STREAM("Not removing borders (iterations is <= 0): " << iterations);
+        return 0;
+    }
+
+    std::string filename = base_path + "temp2.off";
+    std::ifstream input(filename);
+    Mesh m;
+    if (!input || !(input >> m)) {
+        ROS_WARN_STREAM("Not a valid off file (remove_borders): " << filename);
+        return 0;
+    }
+    
+    unsigned int removed_faces = 0;
+
+    typedef CGAL::Simple_cartesian<double>    Kernel;
+    typedef CGAL::Surface_mesh<Kernel::Kernel::Point_3>  SurfaceMesh;
+    typedef boost::graph_traits<SurfaceMesh>::halfedge_descriptor  halfedge_descriptor;
+    typedef SurfaceMesh::Vertex_index  mesh_vertex_descriptor;
+
+    std::vector<int> borderVertexID;
+    int faces_before_removal = num_faces(m);
+
+    for(int iter_idx = 0; iter_idx < iterations; iter_idx++){
+        borderVertexID.clear();
+
+        halfedge_descriptor bhd = CGAL::Polygon_mesh_processing::longest_border(m).first;
+        BOOST_FOREACH(mesh_vertex_descriptor ved, vertices_around_face(bhd, m)){
+            //std::cout << ved << std::endl;
+            borderVertexID.push_back(ved);
+            m.remove_vertex(ved);
+        }
+        //ROS_DEBUG_STREAM(borderVertexID.size() << " size of the longest border at iteration " << iter_idx);
+
+        BOOST_FOREACH(Mesh::Face_index
+                            face_index, m.faces()) {
+                        Mesh::Halfedge_index he = m.halfedge(face_index);
+                        vertex_descriptor v0 = m.target(he);
+                        vertex_descriptor v1 = m.target(m.next(he));
+                        vertex_descriptor v2 = m.target(m.prev(he));
+
+                        if (m.is_removed(v0) || m.is_removed(v1) || m.is_removed(v2)){
+                            CGAL::Euler::remove_face(he, m);
+                            //m.remove_face(face_index);
+                            ++removed_faces;
+                        }
+                    }
+       // ROS_DEBUG_STREAM(removed_faces << " border faces have been removed at iteration " << iter_idx);
+        
+        m.collect_garbage();
+    }
+
+    ROS_DEBUG_STREAM(num_faces(m) << "/" << faces_before_removal << " faces remaining (" << removed_faces << " border faces removed)");
+
+    std::ofstream out(mesh_path.c_str());
+    out.precision(12);
+    out << m << std::endl;
+    return 1;
+}

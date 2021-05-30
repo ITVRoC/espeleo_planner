@@ -180,3 +180,56 @@ def energy_weight_non_rot(self, node_source, node_target, centroids):
     dist = np.linalg.norm(np.asarray(points_source) - np.asarray(points_target))
     energy = math.fabs((u * m * g * math.cos(angle)) + (m * g * math.sin(angle))) * dist
     return energy
+
+
+def Rxyz(x, y, z, order="ZXY"):
+    """
+    # Convert Euler Angles passed in a vector of Radians
+    # into a rotation matrix.  The individual Euler Angles are
+    # processed in the order requested.
+    # https://stackoverflow.com/questions/1568568/how-to-convert-euler-angles-to-directional-vector
+    :param x:
+    :param y:
+    :param z:
+    :param order:
+    :return:
+    """
+
+    Sx = math.sin(x)
+    Sy = math.sin(y)
+    Sz = math.sin(z)
+    Cx = math.cos(x)
+    Cy = math.cos(y)
+    Cz = math.cos(z)
+
+    if order == "XYZ":
+        return np.array([[Cy * Cz, -Cy * Sz, Sy],
+                         [Cz * Sx * Sy + Cx * Sz, Cx * Cz - Sx * Sy * Sz, -Cy * Sx],
+                         [-Cx * Cz * Sy + Sx * Sz, Cz * Sx + Cx * Sy * Sz, Cx * Cy]])
+
+    elif order == "YZX":
+        return np.array([[Cy * Cz, Sx * Sy - Cx * Cy * Sz, Cx * Sy + Cy * Sx * Sz],
+                         [Sz, Cx * Cz, -Cz * Sx],
+                         [-Cz * Sy, Cy * Sx + Cx * Sy * Sz, Cx * Cy - Sx * Sy * Sz]])
+
+    elif order == "ZXY":
+        return np.array([[Cy * Cz - Sx * Sy * Sz, -Cx * Sz, Cz * Sy + Cy * Sx * Sz],
+                         [Cz * Sx * Sy + Cy * Sz, Cx * Cz, -Cy * Cz * Sx + Sy * Sz],
+                         [-Cx * Sy, Sx, Cx * Cy]])
+
+    elif order == "ZYX":
+        return np.array([[Cy * Cz, Cz * Sx * Sy - Cx * Sz, Cx * Cz * Sy + Sx * Sz],
+                         [Cy * Sz, Cx * Cz + Sx * Sy * Sz, -Cz * Sx + Cx * Sy * Sz],
+                         [-Sy, Cy * Sx, Cx * Cy]])
+
+    elif order == "YXZ":
+        return np.array([[Cy * Cz + Sx * Sy * Sz, Cz * Sx * Sy - Cy * Sz, Cx * Sy],
+                         [Cx * Sz, Cx * Cz, -Sx],
+                         [-Cz * Sy + Cy * Sx * Sz, Cy * Cz * Sx + Sy * Sz, Cx * Cy]])
+
+    elif order == "YXZ":
+        return np.array([[Cy * Cz, -Sz, Cz * Sy],
+                         [Sx * Sy + Cx * Cy * Sz, Cx * Cz, -Cy * Sx + Cx * Sy * Sz],
+                         [-Cx * Sy + Cy * Sx * Sz, Cz * Sx, Cx * Cy + Sx * Sy * Sz]])
+    else:
+        raise ValueError("Order '{}' does not match any known order".format(order))

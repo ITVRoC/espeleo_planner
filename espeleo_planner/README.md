@@ -1,21 +1,44 @@
 # Espeleo Path Planner
 
+### Launch an exploration instance
 
+Run in different terminals:
+
+`roscore`
+
+`coppelia`
+
+`roslaunch espeleo_vrep_simulation espeleo_sim.launch`
+
+`roslaunch espeleo_planner experiment_evaluation.launch`
+
+`roslaunch espeleo_planner exploration_services.launch`
+
+<!---
 ### to launch the experiments
 
 roslaunch espeleo_planner exploration_services.launch
+
 roslaunch espeleo_planner experiment_evaluation.launch
 
 ### normal launch files
 
 roslaunch espeleo_vrep_simulation espeleo_sim.launch
+
 roslaunch espeleo_control vector_field.launch
+
 roslaunch espeleo_lego_loam espeleo_lego_loam_sim.launch
+
 roslaunch recon_surface recon_service.launch
+
 roslaunch espeleo_planner espeleo_mapping_lidar.launch
+
 roslaunch espeleo_planner mesh_planner.launch
+
 roslaunch espeleo_teleop keyboard.launch
+
 coppelia
+-->
 
 # convert stl to pointcloud for testing
 snap run cloudcompare.CloudCompare

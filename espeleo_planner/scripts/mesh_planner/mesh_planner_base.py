@@ -11,6 +11,8 @@ from scipy import spatial
 import mesh_helper
 from sklearn.cluster import DBSCAN
 import traceback
+import pybullet_angle_estimation
+import optimization_angle_estimation
 
 
 class MeshPlannerBase:
@@ -36,16 +38,24 @@ class MeshPlannerBase:
         else:
             raise TypeError("graph_metrics is not a valid object type [list, tuple]")
 
-        self.transversality_threshold = 35  # max inclination (in degrees) the robot could climb
-        self.bumpiness_threshold = 0.2  # maximum bump the robot could jump between surfaces TODO add reference here
-        self.border_threshold = 0.40 # distance to expand from borders to other face centroids
+        self.pybullet_angle_client = pybullet_angle_estimation.PybulletAngleEstimation(mesh_path)
+        self.optimization_angle_client = optimization_angle_estimation.OptimizationAngleEstimation(mesh_path)
 
-        # self.shortest_comb_weight = 0.80  # this is a shortest weight to combine the weights of the metrics
-        # self.energy_comb_weight = 0.10  # this is a energy weight to combine the weights of the metrics
-        # self.transversality_comb_weight = 0.10  # this is a transversality weight to combine the weights of the metrics
-        self.shortest_comb_weight = 0.25
-        self.energy_comb_weight = 0.25
-        self.transversality_comb_weight = 0.50
+        # REAL ROBOT CONSTANTS
+        # self.transversality_threshold = 40  # REAL ROBOT
+        # self.border_threshold = 0.4 # REAL ROBOT
+
+        # SIMULATED ROBOT CONSTANTS
+        self.transversality_threshold = 30  # max inclination (in degrees) the robot could climb
+        self.bumpiness_threshold = 0.5  # maximum bump the robot could jump between surfaces TODO add reference here
+        self.border_threshold = 0.3  # distance to expand from borders to other face centroids
+
+        # self.shortest_comb_weight = 0.80
+        # self.energy_comb_weight = 0.10
+        # self.transversality_comb_weight = 0.10
+        self.shortest_comb_weight = 0.25  # this is a shortest weight to combine the weights of the metrics
+        self.energy_comb_weight = 0.25  # this is a energy weight to combine the weights of the metrics
+        self.transversality_comb_weight = 0.50  # this is a transversality weight to combine the weights of the metrics
 
         self.mesh.enable_connectivity()  # enables connectivity on mesh
         self.mesh.add_attribute("face_centroid")  # adds the face centroids to be accessed
@@ -459,7 +469,6 @@ class MeshPlannerBase:
         :return: Nothing, it uses the return_dict variable for this
         """
         rospy.loginfo("Started graph process: %s", graph_metric_type.name)
-        start_time = time.clock()
 
         # graph creation and filtering
         G = self.create_graph_from_mesh()
@@ -481,10 +490,12 @@ class MeshPlannerBase:
                                                 self.normals,
                                                 c_short=self.shortest_comb_weight,
                                                 c_energy=self.energy_comb_weight,
-                                                c_traversal=self.transversality_comb_weight)
+                                                c_traversal=self.transversality_comb_weight,
+                                                pybullet_angle_client=self.pybullet_angle_client,
+                                                optimization_angle_client=self.optimization_angle_client)
 
         (length, path) = g_search.dijkstra_search({source_id}, target_id)
-        rospy.loginfo("Ended process: %s %.2f seconds", graph_metric_type.name, time.clock() - start_time)
+        rospy.loginfo("Ended process: %s %.2f seconds", graph_metric_type.name, g_search.last_execution_time)
 
         if path is not None:
             return_dict[graph_metric_type] = g_search

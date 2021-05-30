@@ -5,4 +5,5 @@ recon_service_node:
     sample: 1.0
     texturesize: 320.0
     trim: 6.5
+    remove_borders_iterations: 1.0
     

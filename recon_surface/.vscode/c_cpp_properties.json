@@ -1,0 +1,27 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/h3ct0r/catkin_ws_espeleo/devel/include/**",
+        "/opt/ros/kinetic/include/**",
+        "/home/h3ct0r/catkin_ws_espeleo/src/coppeliasim_plugin_velodyne/include/**",
+        "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_lego_loam/EspeleoLeGOLOAM/include/**",
+        "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/include/**",
+        "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_pose_ekf/include/**",
+        "/home/h3ct0r/catkin_ws_espeleo/src/octomap_mapping/octomap_server/include/**",
+        "/home/h3ct0r/catkin_ws_espeleo/src/ouster_lidar/ouster_client/include/**",
+        "/home/h3ct0r/catkin_ws_espeleo/src/ouster_lidar/ouster_ros/include/**",
+        "/home/h3ct0r/catkin_ws_espeleo/src/ouster_lidar/ouster_viz/include/**",
+        "/home/h3ct0r/catkin_ws_espeleo/src/point_cloud_io/include/**",
+        "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/recon_surface/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS"
+    }
+  ],
+  "version": 4
+}

@@ -8,6 +8,7 @@ from graph_metrics import GraphMetricType
 import mesh_helper
 from prettytable import PrettyTable
 import math
+import time
 from scipy import spatial
 
 
@@ -16,7 +17,8 @@ class MeshGraphSearch:
     Mesh Graph Search given a graph it calculates the optimum paths for an specific metric
     """
 
-    def __init__(self, G, metric, centroids, normals, c_short=0.25, c_energy=0.25, c_traversal=0.5):
+    def __init__(self, G, metric, centroids, normals, c_short=0.25, c_energy=0.25, c_traversal=0.5,
+                 pybullet_angle_client=None, optimization_angle_client=None):
         """MeshGraphSearch constructor
 
         :param G: initial undirected graph
@@ -35,6 +37,7 @@ class MeshGraphSearch:
         self.c_short = c_short
         self.c_energy = c_energy
         self.c_traversal = c_traversal
+        self.c_threshold_std_angle_terrain = 5
 
         self.path = None
         self.path_distance = None
@@ -48,6 +51,8 @@ class MeshGraphSearch:
         self.min_rotation = 0
         self.max_rotation = 0
 
+        self.last_execution_time = 0
+
         # estimate the min man list only for the combined metric
         # since this is the only metric that normalize values
         # if self.metric == GraphMetricType.COMBINED:
@@ -55,6 +60,17 @@ class MeshGraphSearch:
 
         self.border_3d_points = []
         self.border_kdtree = None
+
+        self.pybullet_angle_client = pybullet_angle_client
+        self.optimization_angle_client = optimization_angle_client
+
+        if (self.metric == GraphMetricType.FLATTEST_PYBULLET or
+            self.metric == GraphMetricType.FLATTEST_PYBULLET_NORMAL) and self.pybullet_angle_client is None:
+            raise ValueError("Pybullet client is None and the metric used Pybullet")
+
+        if (self.metric == GraphMetricType.FLATTEST_OPTIMIZATION or
+            self.metric == GraphMetricType.FLATTEST_OPTIMIZATION_NORMAL) and self.optimization_angle_client is None:
+            raise ValueError("Optimization client is None and the metric used optimization")
 
     def get_path(self):
         """Return the list of nodes that generates the path
@@ -109,22 +125,26 @@ class MeshGraphSearch:
         :return:
         """
 
+        start_time = time.clock()
+
         if not sources:
             raise ValueError('src must not be empty')
 
         if sources in sources:
-            return (0, [sources])
+            self.last_execution_time = 0
+            return 0, [sources]
 
         pred = {source: [] for source in sources}
         paths = {source: [source] for source in sources}  # dictionary of paths
         dist = self._dijkstra_multisource(sources, pred=pred, paths=paths, cutoff=cutoff, target=target)
+        self.last_execution_time = time.clock() - start_time
 
         if target is None:
-            return (dist, paths)
+            return dist, paths
         try:
             self.path = paths[target]
             self.path_distance = dist[target]
-            return (dist[target], paths[target])
+            return dist[target], paths[target]
         except KeyError:
             raise nx.NetworkXNoPath("No path to {}.".format(target))
 
@@ -247,12 +267,60 @@ class MeshGraphSearch:
             d = self.weight_euclidean_distance(v, u)
             return d
 
-        elif self.metric == GraphMetricType.FLATTEST:
+        elif self.metric == GraphMetricType.FLATTEST or self.metric == GraphMetricType.FLATTEST_COMPARISON_TEST:
+            # this metric also uses the euclidean distance to minimze
+            # flipping around in zigzag motion
+            # use traditional normal vector of the face
+            d = self.weight_euclidean_distance(v, u)
+            target_traversal_normal = self.weight_traversability(u)
+
+            if self.metric == GraphMetricType.FLATTEST_COMPARISON_TEST:
+                start_pos = (self.centroids[u][0], self.centroids[u][1], self.centroids[u][2])
+                final_pos, final_vector = self.pybullet_angle_client.estimate_pose(start_pos)
+                target_traversal_pybullet = self.calculate_traversal_angle(final_vector)
+
+                final_vector = self.optimization_angle_client.estimate_pose(self.centroids[u])
+                target_traversal_optimization = self.calculate_traversal_angle(final_vector)
+
+                vector = self.optimization_angle_client.estimate_pose(self.centroids[u])
+                target_traversal_optimization = self.calculate_traversal_angle(vector)
+
+                print "angles:", [target_traversal_pybullet, target_traversal_optimization, target_traversal_normal]
+
+            return target_traversal_normal + d
+        elif self.metric == GraphMetricType.FLATTEST_PYBULLET or \
+                self.metric == GraphMetricType.FLATTEST_PYBULLET_NORMAL:
+            # this metric also uses the euclidean distance to minimze
+            # flipping around in zigzag motion
+            # use the pybullet engine
+            d = self.weight_euclidean_distance(v, u)
+
+            if self.metric == GraphMetricType.FLATTEST_PYBULLET_NORMAL:
+                mean, std = self.get_neighbours_angle_mean_std(u)
+                # if std is bellow threshold use the quicker normal angle estimation
+                if std <= self.c_threshold_std_angle_terrain:
+                    return self.weight_traversability(u) + d
+
+            start_pos = (self.centroids[u][0], self.centroids[u][1], self.centroids[u][2])
+            final_pos, final_vector = self.pybullet_angle_client.estimate_pose(start_pos)
+            target_traversal_pybullet = self.calculate_traversal_angle(final_vector)
+            return target_traversal_pybullet + d
+
+        elif self.metric == GraphMetricType.FLATTEST_OPTIMIZATION or \
+                self.metric == GraphMetricType.FLATTEST_OPTIMIZATION_NORMAL:
             # this metric also uses the euclidean distance to minimze
             # flipping around in zigzag motion
             d = self.weight_euclidean_distance(v, u)
-            target_traversal = self.weight_traversability(u)
-            return target_traversal + d
+
+            if self.metric == GraphMetricType.FLATTEST_OPTIMIZATION_NORMAL:
+                mean, std = self.get_neighbours_angle_mean_std(u)
+                # if std is bellow threshold use the quicker normal angle estimation
+                if std <= self.c_threshold_std_angle_terrain:
+                    return self.weight_traversability(u) + d
+
+            final_vector = self.optimization_angle_client.estimate_pose(self.centroids[u])
+            target_traversal_optimization = self.calculate_traversal_angle(final_vector)
+            return target_traversal_optimization + d
 
         elif self.metric == GraphMetricType.ENERGY:
             # todo check diferences between new code and old code
@@ -287,8 +355,8 @@ class MeshGraphSearch:
     def weight_euclidean_distance(self, v, u):
         """Calculate the 3D euclidean distance between a pair of nodes
 
-        :param source: id of the source node
-        :param target: id of the target node
+        :param v: id of the source node
+        :param u: id of the target node
         :return:
         """
         a = np.asarray(self.centroids[v])
@@ -300,7 +368,7 @@ class MeshGraphSearch:
         """Calculate the traversability of a node face
         Traversability is given by the inclination of the face with respect to the gravity vector (0, 0, -1)
 
-        :param target: id of the target node
+        :param u: id of the target node
         :return: traversal angle in degrees
         """
         return MeshGraphSearch.calculate_traversal_angle(self.normals[u])
@@ -324,8 +392,8 @@ class MeshGraphSearch:
     def weight_energy(self, v, u, predecessor=None):
         """Calculate the energy cost between a pair of nodes
 
-        :param source: id of the source node
-        :param target: id of the target node
+        :param v: id of the source node
+        :param u: id of the target node
         :param predecessor: id of the predecessor nodes
         :return:
         """
@@ -414,6 +482,76 @@ class MeshGraphSearch:
 
         return repulsive_w
 
+    def get_neighbours_angle_mean_std(self, u):
+        """
+        Get the mean and standard deviation of the neighbours angles
+        considering a weighted mean. The weights are estimated using a
+        gaussian decay function.
+        :param u:
+        :return:
+        """
+
+        def second_neighbors(graph, node):
+            """Yield second neighbors of node in graph.
+            Neighbors are not not unique!
+            """
+            yield node
+            for dn in graph.neighbors(node):
+                for sn in graph.neighbors(dn):
+                    yield sn
+
+        def estimate_decay(x, mu=0, variance=0.3, height=1.0):
+            """
+            Estimate decay given the distance of the faces to the current node position
+            :param x:
+            :param mu:
+            :param variance:
+            :param height:
+            :return:
+            """
+            return height * math.exp(-math.pow(x - mu, 2) / (2 * variance))
+
+        def weighted_avg_and_std(values, weights):
+            """
+            Return the weighted average and standard deviation.
+
+            values, weights -- Numpy ndarrays with the same shape.
+            https://stackoverflow.com/questions/2413522/weighted-standard-deviation-in-numpy
+            """
+            average = np.average(values, weights=weights)
+            var = np.average((values - average) ** 2, weights=weights)
+            return average, math.sqrt(var)
+
+        neighbours_ids = sorted(list(set(second_neighbors(self.G, u))))
+
+        neighbours_data = []
+        for neigh_idx in neighbours_ids:
+            face_angle = self.calculate_traversal_angle(self.normals[neigh_idx])
+            d = self.weight_euclidean_distance(neigh_idx, u)
+            decay = estimate_decay(d)
+
+            neighbours_data.append({
+                'theta': face_angle,
+                'decay': decay
+            })
+
+            #print 'theta:', face_angle, '\tdecay:', decay, '\td:', d
+
+        theta_list = np.array([a['theta'] for a in neighbours_data])
+        decay_list = np.array([a['decay'] for a in neighbours_data])
+        decay_list[np.abs(decay_list) < 0.001] = 0
+
+        avg, std = weighted_avg_and_std(theta_list, decay_list)
+        #print [avg, std]
+        return avg, std
+
+    def get_last_execution_time(self):
+        """
+        Return last execution time in seconds
+        :return:
+        """
+        return self.last_execution_time
+
     def print_path_metrics(self):
         """ Print this graph metrics in a tabular format
         distance, energy, rotation and traversability (min, max, mean, dev, and total)
@@ -442,7 +580,9 @@ class MeshGraphSearch:
             rotations.append(self.weight_rotation(node_source, node_target, predecessor))
 
         table = PrettyTable()
-        table.field_names = ["{} PATH".format(self.metric.name), "Distance", "Energy", "Rotation", "Traversality"]
+
+        table.field_names = ["{} PATH ({:.2f} sec)".format(self.metric.name, self.get_last_execution_time()),
+                             "Distance", "Energy", "Rotation", "Traversality"]
         table.float_format = ".2"
 
         table.add_row(["min", self.min_dist, self.min_energy, self.min_rotation, self.min_traversability])

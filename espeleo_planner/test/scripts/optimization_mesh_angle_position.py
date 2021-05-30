@@ -11,6 +11,7 @@ import pymesh
 from matplotlib.pyplot import imshow
 from scipy.interpolate import griddata
 import math
+import pyquaternion
 import datetime
 
 interpolator = None
@@ -127,7 +128,8 @@ def objective(x):
 
 
 def get_interpolator(origin):
-    mesh = pymesh.load_mesh("/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/test/maps/map_05_cavelike.stl")
+    #mesh = pymesh.load_mesh("/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/test/maps/map_05_cavelike.stl")
+    mesh = pymesh.load_mesh("/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/test/maps/map_01_frontiers.stl")
 
     mesh.enable_connectivity()  # enables connectivity on mesh
     mesh.add_attribute("face_centroid")  # adds the face centroids to be accessed
@@ -275,7 +277,26 @@ def plot(x_final, zoom=10):
     yf_l = np.dot(R, yf)
     zf_l = np.dot(R, zf)
 
-    ax.quiver(stability_poly_origin[0], stability_poly_origin[1], cz, zf_l[0], zf_l[1], zf_l[2], length=0.2, pivot='tail', linestyle="-", color='blue')  # z
+    # TESTING NORMAL ESTIMATION WITH QUATERNION
+    # def normalVector(obj):
+    #     """ Takes a set of points, assumed to be flat, and returns a normal vector with unit length.
+    #     """
+    #     n = np.cross(np.array(obj[1])-np.array(obj[0]), np.array(obj[2])-np.array(obj[0]))
+    #     return n/np.sqrt(np.dot(n,n))
+    #
+    # print "normal plane:", normalVector(local_poly)
+    #
+    # print "vector quiver:", zf_l[0], zf_l[1], zf_l[2]
+    #
+    # q1 = pyquaternion.Quaternion(matrix=R)
+    # print "vector quat:", q1.vector
+    #
+    # print "R:", R
+    # ax.quiver(stability_poly_origin[0], stability_poly_origin[1], cz, q1.vector[0], q1.vector[1], q1.vector[2], length=0.2,
+    #           pivot='tail', linestyle="-", color='black')  # z from quaternion
+
+    ax.quiver(stability_poly_origin[0], stability_poly_origin[1], cz, zf_l[0], zf_l[1], zf_l[2], length=0.2,
+              pivot='tail', linestyle="-", color='blue')  # z
 
     # Plot robot axes:
     ax.quiver(stability_poly_origin[0], stability_poly_origin[1], stability_poly_origin[2], xf_l[0], xf_l[1], xf_l[2], length=0.3, pivot='tail',
@@ -286,6 +307,17 @@ def plot(x_final, zoom=10):
                    linestyle="--", color='blue')  # z
 
     ax.dist = zoom
+
+    def axisEqual3D(ax):
+        extents = np.array([getattr(ax, 'get_{}lim'.format(dim))() for dim in 'xyz'])
+        sz = extents[:, 1] - extents[:, 0]
+        centers = np.mean(extents, axis=1)
+        maxsize = max(abs(sz))
+        r = maxsize / 2
+        for ctr, dim in zip(centers, 'xyz'):
+            getattr(ax, 'set_{}lim'.format(dim))(ctr - r, ctr + r)
+
+    axisEqual3D(ax)
 
     # scaling = np.array([getattr(ax, 'get_{}lim'.format(dim))() for dim in 'xyz']);
     # ax.auto_scale_xyz(*[[np.min(scaling), np.max(scaling)]] * 3)
@@ -362,7 +394,8 @@ def get_min_angle_nondynamic(local_poly):
 
 
 start_time = datetime.datetime.now()
-origin = [1.5, 2.0, 0]
+#origin = [1.5, 2.0, 0]
+origin = (7.76, 1.16, -0.05)
 interpolator, centroids = get_interpolator(origin)
 
 stability_poly_origin = [origin[0], origin[1], interpolator(origin[0], [1])[0] + 2]
@@ -408,7 +441,7 @@ print('x1 = ' + str(x_final[0]))
 print('x2 = ' + str(x_final[1]))
 
 # plot_environment(show_surface=False)
-# plot_environment(show_surface=True)
+plot_environment(show_surface=True)
 
 plot(x_final)
 # for i in xrange(18, 3, -1):

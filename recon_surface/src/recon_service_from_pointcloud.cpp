@@ -41,6 +41,7 @@ string output_folder = "";
 double sample = 0.0;
 double trim = 0.0;
 int texturesize = 0;
+int remove_borders_iterations = 0;
 
 ros::Publisher marker_pub_normal;
 ros::Publisher marker_pub_inverted;
@@ -281,6 +282,14 @@ string generate_mesh(const sensor_msgs::PointCloud2 msg, const geometry_msgs::Po
                             << " seconds");
 
     start = chrono::high_resolution_clock::now();
+    remove_borders(output + "temp2.off", remove_borders_iterations, output);
+    stop = chrono::high_resolution_clock::now();
+    ROS_INFO_STREAM("Time remove_bordersh: "
+                            << float(chrono::duration_cast<chrono::microseconds>(stop - start).count() / 1000000.0)
+                            << " seconds");
+
+    // TESTING 11/MAI/21 
+    start = chrono::high_resolution_clock::now();
     fill_hole(output + "temp3.off", holemaxsize * (double) average_spacing, output);
     stop = chrono::high_resolution_clock::now();
     ROS_INFO_STREAM("Time fill holes: "
@@ -298,7 +307,9 @@ string generate_mesh(const sensor_msgs::PointCloud2 msg, const geometry_msgs::Po
 
 //    ROS_INFO_STREAM("Writing STL");
 
-    std::ifstream input_off3(output + "temp3.off");
+    // TESTING 11/MAI/21 
+    // it normally is temp3.off
+    std::ifstream input_off3(output + "temp3.off"); // normal is "temp3.off" change after testing
     string output_stl_filepath = output + "_mesh.stl";
     string output_stl_filepath_inverted = output + "_inverted_mesh.stl";
     Mesh mesh_obj;
@@ -360,6 +371,11 @@ void dynReconfigureCallback(recon_surface::ReconSurfaceConfig &config, uint32_t 
     if (trim != config.trim) {
         trim = config.trim;
         ROS_INFO("Reconfigure trim: %lf", trim);
+    }
+
+    if (remove_borders_iterations != config.remove_borders_iterations) {
+        remove_borders_iterations = config.remove_borders_iterations;
+        ROS_INFO("Reconfigure remove_borders_iterations: %d", remove_borders_iterations);
     }
 }
 

@@ -27,6 +27,10 @@ class MeshPlannerNode:
         self.pub_path_short = None
         self.pub_path_energy = None
         self.pub_path_traver = None
+        self.pub_path_traver_pybullet = None
+        self.pub_path_traver_op = None
+        self.pub_path_traver_pybullet_normal = None
+        self.pub_path_traver_op_normal = None
         self.pub_path_combined = None
         self.pub_path_straight = None
         self.pub_src_point = None
@@ -53,8 +57,18 @@ class MeshPlannerNode:
         self.pub_path_short = rospy.Publisher('/robot_path_shortest', Path, latch=True, queue_size=1)
         self.pub_path_energy = rospy.Publisher('/robot_path_energy', Path, latch=True, queue_size=1)
         self.pub_path_traver = rospy.Publisher('/robot_path_traversal', Path, latch=True, queue_size=1)
+        self.pub_path_traver_pybullet = rospy.Publisher('/robot_path_traversal_pybullet', Path, latch=True,
+                                                        queue_size=1)
+        self.pub_path_traver_op = rospy.Publisher('/robot_path_traversal_optimization', Path, latch=True, queue_size=1)
+        self.pub_path_traver_pybullet_normal = rospy.Publisher('/robot_path_traversal_pybullet_normal', Path,
+                                                               latch=True,
+                                                               queue_size=1)
+        self.pub_path_traver_op_normal = rospy.Publisher('/robot_path_traversal_optimization_normal', Path, latch=True,
+                                                         queue_size=1)
         self.pub_path_straight = rospy.Publisher('/robot_path_straightest', Path, latch=True, queue_size=1)
         self.pub_path_combined = rospy.Publisher('/robot_path_combined', Path, latch=True, queue_size=1)
+
+
         self.pub_src_point = rospy.Publisher('/source_path_point', Marker, latch=True, queue_size=1)
         self.pub_dst_point = rospy.Publisher('/target_path_point', Marker, latch=True, queue_size=1)
         self.pub_frontiers_ground_pts = rospy.Publisher('/frontiers_ground_pts', MarkerArray, latch=True,
@@ -150,6 +164,14 @@ class MeshPlannerNode:
                 self.pub_path_combined.publish(path)
             elif k == GraphMetricType.STRAIGHTEST:
                 self.pub_path_straight.publish(path)
+            elif k == GraphMetricType.FLATTEST_PYBULLET:
+                self.pub_path_traver_pybullet.publish(path)
+            elif k == GraphMetricType.FLATTEST_OPTIMIZATION:
+                self.pub_path_traver_op.publish(path)
+            elif k == GraphMetricType.FLATTEST_PYBULLET_NORMAL:
+                self.pub_path_traver_pybullet_normal.publish(path)
+            elif k == GraphMetricType.FLATTEST_OPTIMIZATION_NORMAL:
+                self.pub_path_traver_op_normal.publish(path)
             else:
                 raise TypeError("No valid Metric Type available for publishing path {}".format(k))
 
