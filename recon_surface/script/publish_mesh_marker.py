@@ -16,7 +16,7 @@ if __name__ == "__main__":
     while not rospy.is_shutdown():
 
         marker = Marker()
-        marker.header.frame_id = "/map"
+        marker.header.frame_id = "map"
         marker.type = marker.MESH_RESOURCE
         marker.mesh_resource = "file:// " + pkg_path + "/test/map_medium_mesh.stl"
         marker.action = marker.ADD

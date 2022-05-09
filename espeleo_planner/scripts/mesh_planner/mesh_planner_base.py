@@ -4,15 +4,15 @@ import rospy
 import pymesh
 import networkx as nx
 import multiprocessing
-import graph_search
+from . import graph_search
 import numpy as np
 import time
 from scipy import spatial
-import mesh_helper
+from . import mesh_helper
 from sklearn.cluster import DBSCAN
 import traceback
-import pybullet_angle_estimation
-import optimization_angle_estimation
+from . import pybullet_angle_estimation
+from . import optimization_angle_estimation
 
 
 class MeshPlannerBase:
@@ -48,7 +48,7 @@ class MeshPlannerBase:
         # SIMULATED ROBOT CONSTANTS
         self.transversality_threshold = 30  # max inclination (in degrees) the robot could climb
         self.bumpiness_threshold = 0.5  # maximum bump the robot could jump between surfaces TODO add reference here
-        self.border_threshold = 0.3  # distance to expand from borders to other face centroids
+        self.border_threshold = 0.0  # distance to expand from borders to other face centroids
 
         # self.shortest_comb_weight = 0.80
         # self.energy_comb_weight = 0.10
@@ -190,7 +190,7 @@ class MeshPlannerBase:
         :return: a networkx graph G
         """
         G = nx.Graph()
-        for face_idx in xrange(self.mesh.num_faces):
+        for face_idx in range(self.mesh.num_faces):
             G.add_node(face_idx)
 
         # add edges for adjacent faces
@@ -213,9 +213,9 @@ class MeshPlannerBase:
         :param target_id: target node id
         :return: G, f_centroids_ids, filtered_reachable_frontiers
         """
-        print "G size:", len(G.nodes)
+        print("G size:", len(G.nodes))
         G = self.filter_graph_by_traversable_faces(G)
-        print "G size:", len(G.nodes)
+        print("G size:", len(G.nodes))
         G = self.remove_non_connected_components(G, source_id)
 
         mesh_frontiers = self.extract_frontiers_from_mesh()
@@ -321,7 +321,7 @@ class MeshPlannerBase:
             return G.subgraph(conn_nodes).copy()
         except Exception as e:
             traceback.print_exc()
-            rospy.logerr('Error returning connected components %s', e.message)
+            rospy.logwarn('Error returning connected components %s, continuing with G', e.message)
             return G
 
 
@@ -382,7 +382,7 @@ class MeshPlannerBase:
 
         return G, nearest_checked_nodes
 
-    def cluster_frontier_borders(self, G, reachable_frontiers, source_id, dbscan_eps=2.5, dbscan_min_samples=1):
+    def cluster_frontier_borders(self, G, reachable_frontiers, source_id, dbscan_eps=2.5, dbscan_min_samples=2):
         """From a list of frontier borders, label them in clusters based on distance and extract the
         cluster centroids
 
@@ -458,7 +458,7 @@ class MeshPlannerBase:
         return frontier_cluster_visit_points_id, frontier_cluster_closest_id, frontier_cluster_centers, \
                frontier_cluster_points
 
-    def run_graph_process(self, graph_metric_type, source_id, target_id, return_dict, is_debug=False):
+    def run_graph_process(self, graph_metric_type, source_id, target_id, return_dict, is_debug=True):
         """Generate a graph and run the path planning using a metric
 
         :param graph_metric_type: the metric type to use in this graph process
@@ -542,6 +542,9 @@ class MeshPlannerBase:
             p_finder.print_path_metrics()
 
             p_list = [self.centroids[f_id] for f_id in p_finder.get_path()]
-            world_path_dict[gmt] = {'path': p_list, 'cost': p_finder.get_path_distance()}
+            world_path_dict[gmt] = {'face_path': p_finder.get_path(),
+                                    'path': p_list,
+                                    'cost': p_finder.get_path_distance(),
+                                    'time': p_finder.last_execution_time}
 
         return world_path_dict

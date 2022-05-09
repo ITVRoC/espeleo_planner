@@ -1,25 +1,26 @@
 #!/usr/bin/env python
 
-from heapq import heappush, heappop
-from itertools import count
-import networkx as nx
-import numpy as np
-from graph_metrics import GraphMetricType
-import mesh_helper
-from prettytable import PrettyTable
 import math
 import time
-from scipy import spatial
+from heapq import heappush, heappop
+from itertools import count
+
+from . import mesh_helper
+import networkx as nx
+import numpy as np
+from .graph_metrics import GraphMetricType
+from prettytable import PrettyTable
+import random
 
 
-class MeshGraphSearch:
+class RRTGraphSearch:
     """
-    Mesh Graph Search given a graph it calculates the optimum paths for an specific metric
+    RRT Mesh Graph Search given a graph it calculates the optimum paths for an specific metric
     """
 
     def __init__(self, G, metric, centroids, normals, c_short=0.25, c_energy=0.25, c_traversal=0.5,
-                 pybullet_angle_client=None, optimization_angle_client=None):
-        """MeshGraphSearch constructor
+                 max_iterations=2000, goal_sample_rate=20):
+        """RRTGraphSearch constructor
 
         :param G: initial undirected graph
         :param metric: edge metric to use
@@ -31,6 +32,7 @@ class MeshGraphSearch:
         """
         self.G = G
         self.metric = metric
+        self.tree = None
 
         self.centroids = centroids
         self.normals = normals
@@ -51,6 +53,13 @@ class MeshGraphSearch:
         self.min_rotation = 0
         self.max_rotation = 0
 
+        # RRT variables
+        self.max_iterations = max_iterations
+        self.goal_sample_rate = goal_sample_rate
+        self.source_node = None
+        self.target_node = None
+        self.expand_dist = 0.5
+
         self.last_execution_time = 0
 
         # estimate the min man list only for the combined metric
@@ -58,19 +67,19 @@ class MeshGraphSearch:
         # if self.metric == GraphMetricType.COMBINED:
         self.estimate_min_max()
 
+        #print(("self.max_rotation", self.max_rotation))
+
         self.border_3d_points = []
         self.border_kdtree = None
-
-        self.pybullet_angle_client = pybullet_angle_client
-        self.optimization_angle_client = optimization_angle_client
+        self.target_idx = -1
 
         if (self.metric == GraphMetricType.FLATTEST_PYBULLET or
-            self.metric == GraphMetricType.FLATTEST_PYBULLET_NORMAL) and self.pybullet_angle_client is None:
-            raise ValueError("Pybullet client is None and the metric used Pybullet")
+                self.metric == GraphMetricType.FLATTEST_PYBULLET_NORMAL):
+            raise ValueError("RRT star does not support the Pybullet client (the selected metric is Pybullet)")
 
         if (self.metric == GraphMetricType.FLATTEST_OPTIMIZATION or
-            self.metric == GraphMetricType.FLATTEST_OPTIMIZATION_NORMAL) and self.optimization_angle_client is None:
-            raise ValueError("Optimization client is None and the metric used optimization")
+                self.metric == GraphMetricType.FLATTEST_OPTIMIZATION_NORMAL):
+            raise ValueError("RRT star does not support the Optimization  client (the selected metric is optimization)")
 
     def get_path(self):
         """Return the list of nodes that generates the path
@@ -87,30 +96,40 @@ class MeshGraphSearch:
         """
         return self.path_distance
 
+    # def estimate_min_max(self):
+    #     """Estimate the minimum and maximum values for every metric inside the graph
+    #     this data is utilized for normalization when using the combined metrics
+    #     """
+    #     distances = []
+    #     energy_consumptions = []
+    #     traversabilities = []
+    #     rotations = []
+    #
+    #     for v in self.G.nodes():
+    #         neighbors = self.G.neighbors(v)
+    #
+    #         for u in neighbors:
+    #             distances.append(self.weight_euclidean_distance(v, u))
+    #             energy_consumptions.append(self.weight_energy(v, u))
+    #             traversabilities.append(self.weight_traversability(u))
+    #             rotations.append(self.weight_rotation(v, u))
+    #
+    #     self.min_dist, self.max_dist = min(distances), max(distances)
+    #     self.min_energy, self.max_energy = min(energy_consumptions), max(energy_consumptions)
+    #     self.min_traversability, self.max_traversability = min(traversabilities), max(traversabilities)
+    #
+    #     self.min_rotation, self.max_rotation = min(rotations), max(rotations)
+
     def estimate_min_max(self):
         """Estimate the minimum and maximum values for every metric inside the graph
         this data is utilized for normalization when using the combined metrics
         """
-        distances = []
-        energy_consumptions = []
-        traversabilities = []
-        rotations = []
+        self.min_dist, self.max_dist = 0.0, 0.3
+        self.min_energy, self.max_energy = 0.0, 25000
+        self.min_traversability, self.max_traversability = 0.01, 60
+        self.min_rotation, self.max_rotation = 0.0, 359.0
 
-        for v in self.G.nodes():
-            neighbors = self.G.neighbors(v)
-
-            for u in neighbors:
-                distances.append(self.weight_euclidean_distance(v, u))
-                energy_consumptions.append(self.weight_energy(v, u))
-                traversabilities.append(self.weight_traversability(u))
-                rotations.append(self.weight_rotation(v, u))
-
-        self.min_dist, self.max_dist = min(distances), max(distances)
-        self.min_energy, self.max_energy = min(energy_consumptions), max(energy_consumptions)
-        self.min_traversability, self.max_traversability = min(traversabilities), max(traversabilities)
-        self.min_rotation, self.max_rotation = min(rotations), max(rotations)
-
-    def dijkstra_search(self, sources, target, cutoff=None):
+    def rrt_search(self, sources, target_frontiers, target_weights, random_thresh=0.2, is_debug=False):
         """Find shortest weighted paths and lengths from a given set of
         source nodes.
 
@@ -125,28 +144,182 @@ class MeshGraphSearch:
         :return:
         """
 
-        start_time = time.clock()
+        # https://arxiv.org/pdf/1105.1186.pdf
+        # "Sampling-based algorithms for optimal motion planning" - Sertac Karaman and and Emilio Frazzoli
+        # Algorithm 6: RRT*.
+        # https://github.com/Douglas-VC/planning_algorithms/blob/main/rrt_star/RRT_star.m
 
-        if not sources:
+        start_time = time.process_time()
+
+        if sources == None:
             raise ValueError('src must not be empty')
 
-        if sources in sources:
-            self.last_execution_time = 0
-            return 0, [sources]
+        self.path_distance = None
+        self.path = None
 
-        pred = {source: [] for source in sources}
-        paths = {source: [source] for source in sources}  # dictionary of paths
-        dist = self._dijkstra_multisource(sources, pred=pred, paths=paths, cutoff=cutoff, target=target)
-        self.last_execution_time = time.clock() - start_time
+        self.source_node = sources
 
-        if target is None:
-            return dist, paths
-        try:
-            self.path = paths[target]
-            self.path_distance = dist[target]
-            return dist[target], paths[target]
-        except KeyError:
-            raise nx.NetworkXNoPath("No path to {}.".format(target))
+        self.tree = nx.DiGraph()
+        self.tree.edges(data=True)
+
+        self.tree.add_node(self.source_node, pos=(self.centroids[self.source_node][0],
+                                                  self.centroids[self.source_node][1]))
+
+        print("[RRT] Total search space len:", len(self.G))
+
+        # space_dim = 3
+        # gamma = 1 + np.power(2, space_dim) * (1 + 1.0 / space_dim) * \
+        #         len(list(set(self.G.nodes()) - set(self.tree.nodes())))
+
+        for i in range(self.max_iterations):
+            # sample a random node
+            #sample_space = list(set(self.G.nodes()) - set(self.tree.nodes()))
+            #rnd_node = random.choice(sample_space)
+
+            # sample a node with bias
+            rnd_node, sample_space_size = self.get_random_node(self.tree, self.G, target_frontiers, target_weights,
+                                            random_thresh=random_thresh)
+
+            if sample_space_size <= 0:
+                print(("ERROR sample_space_size:", sample_space_size))
+                break
+
+            # steer functions
+            d_list = []
+            for node in self.tree.nodes():
+                d_list += [self.weight_euclidean_distance(node, rnd_node)]
+
+            min_idx = d_list.index(min(d_list))
+            nearest_tree_node = list(self.tree.nodes())[min_idx]
+            tree_neighbors = [node_id for node_id in list(self.G.neighbors(nearest_tree_node)) if node_id not in list(self.tree.nodes())]
+            if len(tree_neighbors) <= 0:
+                print("WARN: no more neighbors of this node to explore")
+                continue
+
+            new_node = tree_neighbors[0]
+            new_node_dist = self.weight_euclidean_distance(new_node, rnd_node)
+
+            for node_idx in range(1, len(tree_neighbors)):
+                node = tree_neighbors[node_idx]
+                dist = self.weight_euclidean_distance(node, rnd_node)
+                if dist < new_node_dist:
+                    new_node = node
+                    new_node_dist = dist
+
+            self.tree.add_node(new_node, pos=(self.centroids[new_node][0],
+                                              self.centroids[new_node][1]))
+
+            # connect the edge of new_node in a way that minimizes the total cost to reach new_node
+            new_parent = None
+            new_parent_cost = float("inf")
+            new_edge_cost = float("inf")
+
+            for parent_candidate_node in self.G.neighbors(new_node):
+                if not self.tree.has_node(parent_candidate_node):
+                    continue
+
+                new_edge_cost = self.edge_weight_by_metric(
+                    parent_candidate_node,
+                    new_node,
+                    list(self.tree.predecessors(parent_candidate_node)))
+
+                self.tree.add_edge(parent_candidate_node, new_node, weight=new_edge_cost)
+
+                path_length = nx.shortest_path_length(self.tree, self.source_node, new_node)
+                if path_length < new_parent_cost:
+                    new_parent = parent_candidate_node
+                    new_parent_cost = path_length
+
+                self.tree.remove_edge(parent_candidate_node, new_node)
+
+            # add the new node to the correct branch
+            self.tree.add_weighted_edges_from([(new_parent, new_node, new_edge_cost)])
+
+            # check if new node is in a frontier area
+            is_target_found = False
+            
+            for i in range(len(target_frontiers)):
+                target = target_frontiers[i]
+                dist_to_target = self.weight_euclidean_distance(target, new_node)
+                if dist_to_target <= self.expand_dist:
+                    pred = []
+                    cost = self.edge_weight_by_metric(new_node, target, pred)
+                    self.tree.add_node(target, pos=(self.centroids[target][0],
+                                                    self.centroids[target][1]))
+                    self.tree.add_weighted_edges_from([(new_node, target, cost)])
+
+                    self.path = nx.dijkstra_path(self.tree, self.source_node, target, weight="weight")
+                    self.path_distance = nx.dijkstra_path_length(self.tree, self.source_node, target, weight="weight")
+                    is_target_found = True
+                    self.target_idx = i
+
+                    print(f"[RRT] Dist to target: {dist_to_target}, target_idx: {self.target_idx}/{len(target_frontiers)}")
+                    break
+
+            if is_target_found:
+                break
+
+            if i % 100 == 0 or i == self.max_iterations - 1:
+                print("[RRT] Iter:", i, ", number of nodes:", self.tree.number_of_nodes())
+                # if is_debug:
+                #     self.plot_debug_graph_rrt(i, target_frontiers)
+
+        self.last_execution_time = time.process_time() - start_time
+
+        if is_debug:
+            self.plot_debug_graph_rrt(i, target_frontiers)
+
+        return self.path_distance, self.path
+
+    def plot_debug_graph_rrt(self, i, target_frontiers):
+        import matplotlib.pyplot as plt
+
+        plt.figure()
+        plt.title("RRT* point cloud planner ({} iterations)".format(i))
+
+        nx.draw(self.tree, nx.get_node_attributes(self.tree, "pos"), with_labels=False,
+                font_size=8, node_size=1, arrowstyle="-")  # arrowstyle="->"
+        sample_dots = random.sample(self.centroids, int(len(self.centroids) * 0.45))
+
+        x, y, z = list(zip(*sample_dots))
+        plt.scatter(x, y, s=0.5, c=z, cmap="jet")
+
+        target_points = [self.centroids[face_idx] for face_idx in target_frontiers]
+        x, y, z = list(zip(*target_points))
+        plt.scatter(x, y, s=30, c='red')
+
+        x, y, z = self.centroids[self.source_node]
+        plt.scatter(x, y, s=30, c='blue')
+
+        if self.path:
+            target_points = [self.centroids[face_idx] for face_idx in self.path]
+            x, y, z = list(zip(*target_points))
+            plt.plot(x, y, '-', color="blue", linewidth=2)
+
+        plt.axis("equal")
+        plt.show()
+        plt.savefig('/tmp/RRT.png')
+        plt.close()
+
+    @staticmethod
+    def get_random_node(tree, G, target_frontiers, target_weights, random_thresh=0.2):
+        sample_space = list(set(G.nodes()) - set(tree.nodes()))
+        rnd_prob = random.uniform(0, 1)
+
+        if len(sample_space) > 0 and rnd_prob <= random_thresh:
+            return random.choice(sample_space), len(sample_space)
+        else:
+            rnd_idx = np.random.choice(len(target_frontiers), p=target_weights)
+            return target_frontiers[rnd_idx], len(sample_space)
+
+    def get_nearest_node_index(self, rnd_node):
+        d_list = []
+        for node in self.tree.nodes():
+            d_list += [self.weight_euclidean_distance(node, rnd_node)]
+
+        min_idx = d_list.index(min(d_list))
+
+        return list(self.tree.nodes())[min_idx]
 
     def _dijkstra_multisource(self, sources, pred=None, paths=None, cutoff=None, target=None):
         """Uses Dijkstra's algorithm to find shortest weighted paths
@@ -221,7 +394,7 @@ class MeshGraphSearch:
             dist[v] = d
             if v == target:
                 break
-            for u, e in G_succ[v].items():
+            for u, e in list(G_succ[v].items()):
                 # cost = weight(v, u, e)     # original cost function from v to u
                 cost = self.edge_weight_by_metric(v, u, pred[v])
 
@@ -233,7 +406,6 @@ class MeshGraphSearch:
                         continue
                 if u in dist:
                     if vu_dist < dist[u]:
-                        print "vu_dist:", vu_dist, "dist[v]:", dist[v], 'cost:', cost, "dist[u]:", dist[u], 'v', v, 'u', u, "pred[v]:", pred[v]
                         raise ValueError('Contradictory paths found:',
                                          'negative weights?')
                 elif u not in seen or vu_dist < seen[u]:
@@ -285,7 +457,7 @@ class MeshGraphSearch:
                 vector = self.optimization_angle_client.estimate_pose(self.centroids[u])
                 target_traversal_optimization = self.calculate_traversal_angle(vector)
 
-                #print "angles:", [target_traversal_pybullet, target_traversal_optimization, target_traversal_normal]
+                # print "angles:", [target_traversal_pybullet, target_traversal_optimization, target_traversal_normal]
 
             return target_traversal_normal + d
         elif self.metric == GraphMetricType.FLATTEST_PYBULLET or \
@@ -333,8 +505,9 @@ class MeshGraphSearch:
             short_weight = mesh_helper.normalize_from_minmax(dist, self.min_dist, self.max_dist)
 
             traversal = self.weight_traversability(u)
-            #print "traversal:", traversal, self.min_traversability, self.max_traversability
-            traversal_weight = mesh_helper.normalize_from_minmax(traversal, self.min_traversability, self.max_traversability)
+            # print "traversal:", traversal, self.min_traversability, self.max_traversability
+            traversal_weight = mesh_helper.normalize_from_minmax(traversal, self.min_traversability,
+                                                                 self.max_traversability)
 
             energy = self.weight_energy(v, u, predecessor=pred_node)
             energy_weight = mesh_helper.normalize_from_minmax(energy, self.min_energy, self.max_energy)
@@ -362,7 +535,7 @@ class MeshGraphSearch:
         a = np.asarray(self.centroids[v])
         b = np.asarray(self.centroids[u])
 
-        return np.linalg.norm(a-b)
+        return np.linalg.norm(a - b)
 
     def weight_traversability(self, u):
         """Calculate the traversability of a node face
@@ -371,7 +544,7 @@ class MeshGraphSearch:
         :param u: id of the target node
         :return: traversal angle in degrees
         """
-        return MeshGraphSearch.calculate_traversal_angle(self.normals[u])
+        return RRTGraphSearch.calculate_traversal_angle(self.normals[u])
 
     @staticmethod
     def calculate_traversal_angle(face_normal, z_vector=(0, 0, -1)):
@@ -403,6 +576,8 @@ class MeshGraphSearch:
 
         if not predecessor:
             rot = mesh_helper.angle_between_vectors(src, tgt)
+
+            # print("v_tgtsrc:", v_tgtsrc, tgt, src)
             angle = mesh_helper.angle_between_vectors(v_tgtsrc, (0, 0, -1))
         else:
             pred = np.asarray(self.centroids[predecessor])
@@ -476,7 +651,7 @@ class MeshGraphSearch:
             obstacle_d = min_dist
 
         if obstacle_d <= d0:
-            repulsive_w = 1/2.0 * c1 * (((1 / float(obstacle_d)) - (1 / float(d0))) ** 2)
+            repulsive_w = 1 / 2.0 * c1 * (((1 / float(obstacle_d)) - (1 / float(d0))) ** 2)
         else:
             repulsive_w = 0
 
@@ -535,14 +710,14 @@ class MeshGraphSearch:
                 'decay': decay
             })
 
-            #print 'theta:', face_angle, '\tdecay:', decay, '\td:', d
+            # print 'theta:', face_angle, '\tdecay:', decay, '\td:', d
 
         theta_list = np.array([a['theta'] for a in neighbours_data])
         decay_list = np.array([a['decay'] for a in neighbours_data])
         decay_list[np.abs(decay_list) < 0.001] = 0
 
         avg, std = weighted_avg_and_std(theta_list, decay_list)
-        #print [avg, std]
+        # print [avg, std]
         return avg, std
 
     def get_last_execution_time(self):
@@ -566,7 +741,7 @@ class MeshGraphSearch:
         traversabilities = []
         rotations = []
 
-        for i in xrange(len(path) - 1):
+        for i in range(len(path) - 1):
             node_source = path[i]
             node_target = path[i + 1]
 
@@ -586,11 +761,14 @@ class MeshGraphSearch:
                              "Distance", "Energy", "Rotation", "Traversality"]
         table.float_format = ".2"
 
+        #print("rotations:", rotations)
+
         table.add_row(["min", self.min_dist, self.min_energy, self.min_rotation, self.min_traversability])
         table.add_row(["max", self.max_dist, self.max_energy, self.max_rotation, self.max_traversability])
-        table.add_row(["mean", np.mean(distances), np.mean(energy_consumptions), np.mean(rotations), np.mean(traversabilities)])
-        table.add_row(["std dev", np.std(distances), np.std(energy_consumptions), np.std(rotations), np.std(traversabilities)])
+        table.add_row(
+            ["mean", np.mean(distances), np.mean(energy_consumptions), np.mean(rotations), np.mean(traversabilities)])
+        table.add_row(
+            ["std dev", np.std(distances), np.std(energy_consumptions), np.std(rotations), np.std(traversabilities)])
         table.add_row(["sum", sum(distances), sum(energy_consumptions), sum(rotations), sum(traversabilities)])
 
-        print table
-
+        print(table)

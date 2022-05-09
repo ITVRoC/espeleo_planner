@@ -101,7 +101,7 @@ void cloud_cb(const sensor_msgs::PointCloud2ConstPtr& input){
 
     start = chrono::high_resolution_clock::now();
 
-    string target_frame = "/world";
+    string target_frame = "world";
     sensor_msgs::PointCloud2 cloud = *input;
 
     sensor_msgs::PointCloud2::Ptr transformed_cloud(new sensor_msgs::PointCloud2);

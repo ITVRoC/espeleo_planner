@@ -232,12 +232,13 @@ string generate_mesh(const sensor_msgs::PointCloud2 msg, const geometry_msgs::Po
 
     double as_ratio = gridm * log(points.size() / 10e4);
 
-    if (as_ratio < 0.6)
-        as_ratio = 0.6;
+    if (as_ratio < 0.2)
+        as_ratio = 0.2;
 
     double cell_size = average_spacing * as_ratio;
 
     ROS_INFO_STREAM("Estimated weight for grid size w.r.t. avg. point distance: " << as_ratio);
+    ROS_INFO_STREAM("cell_size: " << cell_size);
 
     start = chrono::high_resolution_clock::now();
     pointset.sample_points_cgal(cell_size, 1);
@@ -275,7 +276,10 @@ string generate_mesh(const sensor_msgs::PointCloud2 msg, const geometry_msgs::Po
                             << " seconds");
 
     start = chrono::high_resolution_clock::now();
-    trim_mesh(reconstruct_surface(estimated_pwn, output), tree, trim * (double) average_spacing, output);
+    FT sm_angle = 20.0;     // Min triangle angle in degrees. // 20.0
+    FT sm_radius = 8.0;     // Max triangle size w.r.t. point set average spacing. // 8.0
+    FT sm_distance = 0.5;   // Surface Approximation error w.r.t. point set average spacing. // 0.5
+    trim_mesh(reconstruct_surface(estimated_pwn, output, sm_angle, sm_radius, sm_distance), tree, trim * (double) average_spacing, output);
     stop = chrono::high_resolution_clock::now();
     ROS_INFO_STREAM("Time trim mesh: "
                             << float(chrono::duration_cast<chrono::microseconds>(stop - start).count() / 1000000.0)

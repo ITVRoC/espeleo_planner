@@ -4,13 +4,13 @@ import numpy as np
 from scipy.optimize import minimize
 import scipy.interpolate
 import os
-import pymesh
+import open3d as o3d
 import math
 import datetime
 from matplotlib import pyplot
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from mpl_toolkits.mplot3d import Axes3D
-import mesh_helper
+from . import mesh_helper
 
 
 class OptimizationAngleEstimation:
@@ -23,13 +23,9 @@ class OptimizationAngleEstimation:
         if show_GUI:
             pass
 
-        print "mesh_path:", mesh_path
+        print("mesh_path:", mesh_path)
 
-        self.mesh = pymesh.load_mesh(mesh_path)
-        self.mesh.enable_connectivity()
-        self.mesh.add_attribute("face_centroid")  # adds the face centroids to be accessed
-        self.mesh.add_attribute("face_normal")  # adds the face normals to be accessed
-        self.mesh.add_attribute("vertex_valance")
+        self.mesh = o3d.io.read_triangle_mesh(mesh_path)
 
         self.stability_poly = self.get_stability_poly()
         self.stability_poly_yaw = 0
@@ -121,7 +117,7 @@ class OptimizationAngleEstimation:
         return objective_v
 
     def generate_interpolator(self, start_pos):
-        mesh_centroids = np.concatenate([self.mesh.vertices, self.mesh.get_face_attribute("face_centroid")])
+        mesh_centroids = np.asarray(self.mesh.vertices)
 
         # filter points by a radius
         A = np.array(mesh_centroids)
@@ -129,7 +125,7 @@ class OptimizationAngleEstimation:
         R = 1.8
         filtered_centroids = A[np.linalg.norm(A[:, :3] - B, axis=1) < R]
 
-        x, y, z = zip(*filtered_centroids)
+        x, y, z = list(zip(*filtered_centroids))
         interp_fn = scipy.interpolate.CloughTocher2DInterpolator(np.array([x, y]).T, z)
 
         self.interp_fn = interp_fn
@@ -202,7 +198,7 @@ class OptimizationAngleEstimation:
         ax = Axes3D(fig)
         # ax.set_aspect('equal')
 
-        x, y, z = zip(*self.filtered_centroids)
+        x, y, z = list(zip(*self.filtered_centroids))
         xline = np.linspace(min(x), max(x), 30)
         yline = np.linspace(min(y), max(y), 30)
         xgrid, ygrid = np.meshgrid(xline, yline)
@@ -227,7 +223,7 @@ class OptimizationAngleEstimation:
 
         ax.scatter(local_poly[:, 0], local_poly[:, 1], local_poly[:, 2], zdir='z', c='b')
 
-        stability_poly_tuples = list([map(list, local_poly)])
+        stability_poly_tuples = list([list(map(list, local_poly))])
         collection = Poly3DCollection(list(stability_poly_tuples), linewidths=0.5, alpha=0.7, edgecolors='blue')
         face_color = [0.5, 0.5, 1]  # alternative: matplotlib.colors.rgb2hex([0.5, 0.5, 1])
         collection.set_facecolor(face_color)

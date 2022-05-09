@@ -1,5 +1,31 @@
 # Espeleo Path Planner
 
+### Last version of the point cloud planner explorator
+
+Terminal 1:
+`roscore`
+
+`coppelia`
+
+Coppelia maps:
+  - stage_cave_v2_robot2_obstacle_T
+
+`roslaunch espeleo_vrep_simulation espeleo_sim.launch`
+
+`rviz -d /home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/rviz/espeleo_coppelia_white_PCLOUD.rviz`
+
+Terminal 2:
+
+roslaunch espeleo_planner experiment_evaluation_pcloud_rrt.launch
+
+roslaunch espeleo_planner publish_frontier_services.launch
+
+roslaunch espeleo_lego_loam espeleo_lego_loam_sim.launch
+
+rosrun espeleo_planner mesh_planner_exploration_node_RRT.py
+
+rosrun espeleo_planner exploration_metrics.py
+
 ### Launch an exploration instance
 
 Run in different terminals:
@@ -129,6 +155,7 @@ And replace by this:
   $ pip install timeit
   $ pip install pyquaternion
   $ pip install pybullet
+  $ pip install graphviz
 ```
 
 **Build surface reconstruction algorithm:** 

@@ -59,8 +59,7 @@ def plot_points(Gconn, centroids):
     mlab.pipeline.surface(lines, color=(0.2, 0.4, 0.5), line_width=1, opacity=.4)
 
 
-def create_graph(ply_path, dot_path, robot_pos, traversal_tresh=35, bumpiness_tresh=0.37, dbscan_eps=3,
-                 dbscan_min_samples=2):
+def create_graph(ply_path, robot_pos, traversal_tresh=35, bumpiness_tresh=0.37):
 
     pcd = o3d.io.read_point_cloud(ply_path)
     print "pointcloud.has_normals:", bool(pcd.has_normals)

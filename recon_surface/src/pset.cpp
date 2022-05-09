@@ -184,13 +184,13 @@ void Pset::sample_points_cgal(double param, int method) {
 
     if (method == 0) {
         int max_cluster_size = (int) param;
-        points.erase(
-                CGAL::hierarchy_simplify_point_set(
-                        points.begin(),
-                        points.end(),
-                        max_cluster_size, // Max cluster size
-                        0.02), // Max surface variation
-                points.end());
+        // points.erase(
+        //         CGAL::hierarchy_simplify_point_set(
+        //                 points.begin(),
+        //                 points.end(),
+        //                 max_cluster_size, // Max cluster size
+        //                 0.02), // Max surface variation
+        //         points.end());
 
     } else if (method == 1) {
         double cell_size = param;

@@ -1,5 +1,5 @@
 #include "recon_surface/surface_recon.hpp"
-
+#include "recon_surface/happly.h"
 
 std::list<PointVectorPair> grab_normals(std::vector<Point> &pts, std::vector<Vector> &norms) {
     std::list<PointVectorPair> points;
@@ -106,7 +106,10 @@ mst_orient_normals_modified(
     // Precondition: at least 2 nearest neighbors
     CGAL_point_set_processing_precondition(k >= 2);
 
-    std::size_t memory = CGAL::Memory_sizer().virtual_size(); CGAL_TRACE("  %ld Mb allocated\n", memory>>20);
+    std::size_t memory = CGAL::Memory_sizer().virtual_size(); 
+    
+    double mb_memory = memory >> 20;
+    ROS_DEBUG_STREAM(mb_memory << " Mb allocated\n");
     ROS_DEBUG_STREAM("  Create Index_property_map\n");
 
     // Create a property map Iterator -> index.
@@ -177,6 +180,14 @@ mst_orient_normals_modified(
     const std::size_t num_input_points = num_vertices(riemannian_graph);
     ROS_DEBUG_STREAM("Num vertices riemannian graph:" << num_input_points);
 
+    std::ofstream dot_file("/tmp/riemannian_graph.dot");
+    boost::write_graphviz(
+            dot_file,
+            riemannian_graph,
+            boost::default_writer(),
+            boost::default_writer()
+    );
+
     // Creates a Minimum Spanning Tree starting at source_point
     MST_graph mst_graph = create_mst_graph(first, beyond,
                                            point_pmap, normal_pmap, index_pmap,
@@ -189,7 +200,7 @@ mst_orient_normals_modified(
     ROS_DEBUG_STREAM("Num vertices mst graph:" << num_input_points2);
 
     memory = CGAL::Memory_sizer().virtual_size();
-    double mb_memory = memory >> 20;
+    mb_memory = memory >> 20;
     ROS_DEBUG_STREAM(mb_memory << "Mb allocated");
     ROS_DEBUG_STREAM("  Calls boost::breadth_first_search()");
 
@@ -218,10 +229,13 @@ mst_orient_normals_modified(
     std::copy(unoriented_points.begin(), unoriented_points.end(), first_unoriented_point);
 
     // At this stage, we have typically 0 unoriented normals if k is large enough
-    CGAL_TRACE("  => %u normals are unoriented\n", unoriented_points.size());
+    ROS_DEBUG_STREAM("  => " << unoriented_points.size() << " normals are unoriented\n");
 
-    memory = CGAL::Memory_sizer().virtual_size(); CGAL_TRACE("  %ld Mb allocated\n", memory>>20);
-    CGAL_TRACE("End of mst_orient_normals()\n");
+    memory = CGAL::Memory_sizer().virtual_size();
+    
+    mb_memory = memory >> 20;
+    ROS_DEBUG_STREAM(mb_memory << " Mb allocated\n");
+    ROS_DEBUG_STREAM("End of mst_orient_normals()\n");
 
     return first_unoriented_point;
 }
@@ -264,11 +278,11 @@ std::list<PointVectorPair> register_normals(std::vector<Point> sampled_points, s
     return refined;
 }
 
-Mesh reconstruct_surface(std::list<PointVectorPair> &pwn, std::string base_path) {
+Mesh reconstruct_surface(std::list<PointVectorPair> &pwn, std::string base_path, FT sm_angle, FT sm_radius, FT sm_distance) {
     // Poisson options
-    FT sm_angle = 20.0; //20.0 Min triangle angle in degrees.
-    FT sm_radius = 8.0; // Max triangle size w.r.t. point set average spacing. //10.0
-    FT sm_distance = 0.5;//0.375; // Surface Approximation error w.r.t. point set average spacing. //0.5
+//    FT sm_angle = 20.0; //20.0 Min triangle angle in degrees.
+//    FT sm_radius = 8.0; // Max triangle size w.r.t. point set average spacing. //10.0
+//    FT sm_distance = 0.5;//0.375; // Surface Approximation error w.r.t. point set average spacing. //0.5
     // Reads the point set file in points[].
     // Note: read_xyz_points_and_normals() requires an iterator over points
     // + property maps to access each point's position and normal.
@@ -316,7 +330,11 @@ Mesh reconstruct_surface(std::list<PointVectorPair> &pwn, std::string base_path)
     Surface_3 surface(function,
                       Sphere(inner_point, sm_sphere_radius * sm_sphere_radius),
                       sm_dichotomy_error / sm_sphere_radius);
-    // Defines surface mesh generation criteria
+//    // Defines surface mesh generation criteria
+//    CGAL::Surface_mesh_default_criteria_3<STr> criteria(sm_angle,  // Min triangle angle (degrees)
+//                                                        sm_radius, // * average_spacing,  // Max triangle size
+//                                                        sm_distance); // * average_spacing); // Approximation error
+
     CGAL::Surface_mesh_default_criteria_3<STr> criteria(sm_angle,  // Min triangle angle (degrees)
                                                         sm_radius * average_spacing,  // Max triangle size
                                                         sm_distance * average_spacing); // Approximation error
@@ -385,7 +403,7 @@ void write_ply_wnormals(std::string out_file, std::list<PointVectorPair> &point_
 
     long num_points_out = point_list.size();
 
-    FILE *f = fopen(out_file.c_str(), "w");
+    FILE *f = fopen(out_file.c_str(), "wb");
 
     /* Print the ply header */
     fprintf(f, ply_header, num_points_out);
@@ -406,9 +424,53 @@ void write_ply_wnormals(std::string out_file, std::list<PointVectorPair> &point_
 
         fprintf(f, "%.7f %.7f %.7f %.7f %.7f %.7f %d %d %d\n", pt3d[0], pt3d[1], pt3d[2], n3d[0], n3d[1], n3d[2], cl[0],
                 cl[1], cl[2]);
-
     }
     fclose(f);
+}
+
+void write_ply_binary_wnormals(std::string out_file, std::list<PointVectorPair> &point_list, Tree &tree,
+                        std::vector<Color> &colors) {
+
+    long num_points_out = point_list.size();
+
+    // Suppose these hold your data
+    std::vector<float> x;
+    std::vector<float> y;
+    std::vector<float> z;
+    std::vector<float> nx;
+    std::vector<float> ny;
+    std::vector<float> nz;
+
+    /* X Y Z R G B for each line*/
+    for (std::list<PointVectorPair>::iterator it = point_list.begin(); it != point_list.end(); ++it) {
+        Point pt3d = (*it).first;
+        Vector n3d = (*it).second;
+
+        x.push_back(pt3d[0]);
+        y.push_back(pt3d[1]);
+        z.push_back(pt3d[2]);
+
+        nx.push_back(n3d[0]);
+        ny.push_back(n3d[1]);
+        nz.push_back(n3d[2]);
+    }
+
+    // Create an empty object
+    happly::PLYData plyOut;
+
+    // Add elements
+    plyOut.addElement("vertex", num_points_out);
+
+    // Add properties to those elements
+    plyOut.getElement("vertex").addProperty<float>("x", x);
+    plyOut.getElement("vertex").addProperty<float>("y", y);
+    plyOut.getElement("vertex").addProperty<float>("z", z);
+    plyOut.getElement("vertex").addProperty<float>("nx", nx);
+    plyOut.getElement("vertex").addProperty<float>("ny", ny);
+    plyOut.getElement("vertex").addProperty<float>("nz", nz);
+
+    // Write the object to file
+    plyOut.write(out_file, happly::DataFormat::Binary);
 }
 
 void trim_mesh(Mesh m, Tree &tree, double threshold, std::string base_path) {

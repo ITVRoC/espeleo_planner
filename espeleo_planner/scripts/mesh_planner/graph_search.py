@@ -4,8 +4,8 @@ from heapq import heappush, heappop
 from itertools import count
 import networkx as nx
 import numpy as np
-from graph_metrics import GraphMetricType
-import mesh_helper
+from .graph_metrics import GraphMetricType
+from . import mesh_helper
 from prettytable import PrettyTable
 import math
 import time
@@ -221,7 +221,7 @@ class MeshGraphSearch:
             dist[v] = d
             if v == target:
                 break
-            for u, e in G_succ[v].items():
+            for u, e in list(G_succ[v].items()):
                 # cost = weight(v, u, e)     # original cost function from v to u
                 cost = self.edge_weight_by_metric(v, u, pred[v])
 
@@ -233,7 +233,7 @@ class MeshGraphSearch:
                         continue
                 if u in dist:
                     if vu_dist < dist[u]:
-                        print "vu_dist:", vu_dist, "dist[v]:", dist[v], 'cost:', cost, "dist[u]:", dist[u], 'v', v, 'u', u, "pred[v]:", pred[v]
+                        print("vu_dist:", vu_dist, "dist[v]:", dist[v], 'cost:', cost, "dist[u]:", dist[u], 'v', v, 'u', u, "pred[v]:", pred[v])
                         raise ValueError('Contradictory paths found:',
                                          'negative weights?')
                 elif u not in seen or vu_dist < seen[u]:
@@ -285,7 +285,7 @@ class MeshGraphSearch:
                 vector = self.optimization_angle_client.estimate_pose(self.centroids[u])
                 target_traversal_optimization = self.calculate_traversal_angle(vector)
 
-                print "angles:", [target_traversal_pybullet, target_traversal_optimization, target_traversal_normal]
+                #print "angles:", [target_traversal_pybullet, target_traversal_optimization, target_traversal_normal]
 
             return target_traversal_normal + d
         elif self.metric == GraphMetricType.FLATTEST_PYBULLET or \
@@ -556,6 +556,7 @@ class MeshGraphSearch:
         """ Print this graph metrics in a tabular format
         distance, energy, rotation and traversability (min, max, mean, dev, and total)
         """
+
         path = self.get_path()
         if not path:
             raise AssertionError("there is no path to calculate properties (self.path == None)")
@@ -565,7 +566,7 @@ class MeshGraphSearch:
         traversabilities = []
         rotations = []
 
-        for i in xrange(len(path) - 1):
+        for i in range(len(path) - 1):
             node_source = path[i]
             node_target = path[i + 1]
 
@@ -591,5 +592,5 @@ class MeshGraphSearch:
         table.add_row(["std dev", np.std(distances), np.std(energy_consumptions), np.std(rotations), np.std(traversabilities)])
         table.add_row(["sum", sum(distances), sum(energy_consumptions), sum(rotations), sum(traversabilities)])
 
-        print table
+        print(table)
 

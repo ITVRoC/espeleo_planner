@@ -18,6 +18,7 @@ import json
 import sys
 import math
 import argparse
+import datetime
 
 
 class ExplorationMetrics:
@@ -44,10 +45,12 @@ class ExplorationMetrics:
         self.last_odom_msg = None
 
         self.cmd_vel_msg = None
+        self.last_time_cmd_vel_updated = time.time()
 
         self.rmse = float('inf')
         self.odom_dist = 0
         self.last_time_updated = time.time()
+        self.start_time = time.time()
 
         self.init_node()
 
@@ -72,6 +75,7 @@ class ExplorationMetrics:
 
     def cmd_vel_callback(self, msg):
         self.cmd_vel_msg = msg
+        self.last_time_cmd_vel_updated = time.time()
 
     def frontier_cetntroids_callback(self, msg):
         self.frontiers_ground_centroids_msg = msg
@@ -112,11 +116,11 @@ class ExplorationMetrics:
     def similarity(cloud_a, cloud_b):
         # compare B to A
         similarityB2A = ExplorationMetrics.sim_outlier(cloud_a, cloud_b)
-        print "similarityB2A:", similarityB2A
+        print("similarityB2A:", similarityB2A)
 
         # compare A to B
         similarityA2B = ExplorationMetrics.sim_outlier(cloud_b, cloud_a)
-        print "similarityA2B:", similarityA2B
+        print("similarityA2B:", similarityA2B)
 
         return (similarityA2B * 0.5) + (similarityB2A * 0.5)
 
@@ -179,16 +183,20 @@ class ExplorationMetrics:
         points = pc2.read_points_list(self.current_map_pointcloud_msg, field_names=("x", "y", "z"), skip_nans=True)
         cloud = pcl.PointCloud(np.array(points, dtype=np.float32))
         cloud = ExplorationMetrics.voxelize_cloud(cloud, self.leaf_size)
+        pcl.save(cloud, "/tmp/world_map.ply", "ply")
 
         self.rmse = ExplorationMetrics.similarity(self.ground_truth_pointcloud, cloud)
 
         self.pointcloud_plot_data.append({'timestep': self.current_timestep,
                                           'rmse': self.rmse,
                                           'odom_dist': local_odom_dist,
-                                          'robot_action_number': self.robot_action_number})
+                                          'robot_action_number': self.robot_action_number,
+                                          'real_time': time.time()})
 
         rospy.loginfo("timestep:%s action_num:%s odom_dist:%.2f rmse:%.2f", self.current_timestep,
                       self.robot_action_number, self.odom_dist, self.rmse)
+        
+        rospy.loginfo("Real time so far: %s", str(datetime.timedelta(seconds=time.time()-self.start_time)))
 
         self.current_timestep += 1
         self.last_time_updated = time.time()
@@ -212,11 +220,13 @@ class ExplorationMetrics:
         y = []
         odom_dist = []
         action_num = []
+        real_time = []
         for e in data:
             x.append(e['timestep'])
             y.append(e['rmse'])
             odom_dist.append(e['odom_dist'])
             action_num.append(e['robot_action_number'])
+            real_time.append(e['real_time'])
 
         rospy.loginfo("total odom_dist:%s", sum(odom_dist))
 
@@ -228,7 +238,9 @@ class ExplorationMetrics:
         ax.set_ylim([0.0, max(y) + 1])
         plt.xlim([0, max(x) + 0.1])
 
-        print "max(x):", max(x)
+        print("max(x):", max(x))
+
+        print("Real time in this experiment was:", str(datetime.timedelta(seconds=real_time[-1]-real_time[0])))
 
         ax.grid()
         ax.set_axisbelow(True)
@@ -257,12 +269,13 @@ class ExplorationMetrics:
         len_diff = max_timesteps - len(self.pointcloud_plot_data)
         if len_diff > 0:
             rospy.logwarn('Augmenting data %s timesteps', len_diff)
-            for i in xrange(len_diff):
+            for i in range(len_diff):
                 d = {
                     'timestep': last_timestep + (i + 1),
                     'rmse': last_data['rmse'],
                     'odom_dist': last_data['odom_dist'],
-                    'robot_action_number': last_data['robot_action_number']
+                    'robot_action_number': last_data['robot_action_number'],
+                    'real_time': time.time()
                 }
                 self.pointcloud_plot_data.append(d)
 
@@ -271,9 +284,15 @@ if __name__ == '__main__':
     rospy.init_node('espeleo_exploration_metrics', anonymous=True)
     rospy.loginfo("espeleo_exploration_metrics node start")
 
-    gt_pointcloud_file = "simple_cave_delimited_v3.ply"
+    # map cave 1
+    # gt_pointcloud_file = "rrt_simple_cave_delimited_v0.ply"
+    # gt_pointcloud_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/reference_maps/"
+    # save_json_metrics_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/json/map_delimited_rrt_v0_metric/"
+
+    gt_pointcloud_file = "stage_cave_v0_8m.ply"
     gt_pointcloud_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/reference_maps/"
-    save_json_metrics_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/json/map_delimited_v3_metric/"
+    save_json_metrics_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/json/stage_map_rrt_v0_metric/"
+    
     exp_metrics = ExplorationMetrics(os.path.join(gt_pointcloud_folder, gt_pointcloud_file), save_json_metrics_folder)
 
     ap = argparse.ArgumentParser()
@@ -293,8 +312,6 @@ if __name__ == '__main__':
     max_timesteps = 1000
     max_stopped_time = 300
 
-    start_time = time.time()
-
     while not rospy.is_shutdown():
         try:
             time1 = time.time()
@@ -307,9 +324,22 @@ if __name__ == '__main__':
             #     rospy.logwarn("rmse <= 0.25: %s", exp_metrics.get_rmse())
             #     break
 
-            if exp_metrics.get_current_timestep() >= max_timesteps or \
-                    exp_metrics.get_seconds_since_last_update() > max_stopped_time:
+            if time.time() - exp_metrics.last_time_cmd_vel_updated > 10:
+                rospy.logwarn("Setting cmd_vel as 0")
+                exp_metrics.cmd_vel_msg = Twist()
+                exp_metrics.last_time_cmd_vel_updated = time.time()
 
+            is_ending_experiment = False
+
+            if exp_metrics.get_current_timestep() >= max_timesteps:
+                is_ending_experiment = True
+                rospy.logwarn("ending experiment by timesteps %s", exp_metrics.get_current_timestep())
+
+            if exp_metrics.get_seconds_since_last_update() > max_stopped_time:
+                is_ending_experiment = True
+                rospy.logwarn("ending experiment by max stopped time %s", exp_metrics.get_seconds_since_last_update())
+
+            if is_ending_experiment:
                 rospy.logwarn("ending experiment... timestep:%s seconds_since_update:%s",
                               exp_metrics.get_current_timestep(),
                               exp_metrics.get_seconds_since_last_update())
@@ -321,7 +351,7 @@ if __name__ == '__main__':
 
         rate.sleep()
 
-    rospy.loginfo("Experiment duration:%s", time.time() - start_time)
+    rospy.loginfo("Experiment duration:%s", time.time() - exp_metrics.start_time)
 
     exp_metrics.finalize_data(max_timesteps)
     fname = exp_metrics.save_json_to_file()

@@ -68,7 +68,7 @@ class PointCloudPub {
     private:
         ros::NodeHandle nh;
         ros::Publisher pub;
-        const string pointcloud_frame_id = "/os1_init";
+        const string pointcloud_frame_id = "os1_init";
         pcl::PointCloud<pcl::PointXYZ>::Ptr msg;
         string tp_name;
 };
@@ -81,7 +81,7 @@ class OctomapExploration {
         const string PROCESS_FRONTIER_BY_ID_SRV_NAME = "/process_frontier_by_id";
         const string PROCESS_ALL_FRONTIERS_SRV_NAME = "/process_all_frontiers";
         const string PROCESS_ALL_FRONTIERS_STL_SRV_NAME = "/process_all_frontiers_stl";
-        const string BASE_FRAME_ID = "/os1_init";
+        const string BASE_FRAME_ID = "os1_init";
 
         ros::Subscriber octomap_sub;
         ros::Subscriber frontier_centers_sub;
@@ -96,6 +96,8 @@ class OctomapExploration {
         ros::ServiceServer process_frontier_srv;
         ros::ServiceServer process_all_frontiers_srv;
         ros::ServiceServer process_all_frontiers_stl_srv;
+
+        visualization_msgs::MarkerArray frontier_mi_labels;
 
         octomap::OcTree *octomap_load = NULL;
         octomap::OcTree *octomap_from_stl = NULL;

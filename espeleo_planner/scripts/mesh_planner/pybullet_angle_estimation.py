@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import os
 import math
 import pybullet as p
 import pybullet
@@ -8,8 +7,9 @@ import pyquaternion
 import datetime
 import rospkg
 import os
-import mesh_helper
+from . import mesh_helper
 import numpy as np
+import time
 
 
 class PybulletAngleEstimation:
@@ -93,7 +93,10 @@ class PybulletAngleEstimation:
                 #print "breaking at step:", i, dist, quat_dist
                 break
 
-            # time.sleep(1./360.)
+            #time.sleep(1./360.)  # slow
+            #time.sleep(1./1440.)  # faster
+
+        #time.sleep(1.)
 
         end_time = datetime.datetime.now()
         delta = end_time - start_time

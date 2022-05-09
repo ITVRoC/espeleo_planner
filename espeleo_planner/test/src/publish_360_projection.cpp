@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
                             1.0,
                             1.0,
                             0.0,
-                            "/os1_init",
+                            "os1_init",
                             15
                     ));
         }

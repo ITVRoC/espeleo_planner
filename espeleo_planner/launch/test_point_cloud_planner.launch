@@ -1,0 +1,12 @@
+<launch>
+    <node pkg="point_cloud_io" type="read" name="read_stl_node" output="screen">
+        <param name="file_path" value="$(find espeleo_planner)/test/point_cloud_planning/riemannian_pcloud.ply" />
+        <param name="topic"     value="/test_point_cloud" />
+        <param name="frame"     value="os1_init" />
+        <param name="rate"      value="0.2" />
+    </node>
+
+    <node pkg="espeleo_planner" type="plan_with_fixed_point_cloud.py" name="plan_with_fixed_point_cloud" output="screen">
+    </node>
+
+</launch>

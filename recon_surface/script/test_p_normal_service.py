@@ -2,7 +2,7 @@
 
 import rospy
 import sensor_msgs
-from recon_surface.srv import MeshFromPointCloud2
+from recon_surface.srv import NormalsFromPointCloud2
 import sys
 import time
 import os
@@ -73,8 +73,8 @@ def pointcloud2_callback(msg):
     rospy.loginfo("pointcloud2_callback called")
 
     try:
-        rospy.wait_for_service('/mesh_from_pointclouds', timeout=3)
-        mesh_from_pointcloud = rospy.ServiceProxy('/mesh_from_pointclouds', MeshFromPointCloud2)
+        rospy.wait_for_service('/pnormal_from_pointclouds', timeout=3)
+        p_normal_from_pointcloud = rospy.ServiceProxy('/pnormal_from_pointclouds', NormalsFromPointCloud2)
 
         points = pc2.read_points_list(msg, field_names=("x", "y", "z"), skip_nans=True)
         cloud = pcl.PointCloud(np.array(points, dtype=np.float32))
@@ -103,7 +103,7 @@ def pointcloud2_callback(msg):
 
         time1 = time.time()
         mesh_src_point = Point(0.0, 0.0, 0.0)
-        resp1 = mesh_from_pointcloud(filtered_msg, mesh_src_point)
+        resp1 = p_normal_from_pointcloud(filtered_msg, mesh_src_point)
         time2 = time.time()
 
         rospy.loginfo("pointcloud processed result: %s", resp1)
@@ -122,7 +122,7 @@ def pointcloud2_callback(msg):
 
 
 if __name__ == "__main__":
-    rospy.init_node("test_load_stl_call_recon_surface_service", anonymous=False)
+    rospy.init_node("test_p_normals_service", anonymous=False)
 
     scan_sub = rospy.Subscriber("/test_point_cloud", sensor_msgs.msg.PointCloud2, pointcloud2_callback)
     rospy.spin()

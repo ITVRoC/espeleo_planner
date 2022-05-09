@@ -1,35 +1,33 @@
 #!/usr/bin/env python
 
 import rospy
-import pymesh
 import networkx as nx
 import multiprocessing
-import graph_search
+from . import graph_search
+from . import rrt_graph_search
 import numpy as np
-import time
 from scipy import spatial
-import mesh_helper
-from sklearn.cluster import DBSCAN
 import traceback
-import pybullet_angle_estimation
-import optimization_angle_estimation
+import time
+
+from sklearn.neighbors import NearestNeighbors
+import scipy.sparse
 
 
-class MeshPlannerBase:
+class PointCloudPlannerBase:
     """
-    Mesh Path Finder given a mesh, a list of metrics and a source and destination points
+    Path Finder given a point cloud with normals, a list of metrics and a source and destination points
     calculates the optimum paths
     """
 
-    def __init__(self, mesh_path, graph_metrics_types):
+    def __init__(self, pcloud, graph_metrics_types, voxel_size=0.30):
         """
-        Mesh Path Finder constructor
-        :param mesh_path: path to mesh .stl file
+        Point Cloud Path Finder constructor
+        :param mesh_path: path to point cloud .ply file
         :param graph_metrics_types: list of graph metrics types to calculate (GraphMetricType enum object)
         """
 
-        self.mesh_path = mesh_path
-        self.mesh = pymesh.load_mesh(self.mesh_path)
+        self.pcd = pcloud
 
         if isinstance(graph_metrics_types, (list, tuple)):
             self.graph_metrics_types = graph_metrics_types
@@ -38,17 +36,14 @@ class MeshPlannerBase:
         else:
             raise TypeError("graph_metrics is not a valid object type [list, tuple]")
 
-        self.pybullet_angle_client = pybullet_angle_estimation.PybulletAngleEstimation(mesh_path)
-        self.optimization_angle_client = optimization_angle_estimation.OptimizationAngleEstimation(mesh_path)
-
         # REAL ROBOT CONSTANTS
         # self.transversality_threshold = 40  # REAL ROBOT
         # self.border_threshold = 0.4 # REAL ROBOT
 
         # SIMULATED ROBOT CONSTANTS
-        self.transversality_threshold = 30  # max inclination (in degrees) the robot could climb
+        self.transversality_threshold = 25  # max inclination (in degrees) the robot could climb
         self.bumpiness_threshold = 0.5  # maximum bump the robot could jump between surfaces TODO add reference here
-        self.border_threshold = 0.0  # distance to expand from borders to other face centroids
+        self.border_threshold = 0.45  # distance to expand from borders to other face centroids
 
         # self.shortest_comb_weight = 0.80
         # self.energy_comb_weight = 0.10
@@ -57,18 +52,12 @@ class MeshPlannerBase:
         self.energy_comb_weight = 0.25  # this is a energy weight to combine the weights of the metrics
         self.transversality_comb_weight = 0.50  # this is a transversality weight to combine the weights of the metrics
 
-        self.mesh.enable_connectivity()  # enables connectivity on mesh
-        self.mesh.add_attribute("face_centroid")  # adds the face centroids to be accessed
-        self.mesh.add_attribute("face_normal")  # adds the face normals to be accessed
-
-        self.faces = self.mesh.faces
-        self.centroids = self.mesh.get_face_attribute("face_centroid")
-        self.normals = self.mesh.get_face_attribute("face_normal")
+        self.centroids = self.pcd.points
+        self.normals = self.pcd.normals
 
         self.mesh_frontiers = set()
 
-        rospy.loginfo("Vertex and Face count: %d, %d" % (self.mesh.num_vertices, self.mesh.num_faces))
-        rospy.loginfo("Dimensions and Vertexes in a face: %d, %d" % (self.mesh.dim, self.mesh.vertex_per_face))
+        rospy.loginfo("[Planner] Point cloud size: %d" % len(self.centroids))
 
     def plot_graph_3d(self, G, title=None, source_id=None, target_id=None, border_3d_points=None,
                       reachable_frontiers_ids=None, frontier_centroids_ids=None, frontier_visit_ids=None):
@@ -172,40 +161,43 @@ class MeshPlannerBase:
 
         mlab.show()
 
-    def extract_frontiers_from_mesh(self):
-        """Extract the face frontiers directly from the mesh file
-
-        :return: a set with the ids of the frontier faces
-        """
-        for face_id in range(0, self.mesh.num_faces):
-            adj_faces = self.mesh.get_face_adjacent_faces(face_id)
-            if len(adj_faces) <= 2:
-                self.mesh_frontiers.add(face_id)
-
-        return self.mesh_frontiers
-
-    def create_graph_from_mesh(self):
-        """Create a graph from the mesh's faces centroids conecting nodes using the conectivity graph of the
-        original mesh
+    def create_graph_from_pcloud(self, k=9, max_euclidean_dist=0.61):
+        """Create a graph from the the points using a k-nn euclidean graph
         :return: a networkx graph G
         """
-        G = nx.Graph()
-        for face_idx in xrange(self.mesh.num_faces):
-            G.add_node(face_idx)
+        start_time = time.process_time()
+        neigh = NearestNeighbors(n_neighbors=k, radius=0.30) 
+        neigh.fit(np.array(self.centroids))
+        knn_matrix = neigh.kneighbors_graph(mode="distance")
+        #print("time NearestNeighbors:", (time.process_time() - start_time))
 
-        # add edges for adjacent faces
-        for face_idx in list(G.nodes()):
-            face_vertexes = self.mesh.faces[face_idx]
-            for v in face_vertexes:
-                vertex_adj_faces = self.mesh.get_vertex_adjacent_faces(v)
-                for face_adjacent in vertex_adj_faces:
-                    if face_adjacent != face_idx and G.has_node(face_adjacent):
-                        G.add_edge(face_idx, face_adjacent, weight=1)
+        # G = nx.Graph()
+        #
+        # for i in range(0, len(self.centroids)):
+        #     G.add_node(i)
+
+        start_time = time.process_time()
+        # (row, col, entries) = scipy.sparse.find(knn_matrix)
+
+        G = nx.from_scipy_sparse_matrix(knn_matrix, parallel_edges=False, create_using=None, edge_attribute='weight')
+
+        # for i in range(0, len(row)):
+        #     G.add_edge(row[i], col[i], weight=entries[i])
+
+        # for i in range(0, len(row)):
+        #     a = np.array(self.centroids[row[i]])
+        #     b = np.array(self.centroids[col[i]])
+        #     dist = np.linalg.norm(a - b)
+        #
+        #     if dist <= max_euclidean_dist:
+        #         G.add_edge(row[i], col[i], weight=entries[i])
+
+        #print("time add edges:", (time.process_time() - start_time))
 
         return G
 
     def prepare_graph(self, G, source_id, target_id=None):
-        """Filter and extract frontiers given a mesh graph. Remove outliers, join nearby traversable surfaces,
+        """Filter and extract frontiers given a pcloud graph. Remove outliers, join nearby traversable surfaces,
         perform a border expansion to prevent collisions, etc.
 
         :param G:
@@ -213,22 +205,17 @@ class MeshPlannerBase:
         :param target_id: target node id
         :return: G, f_centroids_ids, filtered_reachable_frontiers
         """
-        print "G size:", len(G.nodes)
-        G = self.filter_graph_by_traversable_faces(G)
-        print "G size:", len(G.nodes)
+        # print "G size:", len(G.nodes)
+        #G = self.filter_graph_by_traversable_faces(G)
+
+        #print("G size:", len(G.nodes))
         G = self.remove_non_connected_components(G, source_id)
 
-        mesh_frontiers = self.extract_frontiers_from_mesh()
-        graph_frontiers = self.extract_borders_from_graph(G, degree_tresh=12)
-        reachable_frontiers = mesh_frontiers.intersection(graph_frontiers)
-
-        G = self.expand_graph_borders(G)
+        #G = self.expand_graph_borders(G)
 
         # add important nodes that could be lost in previous filtering steps
-        checked_nodes = list(reachable_frontiers)
+        checked_nodes = []
         unchecked_nodes = [source_id]
-        if target_id:
-            unchecked_nodes.append(target_id)
 
         G, reachable_frontiers = self.reconnect_non_removable_nodes(G,
                                                                     checked_nodes,
@@ -236,17 +223,10 @@ class MeshPlannerBase:
                                                                     max_distance=self.border_threshold + 1.0)
         G = self.remove_non_connected_components(G, source_id)
 
-        filtered_reachable_f_ids = reachable_frontiers.intersection(G.nodes())
-        f_centroids_ids = []
-        f_visit_ids = []
-        if len(filtered_reachable_f_ids) > 0:
-            f_visit_ids, f_centroids_ids, f_centroids, f_points = self.cluster_frontier_borders(G,
-                                                                                                filtered_reachable_f_ids,
-                                                                                                source_id)
+        return G
 
-        return G, f_centroids_ids, f_centroids_ids, filtered_reachable_f_ids
-
-    def extract_borders_from_graph(self, G, degree_tresh=9):
+    @staticmethod
+    def extract_borders_from_graph(G, degree_tresh=9):
         """Extract the nodes that has a degree less than two, this is a heuristic to detect which nodes
         are located at the edges of the graph (such as obstacle borders and map border limits)
 
@@ -285,26 +265,28 @@ class MeshPlannerBase:
         :return: a smaller graph G' with the expanded borders removed
         """
         # estimate borders of the remainder graph
-        border_centroids = []
-        for v in sorted(G.nodes()):
-            if nx.degree(G, v) <= 9:
-                border_centroids.append(tuple(self.centroids[v]))  # tuples are hashable! lists are not
+        border_ids = self.extract_borders_from_graph(G, degree_tresh=8)
+        border_centroids = [self.centroids[idx] for idx in border_ids]
+        #print("border_centroids:", len(border_centroids))
 
         # remove nodes from graph that are near to the borders
         # given a distance threshold
-        border_kdtree = spatial.KDTree(border_centroids)
-        for v in list(G.nodes()):
-            point = self.centroids[v]
-            distances, nearest_idx = border_kdtree.query([point])
-            obstacle_d = distances[0]
-            if obstacle_d <= self.border_threshold:
-                G.remove_node(v)
+        if len(border_centroids) > 0:
+            border_kdtree = spatial.KDTree(border_centroids)
+            for v in list(G.nodes()):
+                point = self.centroids[v]
+                distances, nearest_idx = border_kdtree.query([point])
+                obstacle_d = distances[0]
+                if obstacle_d <= self.border_threshold:
+                    G.remove_node(v)
 
-        # remove small connected components
-        for component in list(nx.connected_components(G)):
-            if len(component) < 3:
-                for node in component:
-                    G.remove_node(node)
+            # remove small connected components
+            for component in list(nx.connected_components(G)):
+                if len(component) < 3:
+                    for node in component:
+                        G.remove_node(node)
+        else:
+            print("WARNING: border_centroids:", len(border_centroids))
 
         return G
 
@@ -323,7 +305,6 @@ class MeshPlannerBase:
             traceback.print_exc()
             rospy.logwarn('Error returning connected components %s, continuing with G', e.message)
             return G
-
 
     def reconnect_non_removable_nodes(self, G, checked_nodes, unchecked_nodes=None, max_distance=0.1):
         """Add non removable nodes to the graph which can be deleted by
@@ -382,83 +363,7 @@ class MeshPlannerBase:
 
         return G, nearest_checked_nodes
 
-    def cluster_frontier_borders(self, G, reachable_frontiers, source_id, dbscan_eps=2.5, dbscan_min_samples=1):
-        """From a list of frontier borders, label them in clusters based on distance and extract the
-        cluster centroids
-
-        :param G: graph object
-        :param reachable_frontiers: list of frontier node ids
-        :param source_id: the node id of the robot position
-        :param dbscan_eps: maximum distance between two points
-        :param dbscan_min_samples: min number of points to became a cluster
-        :return: list of visit nodes ids,  list of centroid node ids, list of centroids points, list of frontier points by cluster
-        """
-
-        def get_centroid_of_pts(arr):
-            """ Get centroid of a list of 3D points
-            :param arr: numpy arr of 3D points
-            :return: centroid 3D point
-            """
-            length = arr.shape[0]
-            sum_x = np.sum(arr[:, 0])
-            sum_y = np.sum(arr[:, 1])
-            sum_z = np.sum(arr[:, 2])
-            return np.array([[sum_x / length, sum_y / length, sum_z / length]])
-
-        reachable_frontiers_points = [self.centroids[v] for v in reachable_frontiers]
-        db = DBSCAN(eps=dbscan_eps, min_samples=dbscan_min_samples).fit(reachable_frontiers_points)
-        core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
-        core_samples_mask[db.core_sample_indices_] = True
-        labels = db.labels_
-
-        # Number of clusters in labels, ignoring noise if present.
-        n_clusters_ = len(set(labels)) - (1 if -1 in labels else 0)
-        n_noise_ = list(labels).count(-1)
-
-        rospy.loginfo('Estimated number of clusters: %d, noise_points: %s', n_clusters_, n_noise_)
-        unique_labels = set(labels)
-
-        reachable_node_3d_points = [tuple(self.centroids[n_id]) for n_id in sorted(G.nodes())]
-        pos_tuple_to_node_id_dict = {tuple(self.centroids[n_id]): n_id for n_id in G.nodes()}
-
-        frontier_cluster_closest_id = []
-        frontier_cluster_visit_points_id = []
-        frontier_cluster_centers = []
-        frontier_cluster_points = []
-
-        X = np.array(reachable_frontiers_points)
-        for idx, label in enumerate(unique_labels):
-            if label == -1:
-                # -1 == noise.
-                continue
-
-            class_member_mask = (labels == label)
-            xyz = X[class_member_mask & core_samples_mask]
-
-            closest_id = mesh_helper.find_closer_centroid(xyz,
-                                                          tuple(self.centroids[source_id]),
-                                                          force_return_closer=True)
-
-            # closest frontier node to the robot
-            tuple_xyz = list(map(tuple, xyz))
-            visit_point_id = pos_tuple_to_node_id_dict[tuple_xyz[closest_id]]
-
-            # centroid of the cluster
-            centroid = get_centroid_of_pts(xyz)
-            centroid_list_id = mesh_helper.find_closer_centroid(reachable_node_3d_points,
-                                                                tuple(centroid[0]),
-                                                                force_return_closer=True)
-            centroid_node_id = pos_tuple_to_node_id_dict[reachable_node_3d_points[centroid_list_id]]
-
-            frontier_cluster_closest_id.append(centroid_node_id)
-            frontier_cluster_centers.append(self.centroids[centroid_node_id])
-            frontier_cluster_visit_points_id.append(visit_point_id)
-            frontier_cluster_points.append(xyz)
-
-        return frontier_cluster_visit_points_id, frontier_cluster_closest_id, frontier_cluster_centers, \
-               frontier_cluster_points
-
-    def run_graph_process(self, graph_metric_type, source_id, target_id, return_dict, is_debug=True):
+    def run_graph_process(self, graph_metric_type, source_id, target_frontiers, target_weights, return_dict, is_debug=False):
         """Generate a graph and run the path planning using a metric
 
         :param graph_metric_type: the metric type to use in this graph process
@@ -471,31 +376,51 @@ class MeshPlannerBase:
         rospy.loginfo("Started graph process: %s", graph_metric_type.name)
 
         # graph creation and filtering
-        G = self.create_graph_from_mesh()
-        G, f_visit_ids, f_centroids_ids, filtered_reachable_frontiers = self.prepare_graph(G, source_id,
-                                                                                           target_id=target_id)
+        start_time = time.process_time()
+        G = self.create_graph_from_pcloud()
+        #print("time create_graph_from_pcloud:", (time.process_time() - start_time))
+
+        start_time = time.process_time()
+        G = self.prepare_graph(G, source_id)
+        #print("time prepare_graph:", (time.process_time() - start_time))
 
         if is_debug:
             self.plot_graph_3d(G,
                                title=graph_metric_type.name,
-                               source_id=source_id,
-                               target_id=target_id,
-                               reachable_frontiers_ids=list(filtered_reachable_frontiers),
-                               frontier_centroids_ids=f_centroids_ids,
-                               frontier_visit_ids=f_visit_ids)
+                               source_id=source_id)
 
-        g_search = graph_search.MeshGraphSearch(G,
-                                                graph_metric_type,
-                                                self.centroids,
-                                                self.normals,
-                                                c_short=self.shortest_comb_weight,
-                                                c_energy=self.energy_comb_weight,
-                                                c_traversal=self.transversality_comb_weight,
-                                                pybullet_angle_client=self.pybullet_angle_client,
-                                                optimization_angle_client=self.optimization_angle_client)
+        # dijkstra_results = []
+        # for frontier_id in target_frontiers:
+        #     g_search = graph_search.MeshGraphSearch(G,
+        #                                             graph_metric_type,
+        #                                             list(self.centroids),
+        #                                             list(self.normals),
+        #                                             c_short=self.shortest_comb_weight,
+        #                                             c_energy=self.energy_comb_weight,
+        #                                             c_traversal=self.transversality_comb_weight,
+        #                                             pybullet_angle_client=None,
+        #                                             optimization_angle_client=None)
+        #     (length, path) = g_search.dijkstra_search({source_id}, frontier_id)
+        #
+        #     dijkstra_results.append({
+        #         "path": path,
+        #         "length": length,
+        #         "frontier_id": frontier_id,
+        #         "source_id": source_id,
+        #         "p_cloud_size": len(self.centroids)
+        #     })
 
-        (length, path) = g_search.dijkstra_search({source_id}, target_id)
-        rospy.loginfo("Ended process: %s %.2f seconds", graph_metric_type.name, g_search.last_execution_time)
+        g_search = rrt_graph_search.RRTGraphSearch(G,
+                                                   graph_metric_type,
+                                                   list(self.centroids),
+                                                   list(self.normals),
+                                                   c_short=self.shortest_comb_weight,
+                                                   c_energy=self.energy_comb_weight,
+                                                   c_traversal=self.transversality_comb_weight)
+        (length, path) = g_search.rrt_search(source_id, target_frontiers, target_weights, is_debug=is_debug)
+
+        rospy.loginfo("[Planner] Ended process: %s %.2f seconds", graph_metric_type.name, g_search.last_execution_time)
+        #rospy.loginfo("Ended process: %s length:%s path:%s", graph_metric_type.name, length, path)
 
         if path is not None:
             return_dict[graph_metric_type] = g_search
@@ -503,31 +428,20 @@ class MeshPlannerBase:
             # could not get any path for the pair source/target
             return_dict[graph_metric_type] = None
 
-    def run(self, source_id, target_id, is_multithread=False, is_debug=False):
+    def run(self, source_id, target_frontiers, target_weights, is_debug=False):
         """Run the graphs using the provided metrics and returns the path list
+        :param is_debug:
         :param source_id: node source id
         :param target_id: node target id
-        :param is_multithread: a flag to define if the processes are going to be executed in threads (processes) or not
         :return:
         """
         processes_list = []
-        manager = multiprocessing.Manager()
-        return_dict = manager.dict()
+        #manager = multiprocessing.Manager()
+        #return_dict = manager.dict()
+        return_dict = {}
 
-        if is_multithread:
-            # run the processes simultaneously
-            for gmt in self.graph_metrics_types:
-                graph_proc = multiprocessing.Process(target=self.run_graph_process,
-                                                     args=[gmt, source_id, target_id, return_dict, is_debug])
-                graph_proc.start()
-                processes_list.append(graph_proc)
-
-            for process in processes_list:
-                process.join()
-        else:
-            # run processes sequentially
-            for gmt in self.graph_metrics_types:
-                self.run_graph_process(gmt, source_id, target_id, return_dict, is_debug=is_debug)
+        for gmt in self.graph_metrics_types:
+            self.run_graph_process(gmt, source_id, target_frontiers, target_weights, return_dict, is_debug)
 
         # prepare result from face id to world point
         world_path_dict = {}
@@ -539,9 +453,13 @@ class MeshPlannerBase:
                 rospy.logerr("Cannot find path for metric: %s", metric_name)
                 continue
 
-            p_finder.print_path_metrics()
+            # p_finder.print_path_metrics()
 
             p_list = [self.centroids[f_id] for f_id in p_finder.get_path()]
-            world_path_dict[gmt] = {'path': p_list, 'cost': p_finder.get_path_distance()}
+            world_path_dict[gmt] = {'face_path': p_finder.get_path(),
+                                    'path': p_list,
+                                    'cost': p_finder.get_path_distance(),
+                                    'time': p_finder.last_execution_time,
+                                    'target_idx': p_finder.target_idx}
 
         return world_path_dict

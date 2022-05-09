@@ -53,7 +53,7 @@ def smooth_curve(path_points, sigma=5):
     plt.plot(x4, y4, "o", lw=2)
     plt.show()
 
-    xyz = zip(x4, y4, p_z)
+    xyz = list(zip(x4, y4, p_z))
     final_path = []
     for e in xyz:
         final_path.append(Point32(e[0], e[1], e[2]))
@@ -237,15 +237,15 @@ if __name__ == '__main__':
                 rate_slow.sleep()
                 continue
 
-            graph_metric_types = [graph_metrics.GraphMetricType.SHORTEST,
-                             graph_metrics.GraphMetricType.FLATTEST,
-                             graph_metrics.GraphMetricType.ENERGY,
-                             graph_metrics.GraphMetricType.COMBINED,
-                             graph_metrics.GraphMetricType.STRAIGHTEST]
+            # graph_metric_types = [graph_metrics.GraphMetricType.SHORTEST,
+            #                  graph_metrics.GraphMetricType.FLATTEST,
+            #                  graph_metrics.GraphMetricType.ENERGY,
+            #                  graph_metrics.GraphMetricType.COMBINED,
+            #                  graph_metrics.GraphMetricType.STRAIGHTEST]
 
             # graph_metric_types = [graph_metrics.GraphMetricType.STRAIGHTEST]
             #graph_metric_types = [graph_metrics.GraphMetricType.SHORTEST]
-            #graph_metric_types = [graph_metrics.GraphMetricType.COMBINED]
+            graph_metric_types = [graph_metrics.GraphMetricType.COMBINED]
 
             planner = mesh_planner_base.MeshPlannerBase(mesh_filepath, graph_metric_types)
 

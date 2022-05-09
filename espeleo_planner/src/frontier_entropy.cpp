@@ -171,7 +171,14 @@ void OctomapExploration::publish_frontier_text_labels(std::vector<double> fronti
         return;
     }
 
-    visualization_msgs::MarkerArray frontier_mi_labels;
+    // check if there are previous published markers to delete from RVIZ
+    if(frontier_mi_labels.markers.size() > 0){
+        for(int i = 0; i < frontier_mi_labels.markers.size(); i++) {
+            frontier_mi_labels.markers[i].action = visualization_msgs::Marker::DELETE;
+        }
+        frontier_mi_label_pub.publish(frontier_mi_labels);
+        frontier_mi_labels.markers.clear();
+    }
 
     for(std::vector<double>::size_type i = 0; i != frontier_mi.size(); i++) {
         double mi = frontier_mi[i];
@@ -190,9 +197,9 @@ void OctomapExploration::publish_frontier_text_labels(std::vector<double> fronti
                         entropy_label.str(),
                         octomap::point3d(0.8, 0.8, 0.8),
                         1.0,
-                        1.0,
-                        1.0,
-                        1.0,
+                        0.1,
+                        0.1,
+                        0.1,
                         BASE_FRAME_ID,
                         120
                 ));

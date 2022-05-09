@@ -109,7 +109,11 @@ int main(int argc, char *argv[]) {
     cout << "Done." << endl;
     //average_spacing = CGAL::compute_average_spacing<CGAL::Sequential_tag>(points.begin(), points.end(),5);
 
-    trim_mesh(reconstruct_surface(estimated_pwn, output), tree, trim_threshold * (double) average_spacing, "");
+    FT sm_angle = 20.0;     // Min triangle angle in degrees. // 20.0
+    FT sm_radius = 8.0;     // Max triangle size w.r.t. point set average spacing. // 8.0
+    FT sm_distance = 0.5;   // Surface Approximation error w.r.t. point set average spacing. // 0.5
+
+    trim_mesh(reconstruct_surface(estimated_pwn, output, sm_angle, sm_radius, sm_distance), tree, trim_threshold * (double) average_spacing, "");
     //parametrize_mesh("/media/sf_teste_SFM/reconstructed_and_trimmed.off","/media/sf_teste_SFM/reconstructed_and_trimmed_parametriz.eps");
     //pointset.write_ply(std::string("/home/guilherme/ITV_AR/data/cave_normals.ply"));
     std::cout << " Filling holes..." << std::endl;

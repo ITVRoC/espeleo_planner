@@ -12,7 +12,7 @@ int main(int argc, char** argv){
     while (node.ok()){
         tf::StampedTransform transform;
         try{
-            listener.lookupTransform("/os1_init", "/base_link", ros::Time(0), transform);
+            listener.lookupTransform("os1_init", "base_link", ros::Time(0), transform);
         }
         catch (tf::TransformException ex){
             ROS_ERROR("%s",ex.what());

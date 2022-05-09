@@ -9,6 +9,11 @@ import networkx as nx
 import numpy as np
 from mayavi import mlab
 from scipy import spatial
+import open3d as o3d
+from sklearn.neighbors import NearestNeighbors
+import time
+import scipy.sparse
+
 
 rospack = rospkg.RosPack()
 package_path = rospack.get_path('espeleo_planner')
@@ -19,30 +24,53 @@ import mesh_planner
 from mesh_planner import graph_search
 
 
-def create_graph(mesh, centroids, normals, robot_pos,
-                 traversal_tresh=35):
+def create_graph(ply_filepath, robot_pos, traversal_tresh=35):
+    print("Creating Graph... :", ply_filepath   )
 
-    print("Creating Graph... num faces:", mesh.num_faces)
+    pcd = o3d.io.read_point_cloud(ply_path)
+    downpcd = pcd.voxel_down_sample(voxel_size=0.30)
 
-    G = nx.Graph()
-
-    for face_idx in xrange(mesh.num_faces):
-        face_inclination = graph_search.MeshGraphSearch.calculate_traversal_angle(normals[face_idx])
+    start = time.time()
+    filtered_points = []
+    for i in range(len(downpcd.points)):
+        normal = downpcd.normals[i]
+        face_inclination = graph_search.MeshGraphSearch.calculate_traversal_angle(normal)
         if traversal_tresh < face_inclination < 180 - traversal_tresh:
             continue
 
-        G.add_node(face_idx)
+        filtered_points.append(list(downpcd.points[i]))
+    end = time.time()
+    print("filter points:", end - start, "secs")
 
-    for face_idx in list(G.nodes()):
-        face_vertexes = mesh.faces[face_idx]
-        for v in face_vertexes:
-            vertex_adj_faces = mesh.get_vertex_adjacent_faces(v)
-            for face_adjacent in vertex_adj_faces:
-                if face_adjacent != face_idx and G.has_node(face_adjacent):
-                    G.add_edge(face_idx, face_adjacent, weight=1)
+    start = time.time()
+    k = 9  # number of neighbours you want
+    neigh = NearestNeighbors(n_neighbors=k)
+    neigh.fit(np.asarray(filtered_points))
+    knn_matrix = neigh.kneighbors_graph(mode="distance").toarray()
+    end = time.time()
+    print("knn gen:", end - start, "secs")
 
-    # print "G node_list:", len(list(G.nodes())), sorted(list(G.nodes()))
-    # print "G edge_list:", len(list(G.edges())), sorted(list(G.edges()))
+    start = time.time()
+    G = nx.Graph()
+
+    for i in range(0, len(filtered_points)):
+        G.add_node(i)
+
+    (row, col, entries) = scipy.sparse.find(knn_matrix)
+    for i in range(0, len(row)):
+        a = np.array(filtered_points[row[i]])
+        b = np.array(filtered_points[col[i]])
+        dist = np.linalg.norm(a - b)
+
+        if dist <= 0.61:
+            G.add_edge(row[i], col[i], weight=entries[i])
+
+    print "G node_list:", len(G.nodes())
+    print "G edge_list:", len(G.edges())
+    end = time.time()
+    print("nx graph gen:", end - start, "secs")
+
+    centroids = filtered_points
 
     g_centroids = [(centroids[v][0], centroids[v][1], centroids[v][2]) for v in sorted(G.nodes())]
     centroid_g_dict = {i: v for i, v in enumerate(sorted(G.nodes()))}
@@ -54,11 +82,12 @@ def create_graph(mesh, centroids, normals, robot_pos,
     Gconn_original = Gconn.copy()
 
     # estimate borders of the remainder graph
-    # border_nodes = [Gconn.info(v) for v in sorted(Gconn.nodes())]
     border_centroids = []
     for v in sorted(Gconn.nodes()):
-        if nx.degree(G, v) <= 9:
+        if nx.degree(G, v) < 8:
             border_centroids.append((centroids[v][0], centroids[v][1], centroids[v][2]))
+
+    print("border_centroids:", len(border_centroids))
 
     # remove nodes from graph that are near to the borders
     # given a distance treshold
@@ -124,39 +153,18 @@ def plot_points(Gconn, centroids, border_centroids):
 
 
 if __name__ == '__main__':
-    rospy.init_node('expand_borders_node')
-    rospy.loginfo("expand_borders_node start")
+    rospy.init_node('expand_borders_pcloud_node')
+    rospy.loginfo("expand_borders_pcloud_node start")
 
     test_files = [
-        {"map": "map_01_frontiers.stl",
-         "pos": (-4, 0, 0)},
-        {"map": "map_02_stairs_cavelike.stl",
-         "pos": (-4, -1.25, 0.5)},
-        {"map": "map_03_narrow_passage.stl",
-         "pos": (-4, -1.25, 0.5)},
-        {"map": "map_03_narrow_passage_v2.stl",
-         "pos": (-4, -1.25, 0.5)},
-        {"map": "map_04_stairs_perfect.stl",
-         "pos": (-4, -1.25, 0.5)},
-        {"map": "map_05_cavelike.stl",
-         "pos": (0, 0, 0)},
+        {
+            "ply": "riemannian_pcloud.ply",
+            "dot": "riemannian_graph.dot",
+            "robot_pos": (-15, 5, 0)
+        }
     ]
 
     for test in test_files[:]:
-        mesh_path = os.path.join(package_path, "test", "maps", test["map"])
-        robot_pos = test["pos"]
+        ply_path = os.path.join(package_path, "test", "point_cloud_planning", test["ply"])
 
-        mesh = pymesh.load_mesh(mesh_path)
-
-        mesh.enable_connectivity()  # enables connectivity on mesh
-        mesh.add_attribute("face_centroid")  # adds the face centroids to be accessed
-        mesh.add_attribute("face_normal")  # adds the face normals to be accessed
-        mesh.add_attribute("vertex_valance")
-
-        faces = mesh.faces
-        centroids = mesh.get_face_attribute("face_centroid")
-        normals = mesh.get_face_attribute("face_normal")
-        vertex_valance = mesh.get_vertex_attribute("vertex_valance")
-
-        create_graph(mesh, centroids, normals, robot_pos)
-
+        create_graph(ply_path, test["robot_pos"])

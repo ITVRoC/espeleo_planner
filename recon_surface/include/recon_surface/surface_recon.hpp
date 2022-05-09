@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <cmath>
 
-#include <CGAL/trace.h>
+//#include <CGAL/trace.h>
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/IO/Polyhedron_iostream.h>
 #include <CGAL/Surface_mesh_default_triangulation_3.h>
@@ -44,6 +44,8 @@
 
 #include <CGAL/Polygon_mesh_processing/connected_components.h>
 #include <CGAL/Polygon_mesh_processing/measure.h>
+
+#include <boost/graph/graphviz.hpp>
 
 typedef CGAL::Simple_cartesian<double>::Point_3 CPoint3;
 typedef CGAL::Surface_mesh<CPoint3> Mesh;
@@ -95,10 +97,13 @@ void estimate_normals(std::vector<Point> &pts, Point_3 src, std::list<PointVecto
 
 std::list<PointVectorPair> register_normals(std::vector<Point> sampled_points, std::list<PointVectorPair> original);
 
-Mesh reconstruct_surface(std::list<PointVectorPair> &pwn, std::string base_path);
+Mesh reconstruct_surface(std::list<PointVectorPair> &pwn, std::string base_path, FT sm_angle, FT sm_radius, FT sm_distance);
 
 void
 write_ply_wnormals(std::string out, std::list<PointVectorPair> &point_list, Tree &tree, std::vector<Color> &colors);
+
+void
+write_ply_binary_wnormals(std::string out, std::list<PointVectorPair> &point_list, Tree &tree, std::vector<Color> &colors);
 
 void trim_mesh(Mesh m, Tree &tree, double average_spacing, std::string base_path);
 int remove_borders(std::string mesh_path, int iterations, std::string base_path);

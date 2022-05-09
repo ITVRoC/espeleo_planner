@@ -4,7 +4,7 @@ project(recon_surface)
 ## Compile as C++11, supported in ROS Kinetic and newer
 #set(CMAKE_BUILD_TYPE RelWithDebInfo)
 set(CMAKE_BUILD_TYPE Release)
-add_compile_options(-std=c++11)
+add_compile_options(-std=c++14)
 #add_compile_options(-std=c++11 -Og)
 #add_definitions(-Wall -Og)
 #add_definitions(-Wall -Wno-deprecated -Wno-dev -static -Bstatic -std=gnu++0x)

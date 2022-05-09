@@ -21,7 +21,7 @@ def normalize_from_minmax(v, min_v, max_v):
     return (v - min_v) / float(max_v - min_v)
 
 
-def create_marker(pos, orientation=None, color=(1.0, 1.0, 1.0), m_scale=0.5, frame_id="/os1_init", duration=10,
+def create_marker(pos, orientation=None, color=(1.0, 1.0, 1.0), m_scale=0.5, frame_id="os1_init", duration=10,
                   marker_id=0, mesh_resource=None, marker_type=2, marker_text=""):
     """Create marker object using the map information and the node position
 
@@ -109,7 +109,7 @@ def angle_between_vectors(v1, v2):
         """ Returns the unit vector of the vector.  """
         v_norm = np.linalg.norm(vector)
         if v_norm == 0.0:
-            return np.asarray([0.0, 0.0])
+            return np.asarray([0.0, 0.0, 0.0])
 
         return vector / v_norm
 

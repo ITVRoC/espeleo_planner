@@ -43,7 +43,7 @@ pub_obstacles_pts = rospy.Publisher('/obstacles_points', MarkerArray, latch=True
 color_list = []
 
 
-def create_marker(pos, orientation=1.0, color=(1.0, 1.0, 1.0), m_scale=0.5, frame_id="/velodyneVPL", duration=10,
+def create_marker(pos, orientation=1.0, color=(1.0, 1.0, 1.0), m_scale=0.5, frame_id="velodyneVPL", duration=10,
                   marker_id=0, mesh_resource=None, marker_type=2, marker_text=""):
     """Create marker object using the map information and the node position
 

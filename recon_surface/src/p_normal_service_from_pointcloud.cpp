@@ -112,11 +112,11 @@ string generate_point_cloud_normals(const sensor_msgs::PointCloud2 msg, const ge
 
     start = chrono::high_resolution_clock::now();
     if (normals.size() == 0){
-        //ROS_INFO_STREAM("Estimating normals");
+        ROS_INFO_STREAM("Estimating normals");
         estimate_normals(points, src_point, estimated_pwn);
     }
     else{
-        //ROS_INFO_STREAM("Registering normals normals");
+        ROS_INFO_STREAM("Registering normals normals");
         estimated_pwn = register_normals(points, grab_normals(orig_points, normals));
     }
 
@@ -129,11 +129,14 @@ string generate_point_cloud_normals(const sensor_msgs::PointCloud2 msg, const ge
 
     start = chrono::high_resolution_clock::now();
     string output_ply_filepath = output + "_simplified_pcd_normals.ply";
-    write_ply_wnormals(output_ply_filepath, estimated_pwn, tree, colors);
+    //write_ply_wnormals(output_ply_filepath, estimated_pwn, tree, colors);
+    write_ply_binary_wnormals(output_ply_filepath, estimated_pwn, tree, colors);
+
     stop = chrono::high_resolution_clock::now();
     ROS_INFO_STREAM("Time to write point cloud .ply file: "
                             << float(chrono::duration_cast<chrono::microseconds>(stop - start).count() / 1000000.0)
                             << " seconds");
+    ROS_INFO_STREAM("PLY file written to:" << output_ply_filepath);
 
 //    start = chrono::high_resolution_clock::now();
 //    trim_mesh(reconstruct_surface(estimated_pwn, output), tree, trim * (double) average_spacing, output);

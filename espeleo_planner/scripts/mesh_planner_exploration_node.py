@@ -56,19 +56,19 @@ if __name__ == '__main__':
 
     twist_msg = Twist()
     twist_msg.linear.x = 1.0
-    for i in xrange(50):
+    for i in range(50):
         cmd_vel_pub.publish(twist_msg)
         #rate_fast.sleep()
         rospy.sleep(0.2)
 
     twist_msg.linear.x = -1.0
-    for i in xrange(40):
+    for i in range(40):
         cmd_vel_pub.publish(twist_msg)
         #rate_fast.sleep()
         rospy.sleep(0.2)
 
     twist_msg.linear.x = 0.0
-    for i in xrange(30):
+    for i in range(30):
         cmd_vel_pub.publish(twist_msg)
         #rate_fast.sleep()
         rospy.sleep(0.2)
@@ -261,7 +261,7 @@ if __name__ == '__main__':
                 frontier_arr_trav_labels.markers.append(f_label_marker)
             mplanner.pub_frontiers_ground_trav_labels.publish(frontier_arr_trav_labels)
 
-            print "results:", results
+            print("results:", results)
             if len(results) <= 0:
                 rospy.logerr("There are no more frontiers to explore, fallback behaviour?")
                 continue
@@ -277,7 +277,7 @@ if __name__ == '__main__':
             # to use to the greatest proportion mutual_info/traverability
             # ---------------------------------------------------------- #
             max_cost_item = max(results, key=lambda x: x['total_cost'])
-            print "max_cost_item:", max_cost_item
+            print("max_cost_item:", max_cost_item)
             path_dict_msg = mplanner.publish_paths({graph_metrics.GraphMetricType.COMBINED: max_cost_item})
 
             # ----------------------- #

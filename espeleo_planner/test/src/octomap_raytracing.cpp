@@ -65,7 +65,7 @@ int main(int argc, char **argv) {
 
         octomap_msgs::Octomap virtual_octomap;
         bool res = octomap_msgs::binaryMapToMsg(*octree, virtual_octomap);
-        virtual_octomap.header.frame_id = "/os1_sensor";
+        virtual_octomap.header.frame_id = "os1_sensor";
         virtual_octomap.header.stamp = ros::Time::now();
 
         ROS_DEBUG_STREAM("Convert to binaryMapMsg res:" << res);

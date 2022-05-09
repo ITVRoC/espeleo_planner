@@ -3,6 +3,6 @@
 
     <include file="$(find recon_surface)/launch/recon_service.launch" />
     <include file="$(find espeleo_planner)/launch/frontier_entropy_service.launch" />
-    <include file="$(find espeleo_planner)/launch/obstacle_detection.launch" />
+<!--     <include file="$(find espeleo_planner)/launch/obstacle_detection.launch" /> -->
 
 </launch>

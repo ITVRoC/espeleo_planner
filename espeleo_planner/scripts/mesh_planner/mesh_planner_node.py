@@ -5,7 +5,7 @@ import actionlib
 from geometry_msgs.msg import Polygon, PointStamped
 from visualization_msgs.msg import Marker, MarkerArray
 from sensor_msgs.msg import PointCloud2
-from graph_metrics import GraphMetricType
+from .graph_metrics import GraphMetricType
 from nav_msgs.msg import Path
 from nav_msgs.msg import Odometry
 import espeleo_control.msg
@@ -67,7 +67,6 @@ class MeshPlannerNode:
                                                          queue_size=1)
         self.pub_path_straight = rospy.Publisher('/robot_path_straightest', Path, latch=True, queue_size=1)
         self.pub_path_combined = rospy.Publisher('/robot_path_combined', Path, latch=True, queue_size=1)
-
 
         self.pub_src_point = rospy.Publisher('/source_path_point', Marker, latch=True, queue_size=1)
         self.pub_dst_point = rospy.Publisher('/target_path_point', Marker, latch=True, queue_size=1)
@@ -138,9 +137,9 @@ class MeshPlannerNode:
     def get_plan_data(self):
         return self.odom_msg, self.clicked_point_msg, self.map_pointcloud_msg
 
-    def publish_paths(self, path_dict, frame_id="/os1_init"):
+    def publish_paths(self, path_dict, frame_id="os1_init"):
 
-        for k, v in path_dict.items():
+        for k, v in list(path_dict.items()):
             path = Path()
             path.header.frame_id = frame_id
             path.poses = []
