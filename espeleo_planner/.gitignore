@@ -1,3 +1,5 @@
 *.pyc
 mapFiles/*
 include/surface_recon/build/*
+cmake-build-debug/*
+.idea/*
