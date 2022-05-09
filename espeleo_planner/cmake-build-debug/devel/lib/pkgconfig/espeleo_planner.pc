@@ -1,8 +1,0 @@
-prefix=/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/cmake-build-debug/devel
-
-Name: espeleo_planner
-Description: Description of espeleo_planner
-Version: 0.0.0
-Cflags: -I/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/cmake-build-debug/devel/include -I/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/include
-Libs: -L${prefix}/lib 
-Requires: roscpp std_msgs roslib
