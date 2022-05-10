@@ -384,7 +384,8 @@ class PointCloudPlannerBase:
         G = self.prepare_graph(G, source_id)
         #print("time prepare_graph:", (time.process_time() - start_time))
 
-        if is_debug:
+        #if is_debug:
+        if False:
             self.plot_graph_3d(G,
                                title=graph_metric_type.name,
                                source_id=source_id)

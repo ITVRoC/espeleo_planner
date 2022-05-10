@@ -18,3 +18,4 @@ class GraphMetricType(Enum):
     FLATTEST_OPTIMIZATION_NORMAL = (9, "Flattest metric using Linear Programming Optimization with selective "
                                        "pruning of neighbouring normals", (0.5, 0.5, 0.5))
     FLATTEST_COMPARISON_TEST = (10, "Compare angle between all flattest", (0.5, 0.5, 0.5))
+    GLOBAL = (11, "A global path", (0.5, 0.5, 0.5))

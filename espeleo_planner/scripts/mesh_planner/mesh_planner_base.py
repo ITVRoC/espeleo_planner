@@ -46,7 +46,7 @@ class MeshPlannerBase:
         # self.border_threshold = 0.4 # REAL ROBOT
 
         # SIMULATED ROBOT CONSTANTS
-        self.transversality_threshold = 30  # max inclination (in degrees) the robot could climb
+        self.transversality_threshold = 35  # max inclination (in degrees) the robot could climb
         self.bumpiness_threshold = 0.5  # maximum bump the robot could jump between surfaces TODO add reference here
         self.border_threshold = 0.0  # distance to expand from borders to other face centroids
 
@@ -321,7 +321,7 @@ class MeshPlannerBase:
             return G.subgraph(conn_nodes).copy()
         except Exception as e:
             traceback.print_exc()
-            rospy.logwarn('Error returning connected components %s, continuing with G', e.message)
+            rospy.logwarn('Error returning connected components %s, continuing with G')
             return G
 
 

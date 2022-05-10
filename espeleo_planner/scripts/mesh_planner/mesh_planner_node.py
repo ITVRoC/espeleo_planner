@@ -67,6 +67,7 @@ class MeshPlannerNode:
                                                          queue_size=1)
         self.pub_path_straight = rospy.Publisher('/robot_path_straightest', Path, latch=True, queue_size=1)
         self.pub_path_combined = rospy.Publisher('/robot_path_combined', Path, latch=True, queue_size=1)
+        self.pub_path_global = rospy.Publisher('/robot_path_global', Path, latch=True, queue_size=1)
 
         self.pub_src_point = rospy.Publisher('/source_path_point', Marker, latch=True, queue_size=1)
         self.pub_dst_point = rospy.Publisher('/target_path_point', Marker, latch=True, queue_size=1)
@@ -171,6 +172,8 @@ class MeshPlannerNode:
                 self.pub_path_traver_pybullet_normal.publish(path)
             elif k == GraphMetricType.FLATTEST_OPTIMIZATION_NORMAL:
                 self.pub_path_traver_op_normal.publish(path)
+            elif k == GraphMetricType.GLOBAL:
+                self.pub_path_global.publish(path)
             else:
                 raise TypeError("No valid Metric Type available for publishing path {}".format(k))
 

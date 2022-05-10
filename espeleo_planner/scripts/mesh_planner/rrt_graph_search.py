@@ -11,6 +11,7 @@ import numpy as np
 from .graph_metrics import GraphMetricType
 from prettytable import PrettyTable
 import random
+import datetime
 
 
 class RRTGraphSearch:
@@ -19,7 +20,7 @@ class RRTGraphSearch:
     """
 
     def __init__(self, G, metric, centroids, normals, c_short=0.25, c_energy=0.25, c_traversal=0.5,
-                 max_iterations=2000, goal_sample_rate=20):
+                 max_iterations=3000, goal_sample_rate=20):
         """RRTGraphSearch constructor
 
         :param G: initial undirected graph
@@ -58,7 +59,7 @@ class RRTGraphSearch:
         self.goal_sample_rate = goal_sample_rate
         self.source_node = None
         self.target_node = None
-        self.expand_dist = 0.5
+        self.expand_dist = 0.6
 
         self.last_execution_time = 0
 
@@ -193,7 +194,7 @@ class RRTGraphSearch:
             nearest_tree_node = list(self.tree.nodes())[min_idx]
             tree_neighbors = [node_id for node_id in list(self.G.neighbors(nearest_tree_node)) if node_id not in list(self.tree.nodes())]
             if len(tree_neighbors) <= 0:
-                print("WARN: no more neighbors of this node to explore")
+                #print("WARN: no more neighbors of this node to explore")
                 continue
 
             new_node = tree_neighbors[0]
@@ -238,8 +239,8 @@ class RRTGraphSearch:
             # check if new node is in a frontier area
             is_target_found = False
             
-            for i in range(len(target_frontiers)):
-                target = target_frontiers[i]
+            for j in range(len(target_frontiers)):
+                target = target_frontiers[j]
                 dist_to_target = self.weight_euclidean_distance(target, new_node)
                 if dist_to_target <= self.expand_dist:
                     pred = []
@@ -251,7 +252,7 @@ class RRTGraphSearch:
                     self.path = nx.dijkstra_path(self.tree, self.source_node, target, weight="weight")
                     self.path_distance = nx.dijkstra_path_length(self.tree, self.source_node, target, weight="weight")
                     is_target_found = True
-                    self.target_idx = i
+                    self.target_idx = j
 
                     print(f"[RRT] Dist to target: {dist_to_target}, target_idx: {self.target_idx}/{len(target_frontiers)}")
                     break
@@ -297,8 +298,9 @@ class RRTGraphSearch:
             plt.plot(x, y, '-', color="blue", linewidth=2)
 
         plt.axis("equal")
-        plt.show()
-        plt.savefig('/tmp/RRT.png')
+        #plt.show()
+        filename = '/tmp/RRT_{}.png'.format(datetime.datetime.now().strftime("%Y%m%d-%H%M%S"))
+        plt.savefig(filename)
         plt.close()
 
     @staticmethod

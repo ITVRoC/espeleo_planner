@@ -174,7 +174,7 @@ void OctomapExploration::publish_frontier_text_labels(std::vector<double> fronti
     // check if there are previous published markers to delete from RVIZ
     if(frontier_mi_labels.markers.size() > 0){
         for(int i = 0; i < frontier_mi_labels.markers.size(); i++) {
-            frontier_mi_labels.markers[i].action = visualization_msgs::Marker::DELETE;
+            frontier_mi_labels.markers[i].action = visualization_msgs::Marker::DELETEALL;
         }
         frontier_mi_label_pub.publish(frontier_mi_labels);
         frontier_mi_labels.markers.clear();
@@ -184,6 +184,11 @@ void OctomapExploration::publish_frontier_text_labels(std::vector<double> fronti
         double mi = frontier_mi[i];
         octomap::point3d origin = frontier_pos[i];
         origin = octomap::point3d(origin.x(), origin.y(), origin.z() + 1.0);
+
+        if(mi < 10){
+            ROS_WARN_STREAM("Frontier (" << i << ") has mi:" << mi << " ... skipping this frontier");
+            continue;
+        }
 
         // prepare text labels
         std::stringstream entropy_label;

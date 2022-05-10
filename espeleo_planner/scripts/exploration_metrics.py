@@ -289,9 +289,15 @@ if __name__ == '__main__':
     # gt_pointcloud_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/reference_maps/"
     # save_json_metrics_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/json/map_delimited_rrt_v0_metric/"
 
-    gt_pointcloud_file = "stage_cave_v0_8m.ply"
+    # map stage
+    # gt_pointcloud_file = "stage_cave_v0_8m.ply"
+    # gt_pointcloud_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/reference_maps/"
+    # save_json_metrics_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/json/stage_map_rrt_v0_metric/"
+
+    # map inclined 2
+    gt_pointcloud_file = "simple_cave_inclined_v3.ply"
     gt_pointcloud_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/reference_maps/"
-    save_json_metrics_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/json/stage_map_rrt_v0_metric/"
+    save_json_metrics_folder = "/home/h3ct0r/catkin_ws_espeleo/src/espeleo_planner/espeleo_planner/comparison_pointclouds/json/inclined_rrt_v0_metric/"
     
     exp_metrics = ExplorationMetrics(os.path.join(gt_pointcloud_folder, gt_pointcloud_file), save_json_metrics_folder)
 
@@ -309,8 +315,8 @@ if __name__ == '__main__':
 
     rate = rospy.Rate(1.0)
 
-    max_timesteps = 1000
-    max_stopped_time = 300
+    max_timesteps = 2000
+    max_stopped_time = 500
 
     while not rospy.is_shutdown():
         try:
